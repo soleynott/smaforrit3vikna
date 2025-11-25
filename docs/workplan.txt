@@ -1,0 +1,15 @@
+planning schedule and stuff
+
+start time ~ 11:00
+reyna að klára allt á föstudögum helst
+
+repo reglur:
+hafa main branch og development branch
+allir vinna inn á sínu eigin branchi og gera merge request á dev.
+svo þegar allt er tilbúið (runnar í heild) merge frá dev inn á main
+
+öll verkefni eru inn í sinni eigin möppu (verk1, verk2, verk3)
+og expo projectin eru inn í þeim möppum ásamt gögnum (json)
+
+
+
