@@ -1,0 +1,1 @@
+/*in board view, each list in one board*/
