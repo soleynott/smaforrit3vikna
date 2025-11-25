@@ -1,11 +1,23 @@
-import { Main } from "@/src/views/home_view/home";
-
-export default Main;
+import { Stack } from "expo-router";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{title: 'Home'}}></Stack.Screen>
-      <Stack.Screen name="board" options={{ title: 'Boards'}}></Stack.Screen>
-    </Stack>
+    <GestureHandlerRootView>
+      <Stack>
+        <Stack.Screen
+        name="index"
+        options={{
+          title: "Main",
+        }}
+        />
+      <Stack.Screen
+        name="board"
+        options={{
+          title: "Board",
+        }}
+        />
+      </Stack>
+
+    </GestureHandlerRootView>
   );
 }
