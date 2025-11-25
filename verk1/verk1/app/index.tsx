@@ -1,4 +1,5 @@
-import { Text, View } from "react-native";
+import { Link } from "expo-router";
+import { Text, View, StyleSheet } from "react-native";
 
 export default function Index() {
   return (
@@ -10,6 +11,15 @@ export default function Index() {
       }}
     >
       <Text>Edit app/index.tsx to edit this screen.</Text>
+      <Link href="/board" style ={styles.button}>
+      go to boards screen
+      </Link>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  button: {
+    fontSize: 20,
+  }
+});
