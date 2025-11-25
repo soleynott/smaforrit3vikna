@@ -12,7 +12,7 @@ export default function Index() {
     >
       <Text>Edit app/index.tsx to edit this screen.</Text>
       <Link href="/board" style ={styles.button}>
-      go to boards screen
+      go to board screen
       </Link>
     </View>
   );
