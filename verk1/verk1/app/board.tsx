@@ -1,5 +1,5 @@
 import {Text, View, StyleSheet} from 'react-native';
-
+//this view will show all 
 export default function BoardScreen(){
     return(
         <View style={styles.container}>
