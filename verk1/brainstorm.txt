@@ -1,0 +1,73 @@
+brainstorming ideas for assignment 1
+
+base requirements:
+-see list of all boards within board view
+    1. boards are rendered as a list
+    2. all board information showing:
+        name, descr, thumbnail
+    3. boards are clickable (navigation)
+
+-create new board
+    1. form displayed to create new board
+    2. all fields available to populate
+    3. upon submission, board is added to state and displayed within list
+
+-able to delete board
+    1. each board can be deleted
+    2. upon deleting, board is deleted from state and list redisplayed
+
+-see all lists associated with a certain board
+    1. lists are rendered as list
+    2. all list information are showing:
+        name and color
+    3. each list is clickable (navigation) OR contains the tasks
+
+-be able to create new list
+    1. a form is displayed to create a new list
+    2. all fields are available to populate
+    3. upon submission, the list is added to the state and displayed within the list
+
+-able to delete a list
+    1. each list can be deleted
+    2. upon deleting, the list is deleted from the state and the list redisplayed
+
+-see all tasks associated with a certain list
+    1. tasks are rendered for display
+    2. all tasks information are showing:
+        name, description, is finished?
+
+- able to create a new task
+    1. form is displayed to create a new task
+    2. all fields are available to populate
+    3. upon submission, the task is added to the state and displayed within the list
+
+-able to MOVE tasks from one list to another
+    1. a task can be moved to another list
+    2. upon completion the task is displayed within the new list
+
+-able to modify a board
+    1. each board can be modified
+    2. upon modification, the board is modified from the state and the list redisplayed
+
+-able to modify a list
+    1. each list can be modified
+    2. upon modification, the list is modified from the state and the list redisplayed
+
+-able to modify a task
+    1. each task can be modified
+    2. upon modification, the task is modified from the state and the task redisplayed
+
+-able to delete a task 
+    1. each task can be deleted
+    2. upon delete, the task is deleted from the state and the task redisplayed
+
+
+
+
+############################
+- horizontal or vertical view? both?
+
+-extra stuff
+    -due date
+    -add task with date to device calendar
+    -
