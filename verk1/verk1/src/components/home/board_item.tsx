@@ -1,5 +1,5 @@
 import { View, Text, Image, StyleSheet } from "react-native";
-
+//displays one board as card, navigation handled in home_boards
 export interface BoardItemProps {
     id: number;
     name: string;
