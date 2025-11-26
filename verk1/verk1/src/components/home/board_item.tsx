@@ -42,21 +42,5 @@ const styles = StyleSheet.create({
   desc: {
     color: "#555",
     fontSize: 12,
-  },
-  toolbar: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    height: 120,
-    backgroundColor: "#a9d9e5",
-  },
-  toolbarAction: {
-    flex: 1,
-    alignItems: "center",
-  },
-  toolbarActionText: { 
-    fontWeight: "bold",
-    color: "white",
-    fontSize: 16,
   }
-});
+})
