@@ -1,5 +1,6 @@
-import { ImageBackground } from "expo-image";
+import { ImageBackground } from "react-native";
 import { View, Text, Image, StyleSheet } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 //displays one board as card, navigation handled in home_boards
 export interface BoardItemProps {
     id: number;
@@ -12,11 +13,15 @@ export function BoardItem(props: BoardItemProps) {
     return(
         <View style={styles.container}>
             <ImageBackground source={{ uri: props.image}} style = {styles.image} imageStyle={styles.imageStyle}>
-              {/* <Image resizeMode="cover" source={{uri: props.image}} style={styles.thumbnail} /> */}
-              <View style={styles.overlay}>
-                <Text style={styles.name}>{props.name}</Text>
-                <Text style={styles.desc}>{props.description}</Text>
+              <LinearGradient
+                colors={['transparent', 'rgba(0,0,0,0.7)']}
+                style={styles.gradient}
+              >
+                <View style={styles.overlay}>
+                  <Text style={styles.name}>{props.name}</Text>
+                  <Text style={styles.desc}>{props.description}</Text>
                 </View>
+              </LinearGradient>
             </ImageBackground>
         </View>
     );
@@ -58,8 +63,14 @@ const styles = StyleSheet.create({
   imageStyle: {
         borderRadius: 16,
     },
-    overlay: {
+  overlay: {
         backgroundColor: "rgba(0,0,0,0.4)", // semi-transparent dark overlay
         padding: 12,
-    },
+  },
+  gradient: {
+  ...StyleSheet.absoluteFillObject,
+  justifyContent: "flex-end",
+  },
+
+
 })
