@@ -1,4 +1,3 @@
-/*in list view, each task in one list*/
 import { View } from "react-native";
 import data from "../../resources/data.json";
 import { FlatList } from "react-native-gesture-handler";
@@ -20,7 +19,7 @@ export function ListTasks ({listId}: TaskListProps){
     function toggleTask( id: number) {
         setTasks( prev => //current value of tasks before updating
             prev.map( t => //check every task t and find the one with mathing id
-                t.id === id ? { ...t, isFinsihed: !t.isFinished } : t // if correct id, change ; otherwise ignore
+                t.id === id ? { ...t, isFinished: !t.isFinished } : t // if correct id, change ; otherwise ignore
             )
         );
     }
