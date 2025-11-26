@@ -18,14 +18,17 @@ export function TaskItem(props: TaskItemProps){
                 value={props.isFinished}
                 onValueChange={props.onToggle}
             />
-            <Text
-                style={[
-                    styles.text,
-                    props.isFinished && styles.finished
-                ]}
-            >
-                {props.name}
-            </Text>
+            <View style={styles.textContainer}>
+                <Text
+                    style={[
+                        styles.name,
+                        props.isFinished && styles.finished,
+                    ]}
+                >
+                    {props.name}
+                </Text>
+                <Text style={styles.description}>{props.description}</Text>
+            </View>
         </View>
     );
 }
@@ -33,7 +36,7 @@ export function TaskItem(props: TaskItemProps){
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
-        alignItems: "center",
+        alignItems: "flex-start",
         padding: 12,
         gap: 10,
     },
@@ -43,5 +46,17 @@ const styles = StyleSheet.create({
     finished: {
         textDecorationLine: "line-through",
         opacity: 0.6,
-    }
+    },
+    textContainer: {
+        flex: 1,
+    },
+    name: {
+        fontSize: 16,
+        fontWeight: "bold"
+    },
+    description: {
+        fontSize: 14,
+        color: '#666',
+        marginTop: 2,
+    },
 });
