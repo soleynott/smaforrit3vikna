@@ -1,13 +1,21 @@
-import { useRouter } from "expo-router"
+import { useLocalSearchParams  } from "expo-router"
 import { Image, Text, TouchableOpacity, View} from "react-native"
+import { BoardList } from "@/src/components/board_list/board_lists"
 
+export default function Board() {
+  const { boardId } = useLocalSearchParams();  
 
-export function Main() {
-    const router = useRouter();
-    return (
-        <View>
-            {/*"Render toolbar"*/}
-            {/*"render boards"*/}
-        </View>
-    )
+  const id = Number(boardId);
+
+  const lists = BoardList(id);
+
+  return (
+    <View>
+      {lists.map(list => (
+        <TouchableOpacity key={list.id} accessibilityRole="button">
+            <Text> {list.name} </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+  );
 }
