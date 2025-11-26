@@ -1,5 +1,5 @@
 
-import { View } from "react-native";
+import { Button, View, Pressable } from "react-native";
 import data from "../../resources/data.json";
 import { FlatList } from "react-native-gesture-handler";
 import { BoardThumbnail } from "../../types/board_thumbnail";
@@ -13,11 +13,13 @@ export function HomeBoards() {
                 numColumns={1}
                 data={images}
                 keyExtractor={(item) => item.id.toString()}
-                renderItem={({item}) => <BoardItem
+                renderItem={({item}) => 
+                <BoardItem
                     id={item.id}
                     name={item.name}
                     description={item.description}
-                    image={item.thumbnailPhoto}/>}
+                    image={item.thumbnailPhoto}
+                />}
             />
         </View>
     )

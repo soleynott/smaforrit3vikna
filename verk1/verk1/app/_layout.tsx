@@ -7,13 +7,13 @@ export default function RootLayout() {
         <Stack.Screen
         name="index"
         options={{
-          title: "Home",
+          title: "Boards",
         }}
         />
       <Stack.Screen
         name="board"
         options={{
-          title: "Board",
+          title: "Board", //breyta í nafnið á boardinu
         }}
         />
       </Stack>
