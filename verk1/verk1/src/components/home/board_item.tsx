@@ -1,6 +1,7 @@
 import { ImageBackground } from "react-native";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { BlurView } from "expo-blur";
 //displays one board as card, navigation handled in home_boards
 export interface BoardItemProps {
     id: number;
@@ -13,15 +14,12 @@ export function BoardItem(props: BoardItemProps) {
     return(
         <View style={styles.container}>
             <ImageBackground source={{ uri: props.image}} style = {styles.image} imageStyle={styles.imageStyle}>
-              <LinearGradient
-                colors={['transparent', 'rgba(0,0,0,0.7)']}
-                style={styles.gradient}
-              >
-                <View style={styles.overlay}>
-                  <Text style={styles.name}>{props.name}</Text>
-                  <Text style={styles.desc}>{props.description}</Text>
-                </View>
-              </LinearGradient>
+                <BlurView intensity={25} tint="dark" style={styles.blur}>
+                  <View style={styles.overlay}>
+                    <Text style={styles.name}>{props.name}</Text>
+                    <Text style={styles.desc}>{props.description}</Text>
+                  </View>
+                </BlurView>
             </ImageBackground>
         </View>
     );
@@ -37,25 +35,18 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     overflow: "hidden",
     backgroundColor: '#000',
-    //paddingBottom: 12,
   },
   image: {
     width: "100%",
     height: 200,
-    // borderRadius: 6,
-    // paddingTop: 8,
     justifyContent: "flex-end",
   },
   name: {
     color: "#fff",
     fontWeight: "bold",
     fontSize: 18,
-    // marginTop: 4,
-    // fontWeight: "600",
   },
   desc: {
-    // color: "#555",
-    // fontSize: 12,
     color: "#fff",
     fontSize: 14,
     marginTop: 4,
@@ -67,10 +58,10 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(0,0,0,0.4)", // semi-transparent dark overlay
         padding: 12,
   },
-  gradient: {
-  ...StyleSheet.absoluteFillObject,
-  justifyContent: "flex-end",
-  },
 
+  blur: {
+  borderRadius: 16,
+  overflow: "hidden",
+  },
 
 })
