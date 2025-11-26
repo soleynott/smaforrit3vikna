@@ -1,5 +1,5 @@
 
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, Text } from "react-native";
 import data from "../../resources/data.json";
 import { FlatList } from "react-native-gesture-handler";
 import { BoardThumbnail } from "../../types/board_thumbnail";
@@ -37,9 +37,9 @@ export function HomeBoards() {
             )}
             />
 
-                    </View>
-                )
-            }
+        </View>
+    )
+}
 
 
 

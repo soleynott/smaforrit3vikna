@@ -1,6 +1,6 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 //displays one board as card, navigation handled in home_boards
-interface BoardItemProps {
+export interface BoardItemProps {
     id: number;
     name: string;
     description: string;
@@ -43,4 +43,4 @@ const styles = StyleSheet.create({
     color: "#555",
     fontSize: 12,
   }
-});
+})
