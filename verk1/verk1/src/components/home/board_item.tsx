@@ -1,6 +1,6 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 
-interface BoardItemProps {
+export interface BoardItemProps {
     id: number;
     name: string;
     description: string;
@@ -43,4 +43,4 @@ const styles = StyleSheet.create({
     color: "#555",
     fontSize: 12,
   }
-});
+})
