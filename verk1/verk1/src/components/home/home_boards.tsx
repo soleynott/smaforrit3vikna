@@ -9,10 +9,10 @@ import  { useRouter } from "expo-router"
 export function HomeBoards() {
     //load json
     const images = data.boards as unknown as BoardThumbnail[];
- const router = useRouter();
+    const router = useRouter();
     return (
         <View style={{flex:1}}>
-             <FlatList<BoardThumbnail>
+            <FlatList<BoardThumbnail>
             numColumns={1}
             data={images}
             //make each board a clickable card, routes to /board?id=x
@@ -45,9 +45,9 @@ export function HomeBoards() {
 
 /*  "boards": [
     {
-      "id": 1,
-      "name": "Trip to the Netherlands!",
-      "description": "A trip to the Netherlands for a summer holiday.",
-      "thumbnailPhoto": "https://images.prismic.io/indiecampers-demo/9f34856d-05da-4afb-832f-d3a36de83b7f_Hero---Kinderdijk.jpg"
+        "id": 1,
+        "name": "Trip to the Netherlands!",
+        "description": "A trip to the Netherlands for a summer holiday.",
+        "thumbnailPhoto": "https://images.prismic.io/indiecampers-demo/9f34856d-05da-4afb-832f-d3a36de83b7f_Hero---Kinderdijk.jpg"
     },
-  ],*/
+    ],*/
