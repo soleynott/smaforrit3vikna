@@ -5,9 +5,9 @@ import { BoardList } from "@/src/components/board_list/board_lists"
 export function List(){
     
     return (
-        <View>
+        <View style ={{ flex: 1 }}>
             {/* render checklist of tasks */}
             {/** render toolbar for task CRUD */}
         </View>
-    )
+    );
 }

@@ -1,4 +1,4 @@
-
+//show all lists for certain board
 import { View } from "react-native";
 import data from "../../resources/data.json";
 import { FlatList } from "react-native-gesture-handler";
@@ -10,7 +10,7 @@ type BoardListProps = {
 };
 export function BoardList({ boardId }: BoardListProps) {
   const lists = data.lists as unknown as ListsThumbnail[];
-
+  //filter lists by what board they belong to
   const filteredLists = lists.filter(list => list.boardId === boardId);
 
   return (

@@ -7,6 +7,7 @@ import { BoardItem } from "./board_item";
 import  { useRouter } from "expo-router"
 
 export function HomeBoards() {
+    //load json
     const images = data.boards as unknown as BoardThumbnail[];
  const router = useRouter();
     return (
@@ -14,6 +15,7 @@ export function HomeBoards() {
              <FlatList<BoardThumbnail>
             numColumns={1}
             data={images}
+            //make each board a clickable card, routes to /board?id=x
             renderItem={({ item }) => (
                 <TouchableOpacity
                 onPress={() =>
