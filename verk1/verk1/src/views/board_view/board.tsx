@@ -7,7 +7,7 @@ export function Main() {
     return (
         <View>
             {/*"Render toolbar"*/}
-            {/*"render boards"*/}
+            {/*"render lists"*/}
         </View>
     )
 }

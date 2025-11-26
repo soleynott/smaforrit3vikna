@@ -1,1 +1,0 @@
-/*in home view, all boards*/
