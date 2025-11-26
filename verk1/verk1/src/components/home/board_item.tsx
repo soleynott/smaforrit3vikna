@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   },
 
   blur: {
-  borderRadius: 16,
+  //borderRadius: 16,
   overflow: "hidden",
   },
 
