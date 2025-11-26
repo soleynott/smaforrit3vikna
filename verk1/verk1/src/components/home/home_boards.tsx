@@ -1,27 +1,43 @@
 
-import { View } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import data from "../../resources/data.json";
 import { FlatList } from "react-native-gesture-handler";
 import { BoardThumbnail } from "../../types/board_thumbnail";
 import { BoardItem } from "./board_item";
+import  { useRouter } from "expo-router"
 
 export function HomeBoards() {
     const images = data.boards as unknown as BoardThumbnail[];
+ const router = useRouter();
     return (
         <View style={{flex:1}}>
-            <FlatList<BoardThumbnail>
-                numColumns={1}
-                data={images}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({item}) => <BoardItem
+             <FlatList<BoardThumbnail>
+            numColumns={1}
+            data={images}
+            renderItem={({ item }) => (
+                <TouchableOpacity
+                onPress={() =>
+                    router.push({
+                    pathname: '/board',
+                    params: { id: item.id.toString() }, 
+                    })
+                }
+                accessibilityLabel={`Go to board ${item.name}`}
+                accessibilityRole="button"
+                >
+                <BoardItem
                     id={item.id}
                     name={item.name}
                     description={item.description}
-                    image={item.thumbnailPhoto}/>}
+                    image={item.thumbnailPhoto}
+                />
+                </TouchableOpacity>
+            )}
             />
-        </View>
-    )
-}
+
+                    </View>
+                )
+            }
 
 
 
