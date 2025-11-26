@@ -10,14 +10,19 @@ export default function RootLayout() {
           title: "Home",
         }}
         />
-      <Stack.Screen
+        <Stack.Screen
         name="board"
         options={{
           title: "Board",
         }}
         />
+        <Stack.Screen
+        name="list"
+        options={{
+          title: "Board",
+        }}
+        />
       </Stack>
-
     </GestureHandlerRootView>
   );
 }
