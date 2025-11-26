@@ -29,7 +29,7 @@ export function BoardList({ boardId }: BoardListProps) {
               params: { id: item.id.toString()},
             })
           }
-          accessibilityLabel={`Go to board ${item.name}`}
+          accessibilityLabel={`Go to list ${item.name}`}
           accessibilityRole="button"
           >
           <ListItem

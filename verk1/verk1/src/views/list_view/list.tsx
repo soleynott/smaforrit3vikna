@@ -1,12 +1,14 @@
 import { useLocalSearchParams, useRouter  } from "expo-router"
 import { Image, Text, TouchableOpacity, View} from "react-native"
-import { BoardList } from "@/src/components/board_list/board_lists"
+import { ListTasks } from "@/src/components/list/list_tasks";
 
 export function List(){
-    
+    const params = useLocalSearchParams();
+    const listId = Number(params.id);
+
     return (
         <View style ={{ flex: 1 }}>
-            {/* render checklist of tasks */}
+            <ListTasks listId={listId}/>
             {/** render toolbar for task CRUD */}
         </View>
     );
