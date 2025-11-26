@@ -5,17 +5,12 @@ import { BoardList } from "@/src/components/board_list/board_lists"
 export default function Board() {
   const { boardId } = useLocalSearchParams();  
 
-  const id = Number(boardId);
-
-  const lists = BoardList(id);
-
-  return (
-    <View>
-      {lists.map(list => (
-        <TouchableOpacity key={list.id} accessibilityRole="button">
-            <Text> {list.name} </Text>
-        </TouchableOpacity>
-      ))}
-    </View>
-  );
+export function Main() {
+    const router = useRouter();
+    return (
+        <View>
+            {/*"Render toolbar"*/}
+            {/*"render lists"*/}
+        </View>
+    )
 }
