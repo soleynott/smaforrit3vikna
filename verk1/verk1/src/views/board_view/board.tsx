@@ -1,6 +1,7 @@
 import { useLocalSearchParams, useRouter  } from "expo-router"
 import { Image, Text, TouchableOpacity, View} from "react-native"
 import { BoardList } from "@/src/components/board_list/board_lists"
+import { Toolbar } from "@/src/components/toolbar";
 
 export function Board() {
   const params = useLocalSearchParams();
@@ -8,8 +9,8 @@ export function Board() {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* Render toolbar */}
       <BoardList boardId={boardId} />
+      <Toolbar name="List"/>
     </View>
   );
 }

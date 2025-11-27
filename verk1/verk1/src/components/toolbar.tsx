@@ -11,8 +11,8 @@ export function Toolbar(props: ToolbarProps) {
             <TouchableHighlight style={styles.toolbarAction} onPress={props.onAdd}>
                 <Text style={styles.toolbarActionText}>Add New Board</Text>
             </TouchableHighlight>
-            <TouchableHighlight style={styles.toolbarAction}>
-                <Text style={styles.toolbarActionText}>Edit Board</Text>
+            <TouchableHighlight style={styles.toolbarAction} onPress={onEdit} >
+                <Text style={styles.toolbarActionText}>Edit {name}</Text>
             </TouchableHighlight>
         </View>
     );
