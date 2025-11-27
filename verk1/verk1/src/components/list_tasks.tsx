@@ -1,1 +1,0 @@
-/*in list view, each task in one list*/
