@@ -1,18 +1,19 @@
 import { View, Text, Image, StyleSheet, TouchableHighlight } from "react-native";
 
-type ToolBarProps = {
-  name: string;
-  onAdd: () => void;
-  onEdit: () => void;
+interface ToolbarProps {
+    name?: string;
+    onAdd: () => void;
+    onEdit: () => void;
 }
-export function Toolbar ( {name, onAdd, onEdit}: ToolBarProps) {
+
+export function Toolbar(props: ToolbarProps) {
     return(
         <View style={styles.toolbar}>
-            <TouchableHighlight style={styles.toolbarAction} onPress={onAdd}>
-                <Text style={styles.toolbarActionText}>Add New {name}</Text>
+            <TouchableHighlight style={styles.toolbarAction} onPress={props.onAdd}>
+                <Text style={styles.toolbarActionText}>Add New Board</Text>
             </TouchableHighlight>
-            <TouchableHighlight style={styles.toolbarAction} onPress={onEdit} >
-                <Text style={styles.toolbarActionText}>Edit {name}</Text>
+            <TouchableHighlight style={styles.toolbarAction} onPress={props.onEdit}>
+                <Text style={styles.toolbarActionText}>Edit Board</Text>
             </TouchableHighlight>
         </View>
     );
