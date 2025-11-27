@@ -9,7 +9,7 @@ export function Home(){
     <View style= {{flex:1}}>
       
       <HomeBoards/>
-      <Toolbar/>
+      <Toolbar name={"Board"}/>
     </View>
   );
 }
