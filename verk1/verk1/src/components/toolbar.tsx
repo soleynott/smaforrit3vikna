@@ -1,8 +1,9 @@
 import { View, Text, Image, StyleSheet, TouchableHighlight } from "react-native";
 
 interface ToolbarProps {
-    hasSelectedImage: boolean;
+    name?: string;
     onAdd: () => void;
+    onEdit: () => void;
 }
 
 export function Toolbar(props: ToolbarProps) {
@@ -11,7 +12,7 @@ export function Toolbar(props: ToolbarProps) {
             <TouchableHighlight style={styles.toolbarAction} onPress={props.onAdd}>
                 <Text style={styles.toolbarActionText}>Add New Board</Text>
             </TouchableHighlight>
-            <TouchableHighlight style={styles.toolbarAction}>
+            <TouchableHighlight style={styles.toolbarAction} onPress={props.onEdit}>
                 <Text style={styles.toolbarActionText}>Edit Board</Text>
             </TouchableHighlight>
         </View>
