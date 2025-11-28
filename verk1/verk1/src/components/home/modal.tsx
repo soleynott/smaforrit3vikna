@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, TouchableHighlight, Platform, Modal as RNModal, Pressable, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Platform, Modal as RNModal, Pressable, TouchableOpacity } from "react-native";
 import { ReactNode } from "react";
 
 

@@ -1,8 +1,7 @@
 import { ImageBackground } from "react-native";
-import { View, Text, Image, StyleSheet } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import { View, Text, StyleSheet } from "react-native";
 import { BlurView } from "expo-blur";
-//displays one board as card, navigation handled in home_boards
+
 export interface BoardItemProps {
     id: number;
     name: string;
@@ -55,12 +54,11 @@ const styles = StyleSheet.create({
         borderRadius: 16,
     },
   overlay: {
-        backgroundColor: "rgba(0,0,0,0.4)", // semi-transparent dark overlay
+        backgroundColor: "rgba(0,0,0,0.4)",
         padding: 12,
   },
 
   blur: {
-  //borderRadius: 16,
   overflow: "hidden",
   },
 
