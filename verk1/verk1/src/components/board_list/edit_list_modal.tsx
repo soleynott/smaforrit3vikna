@@ -3,6 +3,7 @@ import { Modal } from "../home/modal"
 import { Entypo } from "@expo/vector-icons";
 import { useState, useEffect } from "react";
 import { ListsThumbnail } from "@/src/types/lists_thumbnail";
+import ColorPicker from "react-native-wheel-color-picker";  
 
 interface EditListProps{
     isOpen: boolean;
@@ -99,6 +100,13 @@ export function EditListModal(props: EditListProps){
                         value={color}
                         onChangeText={setColor}
                         placeholderTextColor="#999"
+                    /><ColorPicker
+                        color={color}
+                        onColorChangeComplete={(c) => setColor(c)}  
+                        thumbSize={30}
+                        sliderSize={30}
+                        noSnap={true}
+                        row={false}
                     />
 
                     <TouchableOpacity 

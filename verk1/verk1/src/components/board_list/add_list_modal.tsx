@@ -2,7 +2,7 @@ import { StyleSheet, TouchableOpacity, View, Text, TextInput, ScrollView } from 
 import { Modal } from "../home/modal";
 import { useState } from "react";
 import { ListsThumbnail } from "@/src/types/lists_thumbnail";
-import ColorPicker from "react-native-wheel-color-picker";   // ✅ Correct modern color picker
+import ColorPicker from "react-native-wheel-color-picker";   
 
 interface AddListModalProps {
     isOpen: boolean;
