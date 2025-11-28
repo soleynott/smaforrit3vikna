@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, View, Text, TextInput, ScrollView, Alert, FlatList } from "react-native";
+import { StyleSheet, TouchableOpacity, View, Text, TextInput, ScrollView, FlatList, Alert } from "react-native";
 import { Modal } from "../home/modal"
 import { useState, useEffect } from "react";
 import { TasksThumbnail } from "@/src/types/tasks_thumbnail";
@@ -8,8 +8,9 @@ interface EditTaskModalProps {
     isOpen: boolean;
     closeModal: () => void;
     tasks: TasksThumbnail[];
+    lists: { id: number; name: string; boardId: number }[];
     onTaskUpdate: (updatedTask: TasksThumbnail) => void;
-    onTaskDelete: (taskId: number) => void;
+    onTaskMove: (taskId: number, targetListId: number) => void;
 }
 
 export function EditTaskModal( props: EditTaskModalProps){
@@ -17,6 +18,7 @@ export function EditTaskModal( props: EditTaskModalProps){
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [isEditingTask, setIsEditingTask] = useState(false);
+    const [isSelectingMove, setIsSelectingMove] = useState(false);
 
     useEffect(() => {
         if (selectedTask && isEditingTask) {
@@ -48,26 +50,20 @@ export function EditTaskModal( props: EditTaskModalProps){
         resetForm();
     };
 
-    const handleDeleteTask = () => {
+    const handleMoveTask = (targetListId: number) => {
         if (!selectedTask) return;
+        props.onTaskMove(selectedTask.id, targetListId);
+        resetForm();
+    };
 
+    const confirmMove = (targetList: { id: number; name: string; boardId: number }) => {
+        if (!selectedTask) return;
         Alert.alert(
-            "Delete Task",
-            `Are you sure you want to delete "${selectedTask.name}"? This cannot be undone.`,
+            "Move Task",
+            `Are you sure you want to move "${selectedTask.name}" to "${targetList.name}"?`,
             [
-                {
-                    text: "Cancel",
-                    onPress: () => {},
-                    style: "cancel",
-                },
-                {
-                    text: "Delete",
-                    onPress: () => {
-                        props.onTaskDelete(selectedTask.id);
-                        resetForm();
-                    },
-                    style: "destructive",
-                },
+                { text: "Cancel", style: "cancel" },
+                { text: "Move", onPress: () => handleMoveTask(targetList.id) },
             ]
         );
     };
@@ -112,11 +108,35 @@ export function EditTaskModal( props: EditTaskModalProps){
 
                     <TouchableOpacity 
                         style={styles.deleteButton}
-                        onPress={handleDeleteTask}
+                        onPress={() => setIsSelectingMove(prev => !prev)}
                     >
-                        <Entypo name="trash" size={20} color={"white"} style={{ marginRight: 8 }} />
-                        <Text style={styles.deleteButtonText}>Delete Task</Text>
+                        <Entypo name="warning" size={18} color={"white"} style={{ marginRight: 8 }} />
+                        <Text style={styles.deleteButtonText}>Move Task</Text>
                     </TouchableOpacity>
+
+                    {isSelectingMove && (
+                        <View style={{ marginTop: 10 }}>
+                            <Text style={{ marginBottom: 8, fontSize: 14, fontWeight: "600" }}>Move to list</Text>
+                            {props.lists
+                                .filter(l => {
+                                    // Only show lists in the same board as the selected task.
+                                    const taskBoardId = (selectedTask as any)?.boardId;
+                                    return taskBoardId ? l.boardId === taskBoardId : true;
+                                })
+                                .map(item => (
+                                    <TouchableOpacity
+                                        key={item.id}
+                                        style={styles.boardSelectItem}
+                                        onPress={() => confirmMove(item)}
+                                    >
+                                        <View style={styles.boardSelectInfo}>
+                                            <Text style={styles.boardSelectTitle}>{item.name}</Text>
+                                        </View>
+                                        <Entypo name="chevron-right" size={24} color={"#666"} />
+                                    </TouchableOpacity>
+                                ))}
+                        </View>
+                    )}
 
                     <TouchableOpacity 
                         style={styles.backButton}
@@ -131,7 +151,7 @@ export function EditTaskModal( props: EditTaskModalProps){
 
     // task selection mode
     return(
-        <Modal title="Edit or Delete Task" isOpen={props.isOpen} closeModal={props.closeModal}>
+        <Modal title="Edit or Move Task" isOpen={props.isOpen} closeModal={props.closeModal}>
             <View style={styles.boardListContainer}>
                 {props.tasks.length === 0 ? (
                     <View style={styles.emptyStateContainer}>
