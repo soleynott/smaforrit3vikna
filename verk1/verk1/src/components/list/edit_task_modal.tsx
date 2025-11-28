@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, View, Text, TextInput, Image, ScrollView, Alert, FlatList } from "react-native";
+import { StyleSheet, TouchableOpacity, View, Text, TextInput, ScrollView, Alert, FlatList } from "react-native";
 import { Modal } from "../home/modal"
 import { useState, useEffect } from "react";
 import { TasksThumbnail } from "@/src/types/tasks_thumbnail";
@@ -9,14 +9,13 @@ interface EditTaskModalProps {
     closeModal: () => void;
     tasks: TasksThumbnail[];
     onTaskUpdate: (updatedTask: TasksThumbnail) => void;
-    onTaskDelete: (listId: number) => void;
+    onTaskDelete: (taskId: number) => void;
 }
 
 export function EditTaskModal( props: EditTaskModalProps){
     const [selectedTask, setSelectedTask] = useState<TasksThumbnail | null>(null);
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [isFinished, setIsFinished] = useState(false);
     const [isEditingTask, setIsEditingTask] = useState(false);
 
     useEffect(() => {
@@ -26,10 +25,11 @@ export function EditTaskModal( props: EditTaskModalProps){
         }
     }, [selectedTask, isEditingTask]);
 
-    const handleSelectTask = (list: TasksThumbnail) => {
-        setSelectedTask(list);
+    const handleSelectTask = (task: TasksThumbnail) => {
+        setSelectedTask(task);
         setIsEditingTask(true);
     };
+
     const handleUpdateTask = () => {
         if (!name || !description) {
             alert("Please fill in name and description");
@@ -43,7 +43,6 @@ export function EditTaskModal( props: EditTaskModalProps){
             name: name,
             description: description,
         };
-
 
         props.onTaskUpdate(updatedTask);
         resetForm();
@@ -80,7 +79,7 @@ export function EditTaskModal( props: EditTaskModalProps){
         setIsEditingTask(false);
     };
 
-    // Editing list mode
+    // Editing task mode
     if (isEditingTask && selectedTask) {
         return(
             <Modal title="Edit Task" isOpen={props.isOpen} closeModal={props.closeModal}>
@@ -93,13 +92,22 @@ export function EditTaskModal( props: EditTaskModalProps){
                         onChangeText={setName}
                         placeholderTextColor="#999"
                     />
-                    description
+
+                    <TextInput
+                        style={[styles.input, styles.descriptionInput]}
+                        placeholder="Task Description"
+                        value={description}
+                        onChangeText={setDescription}
+                        multiline
+                        numberOfLines={4}
+                        placeholderTextColor="#999"
+                    />
 
                     <TouchableOpacity 
                         style={styles.updateButton}
                         onPress={handleUpdateTask}
                     >
-                        <Text style={styles.updateButtonText}>Update List</Text>
+                        <Text style={styles.updateButtonText}>Update Task</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity 
@@ -107,14 +115,14 @@ export function EditTaskModal( props: EditTaskModalProps){
                         onPress={handleDeleteTask}
                     >
                         <Entypo name="trash" size={20} color={"white"} style={{ marginRight: 8 }} />
-                        <Text style={styles.deleteButtonText}>Delete List</Text>
+                        <Text style={styles.deleteButtonText}>Delete Task</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity 
                         style={styles.backButton}
                         onPress={() => setIsEditingTask(false)}
                     >
-                        <Text style={styles.backButtonText}>Back to all Lists</Text>
+                        <Text style={styles.backButtonText}>Back to all Tasks</Text>
                     </TouchableOpacity>
                 </ScrollView>
             </Modal>
@@ -134,15 +142,15 @@ export function EditTaskModal( props: EditTaskModalProps){
                         data={props.tasks}
                         keyExtractor={(item) => item.id.toString()}
                         scrollEnabled={true}
-                        style={{ maxHeight: 300 }}
+                        nestedScrollEnabled={true}
                         renderItem={({ item }) => (
                             <TouchableOpacity 
                                 style={styles.boardSelectItem}
                                 onPress={() => handleSelectTask(item)}
                             >
-
                                 <View style={styles.boardSelectInfo}>
                                     <Text style={styles.boardSelectTitle}>{item.name}</Text>
+                                    <Text style={styles.boardSelectDescription} numberOfLines={1}>{item.description}</Text>
                                 </View>
                                 <Entypo name="chevron-right" size={24} color={"#666"} />
                             </TouchableOpacity>
@@ -186,12 +194,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         gap: 12,
     },
-    boardSelectThumbnail: {
-        width: 60,
-        height: 60,
-        borderRadius: 8,
-        backgroundColor: "#ddd",
-    },
     boardSelectInfo: {
         flex: 1,
         justifyContent: "center",
@@ -205,58 +207,6 @@ const styles = StyleSheet.create({
     boardSelectDescription: {
         fontSize: 12,
         color: "#666",
-    },
-    optionsContainer: {
-        gap: 15,
-    },
-    option: {
-        flexDirection: "row",
-        alignItems: "center",
-        padding: 20,
-        backgroundColor: "white",
-        borderRadius: 12,
-    },
-    icon: {
-        marginRight: 20
-    },
-    optionText: {
-        fontSize: 18,
-        color: "lightblue",
-        fontWeight: 500,
-    },
-    imagePreviewContainer: {
-        marginBottom: 15,
-        alignItems: "center",
-    },
-    imagePreview: {
-        width: "100%",
-        height: 200,
-        borderRadius: 12,
-        marginBottom: 10,
-    },
-    removeImageButton: {
-        padding: 8,
-        backgroundColor: "#ff6b6b",
-        borderRadius: 8,
-    },
-    removeImageText: {
-        color: "white",
-        fontSize: 14,
-        fontWeight: "500",
-    },
-    imagePickerButton: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 15,
-        backgroundColor: "#4a90e2",
-        borderRadius: 12,
-        gap: 10,
-    },
-    imagePickerButtonText: {
-        color: "white",
-        fontSize: 16,
-        fontWeight: "600",
     },
     input: {
         borderWidth: 1,
