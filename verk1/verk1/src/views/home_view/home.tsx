@@ -19,7 +19,13 @@ export function Home(){
   useEffect(() => {
     loadBoards();
   }, []);
-
+  // reset local storage
+  useEffect(() => {
+    const resetStorage = async () => {
+      await AsyncStorage.clear();
+    };
+    resetStorage();
+}, []);
   // Save boards to AsyncStorage whenever they change
   useEffect(() => {
     if (!isLoading) {
