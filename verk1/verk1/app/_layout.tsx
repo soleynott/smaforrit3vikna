@@ -16,13 +16,13 @@ export default function RootLayout() {
           <Stack.Screen
           name="board"
           options={{
-            title: "Board",
+            title: "Lists",
           }}
           />
           <Stack.Screen
           name="list"
           options={{
-            title: "List",
+            title: "Tasks",
           }}
           />
         </Stack>

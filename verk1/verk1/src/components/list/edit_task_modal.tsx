@@ -131,7 +131,7 @@ export function EditTaskModal( props: EditTaskModalProps){
 
     // task selection mode
     return(
-        <Modal title="Edit or Delete Task" isOpen={props.isOpen} closeModal={props.closeModal}>
+        <Modal title="Edit or Move Task" isOpen={props.isOpen} closeModal={props.closeModal}>
             <View style={styles.boardListContainer}>
                 {props.tasks.length === 0 ? (
                     <View style={styles.emptyStateContainer}>
