@@ -3,7 +3,6 @@ import { Modal } from "../home/modal"
 import { Entypo } from "@expo/vector-icons";
 import { useState, useEffect } from "react";
 import { ListsThumbnail } from "@/src/types/lists_thumbnail";
-import ColorPicker, { Panel1, HueCircular, Preview} from "reanimated-color-picker"
 
 interface EditListProps{
     isOpen: boolean;
@@ -94,18 +93,13 @@ export function EditListModal(props: EditListProps){
                         onChangeText={setName}
                         placeholderTextColor="#999"
                     />
-                    <View style={{ alignItems: "center", marginVertical: 10 }}>
-                        <ColorPicker
-                            style={{ width: 260, alignSelf: 'center' }}
-                            value={color}
-                            onChange={(c) => setColor(c.hex)}
-                            onComplete={(c) => setColor(c.hex)}
-                        >
-                            <Preview style={{ height: 40, borderRadius: 10, marginBottom: 10 }} />
-                            <HueCircular />
-                            <Panel1 />
-                        </ColorPicker>
-                    </View>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="color hexcode"
+                        value={color}
+                        onChangeText={setColor}
+                        placeholderTextColor="#999"
+                    />
 
                     <TouchableOpacity 
                         style={styles.updateButton}
