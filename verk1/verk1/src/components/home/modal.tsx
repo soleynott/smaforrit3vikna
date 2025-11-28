@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 20,
         padding: 20,
         paddingBottom: Platform.OS === "ios" ? 40 : 20,
-        maxHeight: "80%",
+        maxHeight: "90%",
+        minHeight: 100,
         ...Platform.select({
             ios: {
                 shadowColor: "black",
