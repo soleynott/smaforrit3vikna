@@ -1,20 +1,22 @@
 
 import { View, TouchableOpacity, Text } from "react-native";
-import data from "../../resources/data.json";
 import { FlatList } from "react-native-gesture-handler";
 import { BoardThumbnail } from "../../types/board_thumbnail";
 import { BoardItem } from "./board_item";
 import  { useRouter } from "expo-router"
 
-export function HomeBoards() {
-    //load json
-    const images = data.boards as unknown as BoardThumbnail[];
+interface HomeBoardsProps {
+    boards: BoardThumbnail[];
+}
+
+export function HomeBoards({ boards }: HomeBoardsProps) {
     const router = useRouter();
     return (
         <View style={{flex:1}}>
             <FlatList<BoardThumbnail>
             numColumns={1}
-            data={images}
+            data={boards}
+            keyExtractor={(item) => item.id.toString()}
             //make each board a clickable card, routes to /board?id=x
             renderItem={({ item }) => (
                 <TouchableOpacity

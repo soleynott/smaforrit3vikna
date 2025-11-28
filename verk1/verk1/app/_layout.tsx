@@ -1,5 +1,7 @@
 import { Stack } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { BoardItemProps } from "@/src/components/home/board_item";
+
 export default function RootLayout() {
   return (
     <GestureHandlerRootView>
@@ -11,13 +13,13 @@ export default function RootLayout() {
         }}
         />
         <Stack.Screen
-        name="board/[id]"
+        name="board"
         options={{
           title: "Board", //breyta í nafnið á boardinu
         }}
         />
         <Stack.Screen
-        name="list/[id]"
+        name="list"
         options={{
           title: "List",
         }}

@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, TouchableHighlight, Platform, Modal as RNModal, Pressable, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Platform, Modal as RNModal, Pressable, TouchableOpacity } from "react-native";
 import { ReactNode } from "react";
 
 
@@ -18,14 +18,14 @@ export function Modal(props: ModalProps) {
             onRequestClose={props.closeModal}
             statusBarTranslucent>
                 <Pressable style={styles.backdrop} onPress={props.closeModal}>
-                    <Pressable style={styles.modalContainer}
+                    <Pressable style={styles.modalContentWrapper}
                     onPress={(e) => e.stopPropagation}>
-                        <View style={styles.modalContainer}>
+                        <View style={styles.modalContent}>
                             {props.title ? (
                                 <Text style={styles.title}>{props.title}</Text>
                             ) : null}
                             <View style={styles.childrenContainer}>{props.children}</View>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={props.closeModal} style={styles.closeButton}>
                                 <Text style={styles.closeButtonText}>Cancel</Text>
                             </TouchableOpacity>
                         </View>
@@ -46,11 +46,12 @@ export function Modal(props: ModalProps) {
 const styles = StyleSheet.create({
     backdrop: {
         flex: 1,
-        backgroundColor: "pink",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
         justifyContent: "flex-end"
     },
-    modalContainer: {
-        justifyContent: "flex-end"
+    modalContentWrapper: {
+        justifyContent: "flex-end",
+        flex: 1
     },
     modalContent: {
         backgroundColor: "white",
@@ -58,7 +59,8 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 20,
         padding: 20,
         paddingBottom: Platform.OS === "ios" ? 40 : 20,
-        minHeight: 200,
+        maxHeight: "90%",
+        minHeight: 100,
         ...Platform.select({
             ios: {
                 shadowColor: "black",
@@ -85,12 +87,12 @@ const styles = StyleSheet.create({
         marginTop: 20,
         padding: 15,
         alignItems: "center",
-        backgroundColor: "white",
+        backgroundColor: "#f5f5f5",
         borderRadius: 10,
     },
     closeButtonText: {
         fontSize: 16,
         color: "red",
-        fontWeight: 600,
+        fontWeight: "600",
     }
 });
