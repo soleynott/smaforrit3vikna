@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     borderRadius: 16,
     overflow: "hidden",
-    backgroundColor: '#000',
+    backgroundColor: "#000",
   },
   image: {
     width: "100%",
@@ -25,17 +25,16 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   imageStyle: {
-        borderRadius: 16,
-    },
+    borderRadius: 16,
+  },
   overlay: {
-        backgroundColor: "rgba(0,0,0,0.4)",
-        padding: 12,
+    backgroundColor: "rgba(0,0,0,0.4)",
+    padding: 12,
   },
 
   blur: {
-  overflow: "hidden",
+    overflow: "hidden",
   },
-
-})
+});
 
 export default styles;

@@ -1,6 +1,6 @@
 export interface BoardThumbnail {
-    id: number;
-    name: string;
-    description: string;
-    thumbnailPhoto: string;
+  id: number;
+  name: string;
+  description: string;
+  thumbnailPhoto: string;
 }

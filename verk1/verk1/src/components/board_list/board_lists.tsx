@@ -4,10 +4,10 @@ import data from "../../resources/data.json";
 import { FlatList } from "react-native-gesture-handler";
 import { ListsThumbnail } from "../../types/lists_thumbnail";
 import { ListItem } from "./lists_item";
-import  { useRouter } from "expo-router"
+import { useRouter } from "expo-router";
 
 type BoardListProps = {
-  lists: ListsThumbnail[]; 
+  lists: ListsThumbnail[];
 };
 export function BoardList({ lists }: BoardListProps) {
   const router = useRouter();
@@ -20,21 +20,21 @@ export function BoardList({ lists }: BoardListProps) {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
-          onPress={() =>
-            router.push({
-              pathname: '/list',
-              params: { id: item.id.toString()},
-            })
-          }
-          accessibilityLabel={`Go to list ${item.name}`}
-          accessibilityRole="button"
+            onPress={() =>
+              router.push({
+                pathname: "/list",
+                params: { id: item.id.toString() },
+              })
+            }
+            accessibilityLabel={`Go to list ${item.name}`}
+            accessibilityRole="button"
           >
-          <ListItem
-            id={item.id}
-            name={item.name}
-            color={item.color}
-            boardId={item.boardId}
-          />
+            <ListItem
+              id={item.id}
+              name={item.name}
+              color={item.color}
+              boardId={item.boardId}
+            />
           </TouchableOpacity>
         )}
       />

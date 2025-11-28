@@ -1,4 +1,3 @@
-
 import { HomeBoards } from "@/src/components/home/home_boards";
 import { Toolbar } from "@/src/components/toolbar";
 import { View } from "react-native";
@@ -8,7 +7,7 @@ import { EditModal } from "@/src/components/home/edit_modal";
 import { BoardThumbnail } from "@/src/types/board_thumbnail";
 import data from "@/src/resources/data.json";
 
-export function Home(){
+export function Home() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [boards, setBoards] = useState<BoardThumbnail[]>([]);
@@ -25,7 +24,7 @@ export function Home(){
       const jsonBoards = data.boards as unknown as BoardThumbnail[];
       setBoards(jsonBoards);
     } catch (error) {
-      console.error('Error loading boards:', error);
+      console.error("Error loading boards:", error);
     } finally {
       setIsLoading(false);
     }
@@ -52,27 +51,33 @@ export function Home(){
   };
 
   const handleBoardUpdate = (updatedBoard: BoardThumbnail) => {
-    setBoards(boards.map(board => 
-      board.id === updatedBoard.id ? updatedBoard : board
-    ));
+    setBoards(
+      boards.map((board) =>
+        board.id === updatedBoard.id ? updatedBoard : board,
+      ),
+    );
     setIsEditModalOpen(false);
   };
 
   const handleBoardDelete = (boardId: number) => {
-    setBoards(boards.filter(board => board.id !== boardId));
+    setBoards(boards.filter((board) => board.id !== boardId));
     setIsEditModalOpen(false);
   };
- 
+
   return (
-    <View style={{flex:1}}>
-      <HomeBoards boards={boards}/>
-      <Toolbar name={"Boards"} onAdd={handleAddBoard} onEdit={handleEditBoard}/>
-      <AddModal 
+    <View style={{ flex: 1 }}>
+      <HomeBoards boards={boards} />
+      <Toolbar
+        name={"Boards"}
+        onAdd={handleAddBoard}
+        onEdit={handleEditBoard}
+      />
+      <AddModal
         isOpen={isAddModalOpen}
         closeModal={handleCloseAddModal}
         onBoardCreate={handleBoardCreate}
       />
-      <EditModal 
+      <EditModal
         isOpen={isEditModalOpen}
         closeModal={handleCloseEditModal}
         boards={boards}

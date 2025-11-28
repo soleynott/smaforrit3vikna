@@ -1,81 +1,86 @@
-import { TouchableOpacity, View, Text, TextInput, ScrollView } from "react-native";
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+} from "react-native";
 import { Modal } from "../home/modal";
 import { useState } from "react";
 import { ListsThumbnail } from "@/src/types/lists_thumbnail";
 import styles from "../board_list/board_list_styles/add_list_styles";
 
-import ColorPicker from "react-native-wheel-color-picker";   
+import ColorPicker from "react-native-wheel-color-picker";
 
 interface AddListModalProps {
-    isOpen: boolean;
-    closeModal: () => void;
-    onListCreate: (list: ListsThumbnail) => void;
-    boardId: number;
+  isOpen: boolean;
+  closeModal: () => void;
+  onListCreate: (list: ListsThumbnail) => void;
+  boardId: number;
 }
 
 export function AddListModal(props: AddListModalProps) {
+  const [name, setName] = useState("");
+  const [color, setColor] = useState("#ffffff");
 
-    const [name, setName] = useState("");
-    const [color, setColor] = useState("#ffffff");
+  const resetForm = () => {
+    setName("");
+    setColor("#ffffff");
+  };
 
-    const resetForm = () => {
-        setName("");
-        setColor("#ffffff");
+  const handleCreateList = () => {
+    if (!name || !color) {
+      alert("Please enter a name and pick a color");
+      return;
+    }
+
+    const newList: ListsThumbnail = {
+      id: Date.now(),
+      name,
+      color,
+      boardId: props.boardId,
     };
 
-    const handleCreateList = () => {
-        if (!name || !color) {
-            alert("Please enter a name and pick a color");
-            return;
-        }
+    props.onListCreate(newList);
+    resetForm();
+    props.closeModal();
+  };
 
-        const newList: ListsThumbnail = {
-            id: Date.now(),
-            name,
-            color,
-            boardId: props.boardId,
-        };
+  return (
+    <Modal
+      title="Add New List"
+      isOpen={props.isOpen}
+      closeModal={props.closeModal}
+    >
+      <ScrollView style={styles.formContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="List Name"
+          value={name}
+          onChangeText={setName}
+          placeholderTextColor="#999"
+        />
 
-        props.onListCreate(newList);
-        resetForm();
-        props.closeModal();
-    };
+        <Text style={{ fontSize: 16, marginBottom: 10 }}>Pick a Color:</Text>
 
-    return (
-        <Modal title="Add New List" isOpen={props.isOpen} closeModal={props.closeModal}>
-            <ScrollView style={styles.formContainer}>
+        <ColorPicker
+          color={color}
+          onColorChangeComplete={(c) => setColor(c)}
+          thumbSize={30}
+          sliderSize={30}
+          noSnap={true}
+          row={false}
+        />
 
-                <TextInput
-                    style={styles.input}
-                    placeholder="List Name"
-                    value={name}
-                    onChangeText={setName}
-                    placeholderTextColor="#999"
-                />
-
-                <Text style={{ fontSize: 16, marginBottom: 10 }}>Pick a Color:</Text>
-
-                <ColorPicker
-                    color={color}
-                    onColorChangeComplete={(c) => setColor(c)}  
-                    thumbSize={30}
-                    sliderSize={30}
-                    noSnap={true}
-                    row={false}
-                />
-
-                <TouchableOpacity 
-                    style={styles.createButton}
-                    onPress={handleCreateList}
-                >
-                    <Text style={styles.createButtonText}>Create List</Text>
-                </TouchableOpacity>
-
-            </ScrollView>
-        </Modal>
-    );
+        <TouchableOpacity
+          style={styles.createButton}
+          onPress={handleCreateList}
+        >
+          <Text style={styles.createButtonText}>Create List</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </Modal>
+  );
 }
 
 export default AddListModal;
-
-

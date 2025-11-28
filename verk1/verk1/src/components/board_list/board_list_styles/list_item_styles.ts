@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     paddingRight: 16,
     flexDirection: "row",
     alignItems: "center",
-    
+
     shadowColor: "#000",
     shadowOpacity: 0.08,
     shadowRadius: 6,

@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   toolbarActionText: {
     fontSize: 16,
     fontWeight: "500",
-    color: "#002f40"
+    color: "#002f40",
   },
 });
 export default styles;

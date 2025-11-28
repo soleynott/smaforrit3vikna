@@ -8,22 +8,22 @@ export default function RootLayout() {
       <TaskProvider>
         <Stack>
           <Stack.Screen
-          name="index"
-          options={{
-            title: "Boards",
-          }}
+            name="index"
+            options={{
+              title: "Boards",
+            }}
           />
           <Stack.Screen
-          name="board"
-          options={{
-            title: "Lists",
-          }}
+            name="board"
+            options={{
+              title: "Lists",
+            }}
           />
           <Stack.Screen
-          name="list"
-          options={{
-            title: "Tasks",
-          }}
+            name="list"
+            options={{
+              title: "Tasks",
+            }}
           />
         </Stack>
       </TaskProvider>
