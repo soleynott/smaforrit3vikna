@@ -5,7 +5,7 @@ import { Toolbar } from "@/src/components/toolbar";
 import { useState, useEffect } from "react";
 import { AddListModal } from "@/src/components/board_list/add_list_modal"
 import { EditListModal } from "@/src/components/board_list/edit_list_modal"
-import { ListsThumbnail } from "@/src/types/boards_thumbnail";
+import { ListsThumbnail } from "@/src/types/lists_thumbnail";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import data from "@/src/resources/data.json";
 

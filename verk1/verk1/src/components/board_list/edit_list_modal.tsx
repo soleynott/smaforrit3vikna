@@ -2,7 +2,7 @@ import { StyleSheet, TouchableOpacity, View, Text, TextInput, Image, ScrollView,
 import { Modal } from "../home/modal"
 import { Entypo } from "@expo/vector-icons";
 import { useState, useEffect } from "react";
-import { ListsThumbnail } from "@/src/types/boards_thumbnail";
+import { ListsThumbnail } from "@/src/types/lists_thumbnail";
 import ColorPicker, { Panel1, HueCircular, Preview} from "reanimated-color-picker"
 
 interface EditListProps{
