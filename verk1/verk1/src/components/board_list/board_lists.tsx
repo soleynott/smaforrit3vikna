@@ -2,24 +2,21 @@
 import { TouchableOpacity, View } from "react-native";
 import data from "../../resources/data.json";
 import { FlatList } from "react-native-gesture-handler";
-import { ListsThumbnail } from "../../types/boards_thumbnail";
+import { ListsThumbnail } from "../../types/lists_thumbnail";
 import { ListItem } from "./lists_item";
 import  { useRouter } from "expo-router"
 
 type BoardListProps = {
-  boardId: number; 
+  lists: ListsThumbnail[]; 
 };
-export function BoardList({ boardId }: BoardListProps) {
-  const lists = data.lists as unknown as ListsThumbnail[];
-  //filter lists by what board they belong to
-  const filteredLists = lists.filter(list => list.boardId === boardId);
+export function BoardList({ lists }: BoardListProps) {
   const router = useRouter();
 
   return (
     <View style={{ flex: 1 }}>
       <FlatList<ListsThumbnail>
         numColumns={1}
-        data={filteredLists}
+        data={lists}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
