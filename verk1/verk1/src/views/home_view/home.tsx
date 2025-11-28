@@ -92,7 +92,7 @@ export function Home(){
   return (
     <View style={{flex:1}}>
       <HomeBoards boards={boards}/>
-      <Toolbar onAdd={handleAddBoard} onEdit={handleEditBoard}/>
+      <Toolbar name={"Boards"} onAdd={handleAddBoard} onEdit={handleEditBoard}/>
       <AddModal 
         isOpen={isAddModalOpen}
         closeModal={handleCloseAddModal}

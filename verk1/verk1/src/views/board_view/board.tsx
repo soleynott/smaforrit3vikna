@@ -91,13 +91,13 @@ export function Board() {
     setLists(lists.filter(list => list.id !== listId));
     setIsEditModalOpen(false);
   };
-
-
+ 
+  const filteredLists = lists.filter(list => list.boardId === boardId);
   return (
 
     <View style={{ flex: 1 }}>
       <BoardList boardId={boardId} />
-      <Toolbar onAdd={handleAddList} onEdit={handleEditList}/>
+      <Toolbar name={"Lists"} onAdd={handleAddList} onEdit={handleEditList}/>
       <AddListModal 
         isOpen={isAddModalOpen}
         closeModal={handleCloseAddModal}
@@ -108,7 +108,7 @@ export function Board() {
       <EditListModal 
         isOpen={isEditModalOpen}
         closeModal={handleCloseEditModal}
-        lists={lists}
+        lists={filteredLists}
         onListUpdate={handleListUpdate}
         onListDelete={handleListDelete}
       />
