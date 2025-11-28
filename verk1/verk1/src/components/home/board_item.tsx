@@ -1,6 +1,7 @@
 import { ImageBackground } from "react-native";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import { BlurView } from "expo-blur";
+import styles from "../home/home_styles/board_item_styles";
 
 export interface BoardItemProps {
     id: number;
@@ -23,43 +24,3 @@ export function BoardItem(props: BoardItemProps) {
         </View>
     );
 }
-
-
-
-const styles = StyleSheet.create({
-  container: {
-    width: "95%",
-    margin: 5,
-    alignSelf: "center",
-    borderRadius: 16,
-    overflow: "hidden",
-    backgroundColor: '#000',
-  },
-  image: {
-    width: "100%",
-    height: 200,
-    justifyContent: "flex-end",
-  },
-  name: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 18,
-  },
-  desc: {
-    color: "#fff",
-    fontSize: 14,
-    marginTop: 4,
-  },
-  imageStyle: {
-        borderRadius: 16,
-    },
-  overlay: {
-        backgroundColor: "rgba(0,0,0,0.4)",
-        padding: 12,
-  },
-
-  blur: {
-  overflow: "hidden",
-  },
-
-})
