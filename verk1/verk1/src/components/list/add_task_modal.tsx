@@ -1,6 +1,5 @@
 import { StyleSheet, TouchableOpacity, View, Text, TextInput, ScrollView } from "react-native";
 import { Modal } from "../home/modal";
-import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
 import { TasksThumbnail } from "@/src/types/tasks_thumbnail";
 
@@ -67,7 +66,6 @@ export function AddTaskModal(props: AddTaskModalProps) {
                     placeholderTextColor="#999"
                 />
 
-
                 <TouchableOpacity 
                     style={styles.createButton}
                     onPress={handleCreateTask}
@@ -108,7 +106,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: "bold",
     },
-    
+
     descriptionInput: {
         textAlignVertical: "top",
         minHeight: 100,

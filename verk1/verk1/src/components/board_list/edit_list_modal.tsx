@@ -94,18 +94,7 @@ export function EditListModal(props: EditListProps){
                         onChangeText={setName}
                         placeholderTextColor="#999"
                     />
-                    <View style={{ alignItems: "center", marginVertical: 10 }}>
-                        <ColorPicker
-                            style={{ width: 260, alignSelf: 'center' }}
-                            value={color}
-                            onChange={(c) => setColor(c.hex)}
-                            onComplete={(c) => setColor(c.hex)}
-                        >
-                            <Preview style={{ height: 40, borderRadius: 10, marginBottom: 10 }} />
-                            <HueCircular />
-                            <Panel1 />
-                        </ColorPicker>
-                    </View>
+
 
                     <TouchableOpacity 
                         style={styles.updateButton}
@@ -133,7 +122,7 @@ export function EditListModal(props: EditListProps){
         );
     }
 
-    // Board selection mode
+    // List selection mode
     return(
         <Modal title="Edit or Delete List" isOpen={props.isOpen} closeModal={props.closeModal}>
             <View style={styles.boardListContainer}>
