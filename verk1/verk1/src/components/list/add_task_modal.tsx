@@ -2,52 +2,55 @@ import { StyleSheet, TouchableOpacity, View, Text, TextInput, ScrollView } from 
 import { Modal } from "../home/modal";
 import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
-import { ListsThumbnail } from "@/src/types/lists_thumbnail";
+import { TasksThumbnail } from "@/src/types/tasks_thumbnail";
 
 
-interface AddListModalProps {
+interface AddTaskModalProps {
     isOpen: boolean;
     closeModal: () => void;
-    onListCreate: (list: ListsThumbnail) => void;
-    boardId: number;
+    onTaskCreate: (Task: TasksThumbnail) => void;
+    listId: number;
     nextId: number;
 }
 
-export function AddListModal(props: AddListModalProps) {
+export function AddTaskModal(props: AddTaskModalProps) {
 
     const [name, setName] = useState("");
-    const [color, setColor] = useState("#ffffff");
+    const [description, setDescription] = useState("");
+    const [isFinished, setIsFinished] = useState(false);
+
 
     const resetForm = () => {
         setName("");
-        setColor("#ffffff");
+        setDescription("");
+        setIsFinished(false);
     };
 
-    const handleCreateList = () => {
-        if (!name || !color) {
-            alert("Please enter a name and pick a color");
+    const handleCreateTask = () => {
+        if (!name || !description) {
+            alert("Please enter a name and description");
             return;
         }
 
-        const newList: ListsThumbnail = {
+        const newTask: TasksThumbnail = {
             id: props.nextId,
             name: name,
             color: color,
-            boardId: props.boardId,
+            listId: props.listId,
         };
 
-        props.onListCreate(newList);
+        props.onTaskCreate(newTask);
         resetForm();
         props.closeModal();
     };
 
     return (
-        <Modal title="Add New List" isOpen={props.isOpen} closeModal={props.closeModal}>
+        <Modal title="Add New Task" isOpen={props.isOpen} closeModal={props.closeModal}>
             <ScrollView style={styles.formContainer}>
 
                 <TextInput
                     style={styles.input}
-                    placeholder="List Name"
+                    placeholder="Task Name"
                     value={name}
                     onChangeText={setName}
                     placeholderTextColor="#999"
@@ -64,9 +67,9 @@ export function AddListModal(props: AddListModalProps) {
 
                 <TouchableOpacity 
                     style={styles.createButton}
-                    onPress={handleCreateList}
+                    onPress={handleCreateTask}
                 >
-                    <Text style={styles.createButtonText}>Create List</Text>
+                    <Text style={styles.createButtonText}>Create Task</Text>
                 </TouchableOpacity>
 
             </ScrollView>
@@ -74,7 +77,7 @@ export function AddListModal(props: AddListModalProps) {
     );
 }
 
-export default AddListModal;
+export default AddTaskModal;
 
 const styles = StyleSheet.create({
     formContainer: {

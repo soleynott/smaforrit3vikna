@@ -2,7 +2,7 @@
 import { TouchableOpacity, View } from "react-native";
 import data from "../../resources/data.json";
 import { FlatList } from "react-native-gesture-handler";
-import { ListsThumbnail } from "../../types/boards_thumbnail";
+import { ListsThumbnail } from "../../types/lists_thumbnail";
 import { ListItem } from "./lists_item";
 import  { useRouter } from "expo-router"
 
