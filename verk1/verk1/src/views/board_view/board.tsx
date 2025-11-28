@@ -103,7 +103,6 @@ export function Board() {
         closeModal={handleCloseAddModal}
         onListCreate={handleListCreate}
         boardId={boardId}
-        nextId = {lists.length > 0 ? Math.max(...lists.map(l => l.id)) + 1 : 1} //check next available id
       />
       <EditListModal 
         isOpen={isEditModalOpen}

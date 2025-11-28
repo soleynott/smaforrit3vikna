@@ -10,7 +10,6 @@ interface AddListModalProps {
     closeModal: () => void;
     onListCreate: (list: ListsThumbnail) => void;
     boardId: number;
-    nextId: number;
 }
 
 export function AddListModal(props: AddListModalProps) {
@@ -30,7 +29,7 @@ export function AddListModal(props: AddListModalProps) {
         }
 
         const newList: ListsThumbnail = {
-            id: props.nextId,
+            id: Date.now(),
             name: name,
             color: color,
             boardId: props.boardId,
