@@ -35,7 +35,8 @@ export function AddTaskModal(props: AddTaskModalProps) {
         const newTask: TasksThumbnail = {
             id: props.nextId,
             name: name,
-            color: color,
+            description: description,
+            isFinished: false,
             listId: props.listId,
         };
 
@@ -57,10 +58,12 @@ export function AddTaskModal(props: AddTaskModalProps) {
                 />
 
                 <TextInput
-                    style={styles.input}
-                    placeholder="color hexcode"
-                    value={color}
-                    onChangeText={setColor}
+                    style={[styles.input, styles.descriptionInput]}
+                    placeholder="Board Description"
+                    value={description}
+                    onChangeText={setDescription}
+                    multiline
+                    numberOfLines={4}
                     placeholderTextColor="#999"
                 />
 
@@ -104,5 +107,10 @@ const styles = StyleSheet.create({
         color: "white",
         fontSize: 18,
         fontWeight: "bold",
+    },
+    
+    descriptionInput: {
+        textAlignVertical: "top",
+        minHeight: 100,
     },
 });

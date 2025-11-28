@@ -4,5 +4,4 @@ export interface TasksThumbnail {
     description: string;
     isFinished: boolean;
     listId: number;
-    onToggle: () => void; //callback from parent
 }
