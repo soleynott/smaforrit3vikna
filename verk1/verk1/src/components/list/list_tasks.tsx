@@ -1,33 +1,24 @@
 import { View } from "react-native";
-import data from "../../resources/data.json";
 import { FlatList } from "react-native-gesture-handler";
-import { useState } from "react";
 import { TaskItem } from "./task_item";
+import { TasksThumbnail } from "@/src/types/tasks_thumbnail";
 
 //displays all tasks in one list
 type TaskListProps = {
     listId: number;
+    tasks: TasksThumbnail[];
+    onTaskToggle: (id: number) => void;
+    onTaskDelete: (id: number) => void;
 };
 
-export function ListTasks ({listId}: TaskListProps){
-    //local state for rerendering after checking a box
-    const [tasks, setTasks] = useState(
-        //filter tasks for what list they belong to
-        data.tasks.filter(t => t.listId === listId)
-    );
-    // toggle finished state
-    function toggleTask( id: number) {
-        setTasks( prev => //current value of tasks before updating
-            prev.map( t => //check every task t and find the one with mathing id
-                t.id === id ? { ...t, isFinished: !t.isFinished } : t // if correct id, change ; otherwise ignore
-            )
-        );
-    }
+export function ListTasks ({listId, tasks, onTaskToggle, onTaskDelete}: TaskListProps){
+    // Filter tasks for what list they belong to
+    const filteredTasks = tasks.filter(t => t.listId === listId);
 
     return (
         <View style={{ flex: 1 }}>
             <FlatList
-                data={tasks}
+                data={filteredTasks}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
                 <TaskItem
@@ -36,7 +27,8 @@ export function ListTasks ({listId}: TaskListProps){
                     description={item.description}
                     isFinished={item.isFinished}
                     listId={item.listId}
-                    onToggle = { () => toggleTask(item.id)}
+                    onToggle={() => onTaskToggle(item.id)}
+                    onDelete={() => onTaskDelete(item.id)}
                 />
                 )}
             />
