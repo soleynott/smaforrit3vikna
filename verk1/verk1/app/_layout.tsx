@@ -1,30 +1,32 @@
 import { Stack } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { BoardItemProps } from "@/src/components/home/board_item";
+import { TaskProvider } from "@/src/context/TaskContext";
 
 export default function RootLayout() {
   return (
     <GestureHandlerRootView>
-      <Stack>
-        <Stack.Screen
-        name="index"
-        options={{
-          title: "Boards",
-        }}
-        />
-        <Stack.Screen
-        name="board"
-        options={{
-          title: "Board", //breyta í nafnið á boardinu
-        }}
-        />
-        <Stack.Screen
-        name="list"
-        options={{
-          title: "List",
-        }}
-        />
-      </Stack>
+      <TaskProvider>
+        <Stack>
+          <Stack.Screen
+          name="index"
+          options={{
+            title: "Boards",
+          }}
+          />
+          <Stack.Screen
+          name="board"
+          options={{
+            title: "Board",
+          }}
+          />
+          <Stack.Screen
+          name="list"
+          options={{
+            title: "List",
+          }}
+          />
+        </Stack>
+      </TaskProvider>
     </GestureHandlerRootView>
   );
 }
