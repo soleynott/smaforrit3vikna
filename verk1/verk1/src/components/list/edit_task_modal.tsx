@@ -1,4 +1,4 @@
-import { TouchableOpacity, View, Text, TextInput, ScrollView, Alert, FlatList, Alert } from "react-native";
+import { TouchableOpacity, View, Text, TextInput, ScrollView, FlatList, Alert } from "react-native";
 import { Modal } from "../home/modal"
 import { useState, useEffect } from "react";
 import { TasksThumbnail } from "@/src/types/tasks_thumbnail";
