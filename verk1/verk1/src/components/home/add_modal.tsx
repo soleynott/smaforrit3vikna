@@ -1,9 +1,10 @@
-import { StyleSheet, TouchableOpacity, View, Text, TextInput, Image, ScrollView } from "react-native";
+import { StyleSheet, TouchableOpacity, View, Text, TextInput, Image, ScrollView, Alert } from "react-native";
 import { Modal } from "./modal"
 import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
 import * as ImagePicker from 'expo-image-picker';
 import { BoardThumbnail } from "../../types/board_thumbnail";
+import { requestCameraPermission, requestMediaLibraryPermission } from "../../services/image-service";
 
 
 interface AddModalProps{
@@ -19,6 +20,12 @@ export function AddModal(props: AddModalProps) {
     const [selectedPhotoMode, setSelectedPhotoMode] = useState<"camera" | "gallery" | null>(null);
 
     const takePhoto = async () => {
+        const permissionGranted = await requestCameraPermission();
+        if (!permissionGranted) {
+            Alert.alert("Permission Denied", "Camera permission is required to take photos.");
+            return;
+        }
+
         const result = await ImagePicker.launchCameraAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
@@ -33,6 +40,12 @@ export function AddModal(props: AddModalProps) {
     };
 
     const selectFromGallery = async () => {
+        const permissionGranted = await requestMediaLibraryPermission();
+        if (!permissionGranted) {
+            Alert.alert("Permission Denied", "Media library permission is required to select photos.");
+            return;
+        }
+
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
