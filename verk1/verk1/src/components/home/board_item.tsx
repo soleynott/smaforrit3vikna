@@ -1,6 +1,5 @@
 import { ImageBackground } from "react-native";
 import { View, Text, Image, StyleSheet } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
 //displays one board as card, navigation handled in home_boards
 export interface BoardItemProps {

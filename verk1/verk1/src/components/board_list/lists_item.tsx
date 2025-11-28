@@ -1,5 +1,4 @@
 import { View, Text, Image, StyleSheet } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 //display one list, used in board_lists to show all lists for certain board
 interface ListItemProps {
     id: number;
