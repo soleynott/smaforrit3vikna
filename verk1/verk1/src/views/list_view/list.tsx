@@ -7,6 +7,7 @@ import { AddTaskModal } from "@/src/components/list/add_task_modal"
 import { EditTaskModal } from "@/src/components/list/edit_task_modal"
 import { TasksThumbnail } from "@/src/types/tasks_thumbnail";
 import { useTasks } from "@/src/context/TaskContext";
+import data from "@/src/resources/data.json";
 
 export function List(){
     const params = useLocalSearchParams();
@@ -49,6 +50,14 @@ export function List(){
         setIsEditModalOpen(false);
     };
 
+    const handleTaskMove = (taskId: number, targetListId: number) => {
+        const task = tasks.find(t => t.id === taskId);
+        if (!task) return;
+        const updated: TasksThumbnail = { ...task, listId: targetListId } as TasksThumbnail;
+        updateTask(updated);
+        setIsEditModalOpen(false);
+    };
+
     const filteredTasks = tasks.filter(task => task.listId === listId);
 
     return (
@@ -66,8 +75,9 @@ export function List(){
                 isOpen={isEditModalOpen}
                 closeModal={handleCloseEditModal}
                 tasks={filteredTasks}
+                lists={data.lists}
                 onTaskUpdate={handleTaskUpdate}
-                onTaskDelete={handleTaskDelete}
+                onTaskMove={handleTaskMove}
             />
         </View>
     );

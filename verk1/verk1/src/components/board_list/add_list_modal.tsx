@@ -1,10 +1,10 @@
 import { TouchableOpacity, View, Text, TextInput, ScrollView } from "react-native";
 import { Modal } from "../home/modal";
-import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
 import { ListsThumbnail } from "@/src/types/lists_thumbnail";
 import styles from "../board_list/board_list_styles/add_list_styles";
 
+import ColorPicker from "react-native-wheel-color-picker";   
 
 interface AddListModalProps {
     isOpen: boolean;
@@ -31,8 +31,8 @@ export function AddListModal(props: AddListModalProps) {
 
         const newList: ListsThumbnail = {
             id: Date.now(),
-            name: name,
-            color: color,
+            name,
+            color,
             boardId: props.boardId,
         };
 
@@ -53,14 +53,16 @@ export function AddListModal(props: AddListModalProps) {
                     placeholderTextColor="#999"
                 />
 
-                <TextInput
-                    style={styles.input}
-                    placeholder="color hexcode"
-                    value={color}
-                    onChangeText={setColor}
-                    placeholderTextColor="#999"
-                />
+                <Text style={{ fontSize: 16, marginBottom: 10 }}>Pick a Color:</Text>
 
+                <ColorPicker
+                    color={color}
+                    onColorChangeComplete={(c) => setColor(c)}  
+                    thumbSize={30}
+                    sliderSize={30}
+                    noSnap={true}
+                    row={false}
+                />
 
                 <TouchableOpacity 
                     style={styles.createButton}
