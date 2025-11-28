@@ -91,7 +91,7 @@ export function Board() {
     setLists(lists.filter(list => list.id !== listId));
     setIsEditModalOpen(false);
   };
- 
+
   const filteredLists = lists.filter(list => list.boardId === boardId);
   return (
 
