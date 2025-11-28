@@ -8,6 +8,7 @@ import { EditTaskModal } from "@/src/components/list/edit_task_modal"
 import { TasksThumbnail } from "@/src/types/tasks_thumbnail";
 import { useTasks } from "@/src/context/TaskContext";
 import data from "@/src/resources/data.json";
+import ConfettiCannon from 'react-native-confetti-cannon';
 
 export function List(){
     const params = useLocalSearchParams();
@@ -15,6 +16,8 @@ export function List(){
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const { tasks, addTask, updateTask, deleteTask, toggleTask } = useTasks();
+    const [confettiForTaskId, setConfettiForTaskId] = useState<number | null>(null);
+    const Confetti: any = ConfettiCannon as any;
 
     const handleAddTask = () => {
         setIsAddModalOpen(true);
@@ -33,7 +36,14 @@ export function List(){
     };
 
     const handleTaskToggle = (taskId: number) => {
+        // determine whether this toggle will mark the task finished
+        const task = tasks.find(t => t.id === taskId);
+        const willBeFinished = task ? !task.isFinished : false;
         toggleTask(taskId);
+        if (willBeFinished) {
+            setConfettiForTaskId(taskId);
+            setTimeout(() => setConfettiForTaskId(prev => (prev === taskId ? null : prev)), 5000);
+        }
     };
 
     const handleTaskCreate = (newTask: TasksThumbnail) => {
@@ -63,13 +73,15 @@ export function List(){
     return (
         <View style ={{ flex: 1 }}>
             <ListTasks listId={listId} tasks={tasks} onTaskToggle={handleTaskToggle} onTaskDelete={handleTaskDelete}/>
+            {confettiForTaskId !== null && (
+                <Confetti key={`confetti-${confettiForTaskId}`} count={80} origin={{ x: -10, y: 0 }} />
+            )}
             <Toolbar name={"Tasks"} onAdd={handleAddTask} onEdit={handleEditTask}/>
             <AddTaskModal 
                 isOpen={isAddModalOpen}
                 closeModal={handleCloseAddModal}
                 onTaskCreate={handleTaskCreate}
                 listId={listId}
-                nextId = {tasks.length > 0 ? Math.max(...tasks.map(t => t.id)) + 1 : 1} //check next available id
             />
             <EditTaskModal 
                 isOpen={isEditModalOpen}
