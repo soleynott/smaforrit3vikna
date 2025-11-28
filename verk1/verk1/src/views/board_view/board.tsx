@@ -96,7 +96,7 @@ export function Board() {
   return (
 
     <View style={{ flex: 1 }}>
-      <BoardList boardId={boardId} />
+      <BoardList lists={filteredLists} />
       <Toolbar name={"Lists"} onAdd={handleAddList} onEdit={handleEditList}/>
       <AddListModal 
         isOpen={isAddModalOpen}
