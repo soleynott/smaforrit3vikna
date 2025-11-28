@@ -215,7 +215,7 @@ export function EditModal(props: EditModalProps) {
                         data={props.boards}
                         keyExtractor={(item) => item.id.toString()}
                         scrollEnabled={true}
-                        style={{ maxHeight: 300 }}
+                        nestedScrollEnabled={true}
                         renderItem={({ item }) => (
                             <TouchableOpacity 
                                 style={styles.boardSelectItem}

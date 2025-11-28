@@ -1,12 +1,11 @@
 import { useLocalSearchParams, useRouter  } from "expo-router"
-import { Image, Text, TouchableOpacity, View} from "react-native"
+import { View} from "react-native"
 import { BoardList } from "@/src/components/board_list/board_lists"
 import { Toolbar } from "@/src/components/toolbar";
 import { useState, useEffect } from "react";
 import { AddListModal } from "@/src/components/board_list/add_list_modal"
 import { EditListModal } from "@/src/components/board_list/edit_list_modal"
 import { ListsThumbnail } from "@/src/types/lists_thumbnail";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import data from "@/src/resources/data.json";
 
 export function Board() {
@@ -23,40 +22,16 @@ export function Board() {
     loadlists();
   }, []);
 
-  // Save lists to AsyncStorage whenever they change
-  useEffect(() => {
-    if (!isLoading) {
-      savelists(lists);
-    }
-  }, [lists, isLoading]);
+  
 
   const loadlists = async () => {
     try {
-      const savedlists = await AsyncStorage.getItem('lists');
-      if (savedlists) {
-        // Use saved lists if they exist
-        setLists(JSON.parse(savedlists));
-      } else {
-        // First time app is opened, use JSON data
-        const jsonlists = data.lists as unknown as ListsThumbnail[];
-        setLists(jsonlists);
-        await AsyncStorage.setItem('lists', JSON.stringify(jsonlists));
-      }
-    } catch (error) {
-      console.error('Error loading lists:', error);
-      // Fallback to JSON data if AsyncStorage fails
       const jsonlists = data.lists as unknown as ListsThumbnail[];
       setLists(jsonlists);
+    } catch (error) {
+      console.error('Error loading lists:', error);
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  const savelists = async (listsToSave: ListsThumbnail[]) => {
-    try {
-      await AsyncStorage.setItem('lists', JSON.stringify(listsToSave));
-    } catch (error) {
-      console.error('Error saving lists:', error);
     }
   };
 

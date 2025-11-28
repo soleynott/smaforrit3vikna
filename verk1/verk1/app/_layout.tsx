@@ -1,5 +1,7 @@
 import { Stack } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { BoardItemProps } from "@/src/components/home/board_item";
+
 export default function RootLayout() {
   return (
     <GestureHandlerRootView>
