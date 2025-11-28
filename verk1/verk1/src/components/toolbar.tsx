@@ -24,18 +24,20 @@ export function Toolbar(props: ToolbarProps) {
 const styles = StyleSheet.create({
   toolbar: {
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    height: 100,
-    backgroundColor: "#a9d9e5",
+    justifyContent: "space-around",
+    paddingVertical: 14,
+    backgroundColor: "#c6e6ef",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
+
   toolbarAction: {
-    flex: 1,
-    alignItems: "center",
+    padding: 6,
   },
-  toolbarActionText: { 
-    fontWeight: "bold",
-    color: "black",
+
+  toolbarActionText: {
     fontSize: 16,
-  }
+    fontWeight: "500",
+    color: "#002f40"
+  },
 });

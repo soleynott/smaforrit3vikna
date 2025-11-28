@@ -18,31 +18,39 @@ export function ListItem(props: ListItemProps) {
 
 const styles = StyleSheet.create({
   container: {
-    width: "95%",
-    margin: 5,
+    width: "94%",
+    marginVertical: 6,
     alignSelf: "center",
-    backgroundColor: "#fff",
-    borderRadius: 12,
-    paddingVertical: 14,
-    paddingHorizontal: 16,
+    backgroundColor: "#ffffff",
+    borderRadius: 14,
+    paddingVertical: 18,
+    paddingLeft: 20,   // better alignment with notch
+    paddingRight: 16,
     flexDirection: "row",
     alignItems: "center",
-    overflow: "hidden",
-    elevation: 1,
+    
+    // Softer iOS-like shadow
+    shadowColor: "#000",
+    shadowOpacity: 0.08,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 2,
   },
+
   notch: {
     position: "absolute",
     left: 0,
     top: 0,
     bottom: 0,
-    width: 22, // notch width
-    borderTopLeftRadius: 12,   // only left corners rounded
-    borderBottomLeftRadius: 12,
+    width: 12,                // slimmer + cleaner
+    borderTopLeftRadius: 14,
+    borderBottomLeftRadius: 14,
   },
+
   name: {
-    marginLeft: 18, // push text away from notch
-    fontSize: 16,
+    marginLeft: 12,
+    fontSize: 17,
     fontWeight: "600",
-    color: "#333",
+    color: "#272727",
   },
 });
