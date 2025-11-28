@@ -16,7 +16,7 @@ A project management tool inspired by the Kanban technique. Create Boards to org
 - Future Improvements
 ## Running the app
 ### Navigate to project directory
-`cd verk1`
+`cd verk1/verk1`
 
 ### Install dependencies
 `npm install`
