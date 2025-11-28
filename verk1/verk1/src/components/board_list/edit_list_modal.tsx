@@ -127,7 +127,7 @@ export function EditListModal(props: EditListProps){
         );
     }
 
-    // Board selection mode
+    // List selection mode
     return(
         <Modal title="Edit or Delete List" isOpen={props.isOpen} closeModal={props.closeModal}>
             <View style={styles.boardListContainer}>

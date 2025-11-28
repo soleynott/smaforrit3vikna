@@ -1,6 +1,5 @@
 import { StyleSheet, TouchableOpacity, View, Text, TextInput, ScrollView } from "react-native";
 import { Modal } from "../home/modal";
-import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
 import { TasksThumbnail } from "@/src/types/tasks_thumbnail";
 
@@ -35,7 +34,8 @@ export function AddTaskModal(props: AddTaskModalProps) {
         const newTask: TasksThumbnail = {
             id: props.nextId,
             name: name,
-            color: color,
+            description: description,
+            isFinished: false,
             listId: props.listId,
         };
 
@@ -57,13 +57,14 @@ export function AddTaskModal(props: AddTaskModalProps) {
                 />
 
                 <TextInput
-                    style={styles.input}
-                    placeholder="color hexcode"
-                    value={color}
-                    onChangeText={setColor}
+                    style={[styles.input, styles.descriptionInput]}
+                    placeholder="Board Description"
+                    value={description}
+                    onChangeText={setDescription}
+                    multiline
+                    numberOfLines={4}
                     placeholderTextColor="#999"
                 />
-
 
                 <TouchableOpacity 
                     style={styles.createButton}
@@ -104,5 +105,10 @@ const styles = StyleSheet.create({
         color: "white",
         fontSize: 18,
         fontWeight: "bold",
+    },
+
+    descriptionInput: {
+        textAlignVertical: "top",
+        minHeight: 100,
     },
 });
