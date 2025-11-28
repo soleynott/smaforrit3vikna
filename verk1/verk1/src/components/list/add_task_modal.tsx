@@ -9,7 +9,6 @@ interface AddTaskModalProps {
     closeModal: () => void;
     onTaskCreate: (Task: TasksThumbnail) => void;
     listId: number;
-    nextId: number;
 }
 
 export function AddTaskModal(props: AddTaskModalProps) {
@@ -32,7 +31,7 @@ export function AddTaskModal(props: AddTaskModalProps) {
         }
 
         const newTask: TasksThumbnail = {
-            id: props.nextId,
+            id: Date.now(),
             name: name,
             description: description,
             isFinished: false,
