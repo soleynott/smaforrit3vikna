@@ -1,7 +1,8 @@
-import { StyleSheet, TouchableOpacity, View, Text, TextInput, ScrollView } from "react-native";
+import { TouchableOpacity, View, Text, TextInput, ScrollView } from "react-native";
 import { Modal } from "../home/modal";
 import { useState } from "react";
 import { TasksThumbnail } from "@/src/types/tasks_thumbnail";
+import styles from "./list_styles/add_task_styles";
 
 
 interface AddTaskModalProps {
@@ -9,7 +10,6 @@ interface AddTaskModalProps {
     closeModal: () => void;
     onTaskCreate: (Task: TasksThumbnail) => void;
     listId: number;
-    nextId: number;
 }
 
 export function AddTaskModal(props: AddTaskModalProps) {
@@ -32,7 +32,7 @@ export function AddTaskModal(props: AddTaskModalProps) {
         }
 
         const newTask: TasksThumbnail = {
-            id: props.nextId,
+            id: Date.now(),
             name: name,
             description: description,
             isFinished: false,
@@ -79,36 +79,3 @@ export function AddTaskModal(props: AddTaskModalProps) {
 }
 
 export default AddTaskModal;
-
-const styles = StyleSheet.create({
-    formContainer: {
-        gap: 15,
-        paddingBottom: 20,
-    },
-    input: {
-        borderWidth: 1,
-        borderColor: "#ddd",
-        padding: 12,
-        borderRadius: 8,
-        fontSize: 16,
-        backgroundColor: "white",
-        marginBottom: 10,
-    },
-    createButton: {
-        backgroundColor: "#27ae60",
-        padding: 15,
-        borderRadius: 8,
-        alignItems: "center",
-        marginTop: 10,
-    },
-    createButtonText: {
-        color: "white",
-        fontSize: 18,
-        fontWeight: "bold",
-    },
-
-    descriptionInput: {
-        textAlignVertical: "top",
-        minHeight: 100,
-    },
-});

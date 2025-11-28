@@ -42,14 +42,3 @@ export function HomeBoards({ boards }: HomeBoardsProps) {
         </View>
     )
 }
-
-
-
-/*  "boards": [
-    {
-        "id": 1,
-        "name": "Trip to the Netherlands!",
-        "description": "A trip to the Netherlands for a summer holiday.",
-        "thumbnailPhoto": "https://images.prismic.io/indiecampers-demo/9f34856d-05da-4afb-832f-d3a36de83b7f_Hero---Kinderdijk.jpg"
-    },
-    ],*/

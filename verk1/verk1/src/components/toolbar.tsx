@@ -1,4 +1,5 @@
-import { View, Text, Image, StyleSheet, TouchableHighlight } from "react-native";
+import { View, Text, TouchableHighlight } from "react-native";
+import styles from "./toolbar_styles";
 
 interface ToolbarProps {
     name: string;
@@ -18,26 +19,3 @@ export function Toolbar(props: ToolbarProps) {
         </View>
     );
 }
-
-
-
-const styles = StyleSheet.create({
-  toolbar: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    paddingVertical: 14,
-    backgroundColor: "#c6e6ef",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-
-  toolbarAction: {
-    padding: 6,
-  },
-
-  toolbarActionText: {
-    fontSize: 16,
-    fontWeight: "500",
-    color: "#002f40"
-  },
-});
