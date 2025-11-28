@@ -1,7 +1,9 @@
-import { StyleSheet, TouchableOpacity, View, Text, TextInput, ScrollView } from "react-native";
+import { TouchableOpacity, View, Text, TextInput, ScrollView } from "react-native";
 import { Modal } from "../home/modal";
 import { useState } from "react";
 import { ListsThumbnail } from "@/src/types/lists_thumbnail";
+import styles from "../board_list/board_list_styles/add_list_styles";
+
 import ColorPicker from "react-native-wheel-color-picker";   
 
 interface AddListModalProps {
@@ -76,30 +78,4 @@ export function AddListModal(props: AddListModalProps) {
 
 export default AddListModal;
 
-const styles = StyleSheet.create({
-    formContainer: {
-        gap: 15,
-        paddingBottom: 20,
-    },
-    input: {
-        borderWidth: 1,
-        borderColor: "#ddd",
-        padding: 12,
-        borderRadius: 8,
-        fontSize: 16,
-        backgroundColor: "white",
-        marginBottom: 10,
-    },
-    createButton: {
-        backgroundColor: "#27ae60",
-        padding: 15,
-        borderRadius: 8,
-        alignItems: "center",
-        marginTop: 10,
-    },
-    createButtonText: {
-        color: "white",
-        fontSize: 18,
-        fontWeight: "bold",
-    },
-});
+
