@@ -1,50 +1,65 @@
-# Welcome to your Expo app 👋
+# Toodler
+## Description
+A project management tool inspired by the Kanban technique. Create Boards to organize lists and tasks for each list! Built with Expo and React-Native
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Table of Contents
+- Installation
+- Features
+- Technologies Used
+- Platform Support
+- Project Structure
+- Setup Instructions
+- Running the App
+- Testing
+- Screenshots
+- Known Issues
+- Future Improvements
+## Running the app
+### Navigate to project directory
+`cd verk1`
 
-## Get started
+### Install dependencies
+`npm install`
 
-1. Install dependencies
+### Running the App
+`npm start`
+run on device or simulator:
+`npm run ios`
+`npm run android`
+`npm run web`
 
-   ```bash
-   npm install
-   ```
+## Technologies Used
+- React Native
+- TypeScript
+- React Navigation
+- Expo
+- Expo Router
+- Async
+- react-native-gesture-handler
+  
+## Platform Support
+### Primary Development Platform
+- Primary Platform: iOS
+- Test Device: Iphone 11/13/17 pro
 
-2. Start the app
+- OS Version: iOS 18.6.2 
+### Secondary Platform Testing
+- Secondary Platform: Android
+- Test Device: Android medium device via Android studio
+- OS Version: Android 16.0
+- Testing Status: comprehensive
+- Known Platform-Specific Issues: none known
 
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Setup Instructions
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn
+- React Native CLI
+- Xcode (for iOS development)
+- Android Studio (for Android development)
+### Environment Setup
+1. Install React Native dependencies
+2. Configure development environment
+3. Set up emulators/simulators
+## Known Issues
+- none currently known
