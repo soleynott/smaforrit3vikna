@@ -11,13 +11,13 @@ export default function RootLayout() {
         }}
         />
         <Stack.Screen
-        name="board/[id]"
+        name="board"
         options={{
           title: "Board", //breyta í nafnið á boardinu
         }}
         />
         <Stack.Screen
-        name="list/[id]"
+        name="list"
         options={{
           title: "List",
         }}
