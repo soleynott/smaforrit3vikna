@@ -1,11 +1,12 @@
 import { Directory, File, Paths } from 'expo-file-system';
+import { v4 as uuidv4 } from 'uuid';
 
 const contactDirectory = new Directory(Paths.document, 'contacts');
 
-export interface ContactItem {
+export interface Contact {
 	name: string;
-	type: 'contact';
-	file: string;
+	phoneNumber: string;
+	photo: string | null;
 }
 
 type ErrorHandler = (error: Error) => void;
@@ -23,7 +24,7 @@ const onException = async <T>(
 		if (errorHandler) {
 			errorHandler(error);
 		} else {
-			console.error('[FileService Error]:', error.message);
+			console.error('[ContactFileService Error]:', error.message);
 		}
 
 		return null;
@@ -31,63 +32,58 @@ const onException = async <T>(
 };
 
 /**
- * Cleans the entire image directory
+ * Sets up the contact directory if it doesn't exist
  */
-export const cleanDirectory = async (): Promise<void> => {
+const setupDirectory = async (): Promise<void> => {
 	await onException(() => {
-		if (imageDirectory.exists) {
-			imageDirectory.delete();
+		if (!contactDirectory.exists) {
+			contactDirectory.create();
+			console.log('Contact directory created:', contactDirectory.uri);
 		}
 	});
 };
 
 /**
- * Copies a file from one location to another
+ * save a contact to the directory
  */
-export const copyFile = async (sourceUri: string, destinationUri: string): Promise<void> => {
-	const result = await onException(() => {
-		const sourceFile = new File(sourceUri);
-		const destinationFile = new File(destinationUri);
-		sourceFile.copy(destinationFile);
-	});
-
-	if (result === null) {
-		throw new Error(`Failed to copy file from ${sourceUri} to ${destinationUri}`);
-	}
-};
-
-/**
- * Adds an image to the directory
- */
-export const addImage = async (imageLocation: string): Promise<ImageItem> => {
+export const saveContact = async (contact: Contact): Promise<{ id: string; filename: string }> => {
 	// Ensure directory exists
 	await setupDirectory();
 
-	const folderSplit = imageLocation.split('/');
-	const fileName = folderSplit[folderSplit.length - 1];
+	const id = uuidv4();
+	const filename = `${contact.name}-${id}.json`;
 
-	const sourceFile = new File(imageLocation);
-	const destinationFile = new File(imageDirectory.uri, fileName);
+	const file = new File(contactDirectory.uri, filename);
 
 	await onException(() => {
-		sourceFile.copy(destinationFile);
+		file.write(JSON.stringify(contact));
 	});
 
-	const fileContent = await loadImage(fileName);
+	//const fileContent = await loadImage(fileName);
 
-	return {
-		name: fileName,
-		type: 'image',
-		file: fileContent,
-	};
+	return { id, filename };
 };
 
 /**
- * Removes an image from the directory
+ * Loads a single contact
  */
-export const remove = async (name: string): Promise<void> => {
+export const loadContact = async (filename: string): Promise<Contact | null> => {
+	const filepath = `${contactDirectory.uri}/${filename}`;
+
+	const result = await onException(() => {
+		const file = new File(contactDirectory.uri, filename);
+		return JSON.parse(file.read());
+	});
+
+	return result;
+};
+
+/**
+ * Removes a contact from the directory
+ */
+export const removeContact = async (filename: string): Promise<void> => {
 	await onException(() => {
-		const file = new File(imageDirectory.uri, name);
+		const file = new File(contactDirectory.uri, filename);
 		if (file.exists) {
 			file.delete();
 		}
@@ -95,69 +91,60 @@ export const remove = async (name: string): Promise<void> => {
 };
 
 /**
- * Loads an image as a base64 string
+ * Gets all contacts from the directory
  */
-export const loadImage = async (fileName: string): Promise<string> => {
-	const result = await onException(() => {
-		const file = new File(imageDirectory.uri, fileName);
-		return file.base64();
-	});
-
-	if (result === null) {
-		console.warn(`Failed to load image: ${fileName}`);
-
-		return '';
-	}
-
-	return result;
-};
-
-/**
- * Sets up the image directory if it doesn't exist
- */
-const setupDirectory = async (): Promise<void> => {
-	await onException(() => {
-		if (!imageDirectory.exists) {
-			imageDirectory.create();
-			console.log('Image directory created:', imageDirectory.uri);
-		}
-	});
-};
-
-/**
- * Gets all images from the directory
- */
-export const getAllImages = async (): Promise<ImageItem[]> => {
+export const getAllContacts = async (): Promise<{ filename: string; contact: Contact }[]> => {
 	// Check if directory exists
 	await setupDirectory();
 
-	const items = await onException(() => {
-		return imageDirectory.list();
-	});
+	const items = await onException(() => contactDirectory.list());
 
-	if (!items || items.length === 0) {
-		return [];
-	}
+	if (!items) return [];
 
-	// Filter to only get File instances (not directories) and extract names
-	const imageFiles = items
-		.filter((item) => item instanceof File)
-		.map((item) => (item as File).name)
-		.filter(
-			(fileName) =>
-				!fileName.startsWith('.') && /\.(jpg|jpeg|png|gif|webp|bmp)$/i.test(fileName),
-		);
+	// Filter to only get File instances that are JSON
+	const contactFiles = items.filter(
+		(item) => item instanceof File && (item as File).name.endsWith('.json'),
+	) as File[];
 
-	const images = await Promise.all(
-		imageFiles.map(async (fileName): Promise<ImageItem> => {
-			const fileContent = await loadImage(fileName);
+	//load all contacts
+	const contacts = await Promise.all(
+		contactFiles.map(async (file) => {
+			const contact = await loadContact(file.name);
 			return {
-				name: fileName,
-				type: 'image',
-				file: fileContent,
+				filename: file.name,
+				contact,
 			};
 		}),
 	);
 
-	return images;
+	return contacts.filter((c) => c !== null) as {
+		filename: string;
+		contact: Contact;
+	}[];
 };
+
+// /**
+//  * Cleans the entire image directory
+//  */
+// export const cleanDirectory = async (): Promise<void> => {
+// 	await onException(() => {
+// 		if (imageDirectory.exists) {
+// 			imageDirectory.delete();
+// 		}
+// 	});
+// };
+
+// /**
+//  * Copies a file from one location to another
+//  */
+// export const copyFile = async (sourceUri: string, destinationUri: string): Promise<void> => {
+// 	const result = await onException(() => {
+// 		const sourceFile = new File(sourceUri);
+// 		const destinationFile = new File(destinationUri);
+// 		sourceFile.copy(destinationFile);
+// 	});
+
+// 	if (result === null) {
+// 		throw new Error(`Failed to copy file from ${sourceUri} to ${destinationUri}`);
+// 	}
+// };
