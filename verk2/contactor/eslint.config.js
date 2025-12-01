@@ -6,5 +6,15 @@ module.exports = defineConfig([
   expoConfig,
   {
     ignores: ['dist/*'],
+    rules: {
+      indent: ['error', 'tab'],
+      'no-mixed-spaces-and-tabs': ['error', 'smart-tabs'],
+      'prettier/prettier':[
+        'error',
+        {
+          useTabs: true,
+        },
+      ],
+    },
   },
 ]);
