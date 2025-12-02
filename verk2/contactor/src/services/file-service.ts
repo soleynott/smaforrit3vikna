@@ -1,5 +1,6 @@
 import { Directory, File, Paths } from 'expo-file-system';
 import { v4 as uuidv4 } from 'uuid';
+import { ContactThumbnail } from '../types/contact_thumbnail';
 
 const contactDirectory = new Directory(Paths.document, 'contacts');
 
@@ -46,7 +47,7 @@ const setupDirectory = async (): Promise<void> => {
 /**
  * save a contact to the directory
  */
-export const saveContact = async (contact: Contact): Promise<{ id: string; filename: string }> => {
+export const saveContact = async (contact: ContactThumbnail): Promise<{ id: string; filename: string }> => {
 	// Ensure directory exists
 	await setupDirectory();
 
@@ -67,7 +68,7 @@ export const saveContact = async (contact: Contact): Promise<{ id: string; filen
 /**
  * Loads a single contact
  */
-export const loadContact = async (filename: string): Promise<Contact | null> => {
+export const loadContact = async (filename: string): Promise<ContactThumbnail | null> => {
 	const filepath = `${contactDirectory.uri}/${filename}`;
 
 	const result = await onException(() => {
@@ -93,7 +94,7 @@ export const removeContact = async (filename: string): Promise<void> => {
 /**
  * Gets all contacts from the directory
  */
-export const getAllContacts = async (): Promise<{ filename: string; contact: Contact }[]> => {
+export const getAllContacts = async (): Promise<{ filename: string; contact: ContactThumbnail }[]> => {
 	// Check if directory exists
 	await setupDirectory();
 
@@ -119,7 +120,7 @@ export const getAllContacts = async (): Promise<{ filename: string; contact: Con
 
 	return contacts.filter((c) => c !== null) as {
 		filename: string;
-		contact: Contact;
+		contact: ContactThumbnail;
 	}[];
 };
 
