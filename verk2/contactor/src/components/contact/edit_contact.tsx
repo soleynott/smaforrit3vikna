@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { useLocalSearchParams, router } from "expo-router";
-import conta
+import ContactScreen from "@/app/contact";
 
 export default function EditContactScreen() {
   const { name, number, image } = useLocalSearchParams<{
