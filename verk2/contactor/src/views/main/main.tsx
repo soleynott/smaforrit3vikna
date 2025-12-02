@@ -11,12 +11,11 @@
 import { StyleSheet } from 'react-native';
 import React from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';           // 👈 NEW
+import { useRouter } from 'expo-router';
 import data from '../../resources/data.json';
 
 export default function MainScreen() {
-  const router = useRouter();                      // 👈 NEW
-
+  const router = useRouter();
   return (
     <View style={styles.screen}>
       <FlatList
@@ -27,7 +26,6 @@ export default function MainScreen() {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.row}
-            // 👇 navigate to /contact and pass fields as params
             onPress={() =>
               router.push({
                 pathname: '/contact',
