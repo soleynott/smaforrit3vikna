@@ -11,7 +11,7 @@
 
 import React, { useState } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';           // 👈 NEW
+import { useRouter } from 'expo-router';
 import data from '../../resources/data.json';
 import { AddModal } from '@/src/components/main/add_modal';
 import { ContactThumbnail } from '@/src/types/contact_thumbnail';
