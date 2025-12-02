@@ -1,3 +1,3 @@
-import ContactScreen from "@/src/views/main/main";  
+import MainScreen from "@/src/views/main/main";  
 
-export default ContactScreen;
+export default MainScreen;
