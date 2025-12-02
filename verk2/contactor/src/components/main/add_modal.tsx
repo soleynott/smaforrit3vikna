@@ -138,7 +138,7 @@ export function AddModal(props: AddModalProps) {
   }
   return (
     <Modal
-      title="Add New Board"
+      title="Add New Contact"
       isOpen={props.isOpen}
       closeModal={props.closeModal}
     >
@@ -187,7 +187,7 @@ export function AddModal(props: AddModalProps) {
           style={styles.createButton}
           onPress={handleCreateContact}
         >
-          <Text style={styles.createButtonText}>Create Board</Text>
+          <Text style={styles.createButtonText}>Create Contact</Text>
         </TouchableOpacity>
       </ScrollView>
     </Modal>
