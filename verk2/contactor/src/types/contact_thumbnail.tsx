@@ -1,5 +1,6 @@
 export interface ContactThumbnail {
+    filename?: string; 
     name: string;
     phoneNumber: string;
-    thumbnailPhoto: string;
+    thumbnailPhoto: string | null;
 }
