@@ -1,5 +1,5 @@
 import { Directory, File, Paths } from 'expo-file-system';
-import { v4 as uuidv4 } from 'uuid';
+import uuid from 'react-native-uuid';
 import { ContactThumbnail } from '../types/contact_thumbnail';
 
 const contactDirectory = new Directory(Paths.document, 'contacts');
@@ -9,6 +9,11 @@ export interface Contact {
 	phoneNumber: string;
 	photo: string | null;
 }
+
+
+const generateId = (): string => {
+	return uuid.v4();
+};
 
 type ErrorHandler = (error: Error) => void;
 
@@ -51,16 +56,16 @@ export const saveContact = async (contact: ContactThumbnail): Promise<{ id: stri
 	// Ensure directory exists
 	await setupDirectory();
 
-	const id = uuidv4();
+	const id = generateId();
 	const filename = `${contact.name}-${id}.json`;
+	
+	console.log('[FileService] Saving contact:', filename);
 
-	const file = new File(contactDirectory.uri, filename);
-
-	await onException(() => {
-		file.write(JSON.stringify(contact));
+	await onException(async () => {
+		const file = new File(contactDirectory, filename);
+		await file.write(JSON.stringify(contact));
+		console.log('[FileService] Successfully saved:', filename);
 	});
-
-	//const fileContent = await loadImage(fileName);
 
 	return { id, filename };
 };
@@ -69,11 +74,10 @@ export const saveContact = async (contact: ContactThumbnail): Promise<{ id: stri
  * Loads a single contact
  */
 export const loadContact = async (filename: string): Promise<ContactThumbnail | null> => {
-	const filepath = `${contactDirectory.uri}/${filename}`;
-
-	const result = await onException(() => {
-		const file = new File(contactDirectory.uri, filename);
-		return JSON.parse(file.read());
+	const result = await onException(async () => {
+		const file = new File(contactDirectory, filename);
+		const content = await file.text();
+		return JSON.parse(content);
 	});
 
 	return result;
@@ -83,11 +87,11 @@ export const loadContact = async (filename: string): Promise<ContactThumbnail | 
  * Removes a contact from the directory
  */
 export const removeContact = async (filename: string): Promise<void> => {
-	await onException(() => {
-		const file = new File(contactDirectory.uri, filename);
-		if (file.exists) {
-			file.delete();
-		}
+	console.log('[FileService] Deleting contact file:', filename);
+	await onException(async () => {
+		const file = new File(contactDirectory, filename);
+		await file.delete();
+		console.log('[FileService] Successfully deleted:', filename);
 	});
 };
 

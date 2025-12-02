@@ -1,17 +1,21 @@
    //show all lists for certain board
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import data from "../../resources/data.json";
 import { FlatList } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
 import { StyleSheet } from 'react-native';
+import { ContactThumbnail } from '@/src/types/contact_thumbnail';
 
-export function ContactsList () {
+interface ContactsListProps {
+  contacts: ContactThumbnail[];
+}
+
+export function ContactsList ({ contacts }: ContactsListProps) {
     const router = useRouter();  
     return (
     <View style={{ flex: 1 }}>
     <FlatList
-            data={data.contacts}
-            keyExtractor={(item) => item.number}
+            data={contacts}
+            keyExtractor={(item, index) => index.toString()}
             contentContainerStyle={styles.listContent}
             ItemSeparatorComponent={() => <View style={styles.separator} />}
             renderItem={({ item }) => (
@@ -23,17 +27,22 @@ export function ContactsList () {
                     pathname: '/contact',
                     params: {
                     name: item.name,
-                    number: item.number,
-                    image: item.image,
+                    number: item.phoneNumber,
+                    image: item.thumbnailPhoto,
+                    filename: item.filename,
                     },
                 })
                 }
                 activeOpacity={0.7}
             >
-                <Image source={{ uri: item.image }} style={styles.avatar} />
+                {item.thumbnailPhoto ? (
+                    <Image source={{ uri: item.thumbnailPhoto }} style={styles.avatar} />
+                ) : (
+                    <View style={[styles.avatar, { backgroundColor: '#e0e0e0' }]} />
+                )}
                 <View style={styles.textContainer}>
                 <Text style={styles.name}>{item.name}</Text>
-                <Text style={styles.phone}>{item.number}</Text>
+                <Text style={styles.phone}>{item.phoneNumber}</Text>
                 </View>
             </TouchableOpacity>
             )}

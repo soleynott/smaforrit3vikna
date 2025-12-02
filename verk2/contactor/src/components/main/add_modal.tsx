@@ -79,7 +79,7 @@ export function AddModal(props: AddModalProps) {
 
     };
     
-    const handleCreateContact = () => {
+    const handleCreateContact = async () => {
         if (!name || !phone || !imageUri) {
             alert("Please fill in all fields and select an image");
             return;
@@ -89,9 +89,14 @@ export function AddModal(props: AddModalProps) {
             phoneNumber: phone,
             thumbnailPhoto: imageUri,
         };
-        props.onContactCreate(newContact);
-        resetForm();
-        props.closeModal();
+        try {
+            await props.onContactCreate(newContact);
+            resetForm();
+            props.closeModal();
+        } catch (error) {
+            console.error("Error creating contact:", error);
+            alert("Failed to create contact");
+        }
     };
 
     const resetForm = () => {

@@ -1,21 +1,20 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import data from "../../resources/data.json";
-import { FlatList } from "react-native-gesture-handler";
-import { useRouter } from "expo-router";
 import { StyleSheet } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 
-export function ContactList () {
-    const { name, number, image } = useLocalSearchParams<{
-    name?: string;
-    number?: string;
-    image?: string;
-  }>();
+interface ContactListProps {
+  name?: string;
+  number?: string;
+  image?: string | null;
+  onEditPress?: () => void;
+}
+
+export function ContactList ({ name, number, image, onEditPress }: ContactListProps) {
 
   return (
     <View style={styles.screen}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => console.log("Edit pressed")}>
+        <TouchableOpacity onPress={onEditPress}>
           <Text style={styles.edit}>Edit</Text>
         </TouchableOpacity>
       </View>
