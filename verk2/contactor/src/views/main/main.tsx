@@ -3,20 +3,22 @@
  *      search bar
  *      list of contacts
  *      option to add new contact
- * 
+ *
  * when a contact's name is clicked it should
  * route to that contact's detail view
- * 
  */
+
 import { StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';           // 👈 NEW
 import data from '../../resources/data.json';
 import { AddModal } from '@/src/components/main/add_modal';
 import { ContactThumbnail } from '@/src/types/contact_thumbnail';
 import { Toolbar } from "@/src/components/toolbar";
 
-export default function ContactScreen({ navigation }: { navigation: any }) {
+export default function MainScreen() {
+  const router = useRouter();                      // 👈 NEW
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [contact, setContact] = useState<ContactThumbnail[]>([]);
 
@@ -31,11 +33,9 @@ export default function ContactScreen({ navigation }: { navigation: any }) {
   const handleAddModal = () => {
     setIsAddModalOpen(true);
   }
-
-
   return (
     <View style={styles.screen}>
-             <Toolbar onAdd={handleAddModal}  />
+      <Toolbar onAdd={handleAddModal}  />
       <AddModal 
       isOpen={isAddModalOpen}
       closeModal={handleCloseAddModal}
@@ -49,7 +49,17 @@ export default function ContactScreen({ navigation }: { navigation: any }) {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.row}
-            onPress={() => navigation.navigate('Contact', { contact: item })}
+            // 👇 navigate to /contact and pass fields as params
+            onPress={() =>
+              router.push({
+                pathname: '/contact',
+                params: {
+                  name: item.name,
+                  number: item.number,
+                  image: item.image,
+                },
+              })
+            }
             activeOpacity={0.7}
           >
             <Image source={{ uri: item.image }} style={styles.avatar} />
@@ -68,7 +78,7 @@ export default function ContactScreen({ navigation }: { navigation: any }) {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: '#f2f2f7', // iOS-style light grey
+    backgroundColor: '#f2f2f7',
   },
   listContent: {
     paddingVertical: 8,
@@ -102,6 +112,6 @@ const styles = StyleSheet.create({
   separator: {
     height: StyleSheet.hairlineWidth,
     backgroundColor: '#d1d1d6',
-    marginLeft: 76, // lines up under text, not under avatar
+    marginLeft: 76,
   },
 });
