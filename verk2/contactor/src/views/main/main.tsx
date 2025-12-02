@@ -9,13 +9,38 @@
  * 
  */
 import { StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
 import data from '../../resources/data.json';
+import { AddModal } from '@/src/components/main/add_modal';
+import { ContactThumbnail } from '@/src/types/contact_thumbnail';
+import { Toolbar } from "@/src/components/toolbar";
 
 export default function ContactScreen({ navigation }: { navigation: any }) {
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [contact, setContact] = useState<ContactThumbnail[]>([]);
+
+  const handleCloseAddModal = () => {
+    setIsAddModalOpen(false);
+  }
+
+  const handleContactCreate = (newContact: ContactThumbnail) => {
+    setContact([...contact, newContact]); //Change this
+  }
+
+  const handleAddModal = () => {
+    setIsAddModalOpen(true);
+  }
+
+
   return (
     <View style={styles.screen}>
+             <Toolbar onAdd={handleAddModal}  />
+      <AddModal 
+      isOpen={isAddModalOpen}
+      closeModal={handleCloseAddModal}
+      onContactCreate={handleContactCreate}
+      />
       <FlatList
         data={data.contacts}
         keyExtractor={(item) => item.number}
@@ -35,6 +60,7 @@ export default function ContactScreen({ navigation }: { navigation: any }) {
           </TouchableOpacity>
         )}
       />
+
     </View>
   );
 }
