@@ -1,4 +1,4 @@
-   //show all lists for certain board
+//show all lists for certain board
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { FlatList } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
@@ -6,7 +6,7 @@ import { ContactThumbnail } from '@/src/types/contact_thumbnail';
 import styles from '../main/styles/main_list_style';
 
 interface ContactsListProps {
-  contacts: ContactThumbnail[];
+	contacts: ContactThumbnail[];
 }
 
 export function ContactsList ({ contacts }: ContactsListProps) {
@@ -50,4 +50,3 @@ export function ContactsList ({ contacts }: ContactsListProps) {
     )
 
 }
-
