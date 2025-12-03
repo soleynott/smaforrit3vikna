@@ -13,6 +13,7 @@ import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
 import { useRouter, useFocusEffect } from 'expo-router';
 import data from '../../resources/data.json';
 import { AddModal } from '@/src/components/main/add_modal';
+import { ImportContactsModal } from '@/src/components/main/import_modal';
 import { ContactThumbnail } from '@/src/types/contact_thumbnail';
 import { Toolbar } from '@/src/components/toolbar';
 import { ContactsList } from '@/src/components/main/main_list';
@@ -21,7 +22,7 @@ import { SearchModal } from '@/src/components/main/search_modal';
 
 export default function MainScreen() {
 	const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-	const [isSearchOpen, setSearchOpen] = useState(false);
+	const [isImportModalOpen, setIsImportModalOpen] = useState(false);
 	const [contacts, setContacts] = useState<ContactThumbnail[]>([]);
 
 	// Load contacts from file system on mount
@@ -54,6 +55,10 @@ export default function MainScreen() {
 		setIsAddModalOpen(false);
 	};
 
+	const handleCloseImportModal = () => {
+		setIsImportModalOpen(false);
+	};
+
 	const handleContactCreate = async (newContact: ContactThumbnail) => {
 		// Save to file system
 		await saveContact(newContact);
@@ -61,22 +66,33 @@ export default function MainScreen() {
 		setContacts([...contacts, newContact]);
 	};
 
+	const handleContactsImport = async (importedContacts: ContactThumbnail[]) => {
+		// Save all imported contacts to file system
+		await Promise.all(importedContacts.map((contact) => saveContact(contact)));
+		// Add to state
+		setContacts([...contacts, ...importedContacts]);
+	};
+
 	const handleAddModal = () => {
 		setIsAddModalOpen(true);
 	};
 
+	const handleImportModal = () => {
+		setIsImportModalOpen(true);
+	};
+
 	return (
 		<View style={{ flex: 1 }}>
-			<SearchModal
-				isOpen={isSearchOpen}
-				closeModal={() => setSearchOpen(false)}
-				contacts={contacts}
-			/>
-			<Toolbar onAdd={handleAddModal} />
+			<Toolbar onAdd={handleAddModal} onImport={handleImportModal} />
 			<AddModal
 				isOpen={isAddModalOpen}
 				closeModal={handleCloseAddModal}
 				onContactCreate={handleContactCreate}
+			/>
+			<ImportContactsModal
+				isOpen={isImportModalOpen}
+				closeModal={handleCloseImportModal}
+				onContactsImport={handleContactsImport}
 			/>
 			<ContactsList contacts={contacts} />
 		</View>

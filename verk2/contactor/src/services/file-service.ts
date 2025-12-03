@@ -1,6 +1,7 @@
 import { Directory, File, Paths } from 'expo-file-system';
 import uuid from 'react-native-uuid';
 import { ContactThumbnail } from '../types/contact_thumbnail';
+import * as Contacts from 'expo-contacts';
 
 const contactDirectory = new Directory(Paths.document, 'contacts');
 
@@ -131,28 +132,32 @@ export const getAllContacts = async (): Promise<
 	}[];
 };
 
-// /**
-//  * Cleans the entire image directory
-//  */
-// export const cleanDirectory = async (): Promise<void> => {
-// 	await onException(() => {
-// 		if (imageDirectory.exists) {
-// 			imageDirectory.delete();
-// 		}
-// 	});
-// };
+/**
+ * Imports contacts from device contacts
+ */
+export const importContactsFromDevice = async (): Promise<ContactThumbnail[]> => {
+	const result = await onException(async () => {
+		const permission = await Contacts.requestPermissionsAsync();
 
-// /**
-//  * Copies a file from one location to another
-//  */
-// export const copyFile = async (sourceUri: string, destinationUri: string): Promise<void> => {
-// 	const result = await onException(() => {
-// 		const sourceFile = new File(sourceUri);
-// 		const destinationFile = new File(destinationUri);
-// 		sourceFile.copy(destinationFile);
-// 	});
+		if (permission.status !== 'granted') {
+			throw new Error('Permission to access contacts was denied');
+		}
 
-// 	if (result === null) {
-// 		throw new Error(`Failed to copy file from ${sourceUri} to ${destinationUri}`);
-// 	}
-// };
+		const data = await Contacts.getContactsAsync({
+			fields: [Contacts.Fields.PhoneNumbers, Contacts.Fields.Image],
+		});
+
+		const importedContacts: ContactThumbnail[] = (data as any).contacts
+			.filter((contact: any) => contact.phoneNumbers && contact.phoneNumbers.length > 0)
+			.map((contact: any) => ({
+				name: contact.name || 'Unknown',
+				phoneNumber: contact.phoneNumbers?.[0].number || '',
+				thumbnailPhoto: contact.image?.uri || null,
+				filename: undefined, // New contacts don't have filenames yet
+			}));
+
+		return importedContacts;
+	});
+
+	return result || [];
+};
