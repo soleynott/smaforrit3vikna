@@ -2,7 +2,6 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { FlatList } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
-import { StyleSheet } from 'react-native';
 import { ContactThumbnail } from '@/src/types/contact_thumbnail';
 import styles from '../main/styles/main_list_style';
 
@@ -22,7 +21,6 @@ export function ContactsList ({ contacts }: ContactsListProps) {
             renderItem={({ item }) => (
             <TouchableOpacity
                 style={styles.row}
-                // 👇 navigate to /contact and pass fields as params
                 onPress={() =>
                 router.push({
                     pathname: '/contact',
