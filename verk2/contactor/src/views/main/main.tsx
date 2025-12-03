@@ -10,16 +10,18 @@
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
-import { useRouter, useFocusEffect } from 'expo-router'; // 👈 NEW
+import { useRouter, useFocusEffect } from 'expo-router';
 import data from '../../resources/data.json';
 import { AddModal } from '@/src/components/main/add_modal';
 import { ContactThumbnail } from '@/src/types/contact_thumbnail';
 import { Toolbar } from '@/src/components/toolbar';
 import { ContactsList } from '@/src/components/main/main_list';
 import { saveContact, getAllContacts } from '@/src/services/file-service';
+import { SearchModal } from '@/src/components/main/search_modal';
 
 export default function MainScreen() {
 	const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+	const [isSearchOpen, setSearchOpen] = useState(false);
 	const [contacts, setContacts] = useState<ContactThumbnail[]>([]);
 
 	// Load contacts from file system on mount
@@ -65,6 +67,11 @@ export default function MainScreen() {
 
 	return (
 		<View style={{ flex: 1 }}>
+			<SearchModal
+				isOpen={isSearchOpen}
+				closeModal={() => setSearchOpen(false)}
+				contacts={contacts}
+			/>
 			<Toolbar onAdd={handleAddModal} />
 			<AddModal
 				isOpen={isAddModalOpen}
