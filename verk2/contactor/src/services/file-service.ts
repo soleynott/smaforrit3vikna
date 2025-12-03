@@ -10,7 +10,6 @@ export interface Contact {
 	photo: string | null;
 }
 
-
 const generateId = (): string => {
 	return uuid.v4();
 };
@@ -52,13 +51,15 @@ const setupDirectory = async (): Promise<void> => {
 /**
  * save a contact to the directory
  */
-export const saveContact = async (contact: ContactThumbnail): Promise<{ id: string; filename: string }> => {
+export const saveContact = async (
+	contact: ContactThumbnail,
+): Promise<{ id: string; filename: string }> => {
 	// Ensure directory exists
 	await setupDirectory();
 
 	const id = generateId();
 	const filename = `${contact.name}-${id}.json`;
-	
+
 	console.log('[FileService] Saving contact:', filename);
 
 	await onException(async () => {
@@ -98,7 +99,9 @@ export const removeContact = async (filename: string): Promise<void> => {
 /**
  * Gets all contacts from the directory
  */
-export const getAllContacts = async (): Promise<{ filename: string; contact: ContactThumbnail }[]> => {
+export const getAllContacts = async (): Promise<
+	{ filename: string; contact: ContactThumbnail }[]
+> => {
 	// Check if directory exists
 	await setupDirectory();
 
