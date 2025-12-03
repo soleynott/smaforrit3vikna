@@ -4,7 +4,7 @@ import { Entypo } from '@expo/vector-icons';
 import { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { ContactThumbnail } from '../../types/contact_thumbnail';
-import styles from './styles/add_modal_styles';
+import styles from '../toolbar_styles';
 import {
 	requestCameraPermission,
 	requestMediaLibraryPermission,
@@ -147,7 +147,7 @@ export function AddModal(props: AddModalProps) {
 					returnKeyType="done"
 					//blurOnSubmit={true}
 					submitBehavior="blurAndSubmit"
-					style={[styles.input, styles.descriptionInput]}
+					style={styles.input}
 					placeholder="Contact Phone"
 					value={phone}
 					onChangeText={setPhone}

@@ -10,17 +10,24 @@
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
-import { useRouter, useFocusEffect } from 'expo-router'; // 👈 NEW
+import { useRouter, useFocusEffect } from 'expo-router';
 import data from '../../resources/data.json';
 import { AddModal } from '@/src/components/main/add_modal';
+import { ImportContactsModal } from '@/src/components/main/import_modal';
 import { ContactThumbnail } from '@/src/types/contact_thumbnail';
 import { Toolbar } from '@/src/components/toolbar';
 import { ContactsList } from '@/src/components/main/main_list';
 import { saveContact, getAllContacts } from '@/src/services/file-service';
+import { SearchModal } from '@/src/components/main/search_modal';
 
 export default function MainScreen() {
 	const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+	const [isImportModalOpen, setIsImportModalOpen] = useState(false);
 	const [contacts, setContacts] = useState<ContactThumbnail[]>([]);
+	const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+	const sortContacts = (list: ContactThumbnail[]) =>
+    list.slice().sort((a, b) => a.name.localeCompare(b.name));
 
 	// Load contacts from file system on mount
 	useEffect(() => {
@@ -29,7 +36,7 @@ export default function MainScreen() {
 			const contactData = loadedContacts
 				.map((item) => ({ ...item.contact, filename: item.filename }))
 				.filter((c) => c !== null);
-			setContacts(contactData as ContactThumbnail[]);
+			setContacts(sortContacts(contactData as ContactThumbnail[]));
 		};
 		loadContacts();
 	}, []);
@@ -42,7 +49,7 @@ export default function MainScreen() {
 				const contactData = loadedContacts
 					.map((item) => ({ ...item.contact, filename: item.filename }))
 					.filter((c) => c !== null);
-				setContacts(contactData as ContactThumbnail[]);
+				setContacts(sortContacts(contactData as ContactThumbnail[]));
 			};
 			loadContacts();
 		}, []),
@@ -52,24 +59,61 @@ export default function MainScreen() {
 		setIsAddModalOpen(false);
 	};
 
+	const handleCloseImportModal = () => {
+		setIsImportModalOpen(false);
+	};
+
 	const handleContactCreate = async (newContact: ContactThumbnail) => {
 		// Save to file system
 		await saveContact(newContact);
 		// Add to state
-		setContacts([...contacts, newContact]);
+		setContacts((prev) => sortContacts([...prev, newContact]));
+	};
+
+	const handleContactsImport = async (importedContacts: ContactThumbnail[]) => {
+		// Save all imported contacts to file system
+		await Promise.all(importedContacts.map((contact) => saveContact(contact)));
+		// Add to state
+		setContacts((prev) => sortContacts([...prev, ...importedContacts]));
 	};
 
 	const handleAddModal = () => {
 		setIsAddModalOpen(true);
 	};
 
+	const handleImportModal = () => {
+		setIsImportModalOpen(true);
+	};
+
+	const handleSearchModal = () => {
+		setIsSearchOpen(true);
+	};
+
+	const handleCloseSearchModal = () => {
+		setIsSearchOpen(false);
+	};
+
 	return (
 		<View style={{ flex: 1 }}>
-			<Toolbar onAdd={handleAddModal} />
+			<Toolbar
+				onAdd={handleAddModal}
+				onImport={handleImportModal}
+				onFilter={handleSearchModal}
+			/>
 			<AddModal
 				isOpen={isAddModalOpen}
 				closeModal={handleCloseAddModal}
 				onContactCreate={handleContactCreate}
+			/>
+			<ImportContactsModal
+				isOpen={isImportModalOpen}
+				closeModal={handleCloseImportModal}
+				onContactsImport={handleContactsImport}
+			/>
+			<SearchModal
+				isOpen={isSearchOpen}
+				closeModal={handleCloseSearchModal}
+				contacts={contacts}
 			/>
 			<ContactsList contacts={contacts} />
 		</View>
