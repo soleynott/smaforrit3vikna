@@ -20,7 +20,7 @@ export function SearchModal({ isOpen, closeModal, contacts }: SearchModalProps) 
 	);
 
 	return (
-		<Modal isOpen={isOpen} onClose={closeModal}>
+		<Modal title="search" isOpen={isOpen} closeModal={closeModal}>
 			<View style={styles.modalContainer}>
 				{/* Fixed search bar */}
 				<View style={styles.searchBarContainer}>
@@ -36,8 +36,8 @@ export function SearchModal({ isOpen, closeModal, contacts }: SearchModalProps) 
 				{/* Dynamic list */}
 				<ContactsList
 					contacts={filteredContacts}
-					onSelect={(c) => {
-						closeModal;
+					onSelect={() => {
+						closeModal();
 					}}
 				/>
 			</View>

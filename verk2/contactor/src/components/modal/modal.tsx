@@ -19,7 +19,7 @@ export function Modal(props: ModalProps) {
 			statusBarTranslucent
 		>
 			<Pressable style={styles.backdrop} onPress={props.closeModal}>
-				<Pressable style={styles.modalContentWrapper} onPress={(e) => e.stopPropagation}>
+				<Pressable style={styles.modalContentWrapper} onPress={(e) => e.stopPropagation()}>
 					<View style={styles.modalContent}>
 						{props.title ? <Text style={styles.title}>{props.title}</Text> : null}
 						<View style={styles.childrenContainer}>{props.children}</View>
