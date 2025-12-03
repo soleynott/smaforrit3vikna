@@ -22,7 +22,7 @@ export function ContactsList({ contacts }: ContactsListProps) {
 				renderItem={({ item }) => (
 					<TouchableOpacity
 						style={styles.row}
-						// 👇 navigate to /contact and pass fields as params
+						// navigate to /contact and pass fields as params
 						onPress={() =>
 							router.push({
 								pathname: '/contact',
