@@ -143,7 +143,11 @@ export function AddModal(props: AddModalProps) {
 
 				<TextInput
 					inputMode="numeric"
-					style={[styles.input, styles.descriptionInput]}
+					keyboardType="number-pad"
+					returnKeyType="done"
+					//blurOnSubmit={true}
+					submitBehavior="blurAndSubmit"
+					style={styles.input}
 					placeholder="Contact Phone"
 					value={phone}
 					onChangeText={setPhone}

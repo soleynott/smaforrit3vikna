@@ -18,6 +18,7 @@ import { ContactThumbnail } from '@/src/types/contact_thumbnail';
 import { Toolbar } from '@/src/components/toolbar';
 import { ContactsList } from '@/src/components/main/main_list';
 import { saveContact, getAllContacts } from '@/src/services/file-service';
+import { SearchModal } from '@/src/components/main/search_modal';
 
 export default function MainScreen() {
 	const [isAddModalOpen, setIsAddModalOpen] = useState(false);
