@@ -94,7 +94,7 @@ export function AddModal(props: AddModalProps) {
 
 	if (selectedPhotoMode) {
 		return (
-			<Modal title="Add Image" isOpen={props.isOpen} closeModal={props.closeModal}>
+			<Modal title="Add Image" isOpen={props.isOpen} closeModal={() => setSelectedPhotoMode(null)}>
 				<View style={styles.optionsContainer}>
 					<TouchableOpacity style={styles.option} onPress={takePhoto}>
 						<Entypo name="camera" size={48} color={'blue'} style={styles.icon}></Entypo>
