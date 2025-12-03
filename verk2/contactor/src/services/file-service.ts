@@ -147,7 +147,10 @@ export const importContactsFromDevice = async (): Promise<ContactThumbnail[]> =>
 			fields: [Contacts.Fields.PhoneNumbers, Contacts.Fields.Image],
 		});
 
-		const importedContacts: ContactThumbnail[] = (data as any).contacts
+		// Expo Contacts may return the contacts array under `data` or `contacts` depending on SDK/version.
+		const rawContacts: any[] = (data as any).data ?? (data as any).contacts ?? [];
+
+		const importedContacts: ContactThumbnail[] = rawContacts
 			.filter((contact: any) => contact.phoneNumbers && contact.phoneNumbers.length > 0)
 			.map((contact: any) => ({
 				name: contact.name || 'Unknown',

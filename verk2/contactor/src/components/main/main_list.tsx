@@ -9,7 +9,7 @@ interface ContactsListProps {
 	onSelect?: (c: ContactThumbnail) => void;
 }
 
-export function ContactsList({ contacts }: ContactsListProps) {
+export function ContactsList({ contacts, onSelect }: ContactsListProps) {
 	const router = useRouter();
 	return (
 		<View style={{ flex: 1 }}>
@@ -21,7 +21,11 @@ export function ContactsList({ contacts }: ContactsListProps) {
 				renderItem={({ item }) => (
 					<TouchableOpacity
 						style={styles.row}
-						onPress={() =>
+						onPress={() => {
+							if (onSelect) {
+								onSelect(item);
+								return;
+							}
 							router.push({
 								pathname: '/contact',
 								params: {
@@ -30,8 +34,8 @@ export function ContactsList({ contacts }: ContactsListProps) {
 									image: item.thumbnailPhoto,
 									filename: item.filename,
 								},
-							})
-						}
+							});
+						}}
 						activeOpacity={0.7}
 					>
 						{item.thumbnailPhoto ? (
