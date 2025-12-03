@@ -142,6 +142,7 @@ export function AddModal(props: AddModalProps) {
 				/>
 
 				<TextInput
+					inputMode="numeric"
 					style={[styles.input, styles.descriptionInput]}
 					placeholder="Contact Phone"
 					value={phone}
