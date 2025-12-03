@@ -24,6 +24,7 @@ export default function MainScreen() {
 	const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 	const [isImportModalOpen, setIsImportModalOpen] = useState(false);
 	const [contacts, setContacts] = useState<ContactThumbnail[]>([]);
+	const [isSearchOpen, setIsSearchOpen] = useState(false);
 
 	// Load contacts from file system on mount
 	useEffect(() => {
@@ -79,6 +80,14 @@ export default function MainScreen() {
 
 	const handleImportModal = () => {
 		setIsImportModalOpen(true);
+	};
+
+	const handleSearchModal = () => {
+		setIsSearchOpen(true);
+	};
+
+	const handleCloseSearchModal = () => {
+		setIsSearchOpen(false);
 	};
 
 	return (
