@@ -92,7 +92,11 @@ export default function MainScreen() {
 
 	return (
 		<View style={{ flex: 1 }}>
-			<Toolbar onAdd={handleAddModal} onImport={handleImportModal} />
+			<Toolbar
+				onAdd={handleAddModal}
+				onImport={handleImportModal}
+				onFilter={handleSearchModal}
+			/>
 			<AddModal
 				isOpen={isAddModalOpen}
 				closeModal={handleCloseAddModal}
@@ -102,6 +106,11 @@ export default function MainScreen() {
 				isOpen={isImportModalOpen}
 				closeModal={handleCloseImportModal}
 				onContactsImport={handleContactsImport}
+			/>
+			<SearchModal
+				isOpen={isSearchOpen}
+				closeModal={handleCloseSearchModal}
+				contacts={contacts}
 			/>
 			<ContactsList contacts={contacts} />
 		</View>
