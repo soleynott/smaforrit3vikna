@@ -1,13 +1,12 @@
-//show all lists for certain board
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { useRouter } from 'expo-router';
-import { StyleSheet } from 'react-native';
 import { ContactThumbnail } from '@/src/types/contact_thumbnail';
 import styles from '../main/styles/main_list_style';
 
 interface ContactsListProps {
 	contacts: ContactThumbnail[];
+	onSelect?: (c: ContactThumbnail) => void;
 }
 
 export function ContactsList({ contacts }: ContactsListProps) {
@@ -22,7 +21,6 @@ export function ContactsList({ contacts }: ContactsListProps) {
 				renderItem={({ item }) => (
 					<TouchableOpacity
 						style={styles.row}
-						// navigate to /contact and pass fields as params
 						onPress={() =>
 							router.push({
 								pathname: '/contact',
@@ -43,7 +41,6 @@ export function ContactsList({ contacts }: ContactsListProps) {
 						)}
 						<View style={styles.textContainer}>
 							<Text style={styles.name}>{item.name}</Text>
-							<Text style={styles.phone}>{item.phoneNumber}</Text>
 						</View>
 					</TouchableOpacity>
 				)}

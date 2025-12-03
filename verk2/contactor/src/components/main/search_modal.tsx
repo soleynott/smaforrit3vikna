@@ -1,9 +1,10 @@
 //search for contacts, filter contactlist by string entered by user
 import { useEffect, useState } from 'react';
-import { View, TextInput, Text } from 'react-native';
+import { View, TextInput, Text, FlatList, TouchableOpacity } from 'react-native';
 import { Modal } from '../modal/modal';
 import { ContactsList } from '../main/main_list';
 import { ContactThumbnail } from '@/src/types/contact_thumbnail';
+import styles from '../main/styles/search_modal_styles';
 
 interface SearchModalProps {
 	isOpen: boolean;
@@ -12,27 +13,33 @@ interface SearchModalProps {
 }
 
 export function SearchModal({ isOpen, closeModal, contacts }: SearchModalProps) {
-	const [query, setQuery] = useState('');
-	//check if input matches any contacts names or numbers
-	const filteredContacts = contacts.filter(
-		(contact) =>
-			contact.name.toLowerCase().includes(query.toLowerCase()) ||
-			contact.phoneNumber.includes(query),
+	const [search, setSearch] = useState('');
+
+	const filteredContacts = contacts.filter((c) =>
+		c.name.toLowerCase().includes(search.toLowerCase()),
 	);
 
 	return (
-		<Modal title="Search Contacts" isOpen={isOpen} closeModal={closeModal}>
-			<View>
-				{/* search input */}
-				<TextInput
-					placeholder="Search by name or number"
-					value={query}
-					onChangeText={setQuery}
-					placeholderTextColor="#999"
-				></TextInput>
-				<View>
-					<ContactsList contacts={filteredContacts} />
+		<Modal isOpen={isOpen} onClose={closeModal}>
+			<View style={styles.modalContainer}>
+				{/* Fixed search bar */}
+				<View style={styles.searchBarContainer}>
+					<TextInput
+						style={styles.searchInput}
+						placeholder="Search contacts..."
+						value={search}
+						onChangeText={setSearch}
+						autoFocus
+					/>
 				</View>
+
+				{/* Dynamic list */}
+				<ContactsList
+					contacts={filteredContacts}
+					onSelect={(c) => {
+						closeModal;
+					}}
+				/>
 			</View>
 		</Modal>
 	);
