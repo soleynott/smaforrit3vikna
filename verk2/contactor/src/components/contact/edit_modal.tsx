@@ -203,6 +203,10 @@ export function EditContactModal(props: EditContactProps) {
 					/>
 
 					<TextInput
+						inputMode="numeric"
+						keyboardType="number-pad"
+						returnKeyType="done"
+						submitBehavior="blurAndSubmit"
 						style={styles.input}
 						placeholder="Contact Phone"
 						value={phone}
@@ -226,12 +230,8 @@ export function EditContactModal(props: EditContactProps) {
 					>
 						<Text style={styles.createButtonText}>Delete Contact</Text>
 					</TouchableOpacity>
-
-
 				</ScrollView>
 			</Modal>
 		);
 	}
-
 }
-
