@@ -6,6 +6,7 @@ import { ContactsList } from '../main/main_list';
 import { ContactThumbnail } from '@/src/types/contact_thumbnail';
 import styles from '../main/styles/search_modal_styles';
 import { useRouter } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface SearchModalProps {
 	isOpen: boolean;
@@ -17,47 +18,37 @@ export function SearchModal({ isOpen, closeModal, contacts }: SearchModalProps) 
 	const [search, setSearch] = useState('');
     const router = useRouter();
 
-	const filteredContacts = contacts.filter((c) =>
-		c.name.toLowerCase().includes(search.toLowerCase()),
+	if (!isOpen) return null;
+
+	const filteredContacts = contacts.filter(
+		(c) =>
+			c.name.toLowerCase().includes(search.toLowerCase()) || c.phoneNumber.includes(search),
 	);
 
 
 	return (
-		<Modal isOpen={isOpen} closeModal={closeModal} title={"Search"}>
-			<KeyboardAvoidingView
-				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-				style={{ flex: 1 }}
-			>
-				<View style={styles.modalContainer}>
-					{/* Fixed search bar at top of modal */}
-					<View style={styles.searchBarContainer}>
-						<TextInput
-							style={styles.searchInput}
-							placeholder="Search contacts..."
-							value={search}
-							onChangeText={setSearch}
-							autoFocus
-						/>
-					</View>
+		<SafeAreaView style={styles.overlayContainer}>
+			{/* Fixed search bar */}
+			<View style={styles.searchHeader}>
+				<TextInput
+					style={styles.searchInput}
+					placeholder="Search contacts..."
+					value={search}
+					onChangeText={setSearch}
+					autoFocus
+				/>
+				<TouchableOpacity onPress={closeModal} style={styles.cancelButton}>
+					<Text style={styles.cancelText}>Cancel</Text>
+				</TouchableOpacity>
+			</View>
 
-					{/* Dynamic list */}
-					<ContactsList
-						contacts={filteredContacts}
-						onSelect={(c) => {
-							closeModal();
-							router.push({
-								pathname: '/contact',
-								params: {
-									name: c.name,
-									number: c.phoneNumber,
-									image: c.thumbnailPhoto,
-									filename: c.filename,
-								},
-							});
-						}}
-					/>
-				</View>
-			</KeyboardAvoidingView>
-		</Modal>
+			{/* Dynamic list */}
+			<ContactsList
+				contacts={filteredContacts}
+				onSelect={() => {
+					closeModal();
+				}}
+			/>
+		</SafeAreaView>
 	);
 }

@@ -1,55 +1,59 @@
-import { StyleSheet, Platform } from 'react-native';
-const styles = StyleSheet.create({
-	searchBarContainer: {
-		paddingHorizontal: 20,
-		paddingVertical: 12,
-		backgroundColor: 'white',
-		borderBottomWidth: 1,
-		borderColor: '#eee',
-	},
+import { StyleSheet } from 'react-native';
 
-	searchInput: {
-		backgroundColor: '#f0f0f0',
-		padding: 12,
-		borderRadius: 10,
-		fontSize: 16,
-	},
-	modalContainer: {
+const styles = StyleSheet.create({
+	overlayContainer: {
 		flex: 1,
 		backgroundColor: 'white',
 	},
-
-	listContent: {
-		padding: 10,
+	searchHeader: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		paddingHorizontal: 16,
+		paddingVertical: 12,
+		borderBottomWidth: 1,
+		borderColor: '#eee',
+		backgroundColor: 'white',
 	},
-
+	searchInput: {
+		flex: 1,
+		backgroundColor: '#f0f0f0',
+		padding: 10,
+		borderRadius: 10,
+		fontSize: 16,
+	},
+	cancelButton: {
+		marginLeft: 12,
+	},
+	cancelText: {
+		color: '#007aff',
+		fontSize: 16,
+	},
+	listContent: {
+		paddingVertical: 10,
+	},
 	row: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		paddingVertical: 12,
-		paddingHorizontal: 10,
+		padding: 12,
 		borderBottomWidth: 1,
 		borderColor: '#eee',
 	},
-
 	avatar: {
 		width: 40,
 		height: 40,
 		borderRadius: 20,
+		marginRight: 12,
 	},
-
 	textContainer: {
-		marginLeft: 12,
+		flex: 1,
 	},
-
 	name: {
 		fontSize: 16,
 		fontWeight: '600',
 	},
-
 	phone: {
-		fontSize: 12,
-		color: '#888',
+		fontSize: 14,
+		color: '#666',
 	},
 });
 
