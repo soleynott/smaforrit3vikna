@@ -200,7 +200,7 @@ export function EditContactModal(props: EditContactProps) {
 					/>
 
 					<TextInput
-						style={[styles.input, styles.descriptionInput]}
+						style={styles.input}
 						placeholder="Contact Phone"
 						value={phone}
 						onChangeText={setPhone}

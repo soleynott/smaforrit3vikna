@@ -147,7 +147,7 @@ export function AddModal(props: AddModalProps) {
 					returnKeyType="done"
 					//blurOnSubmit={true}
 					submitBehavior="blurAndSubmit"
-					style={[styles.input, styles.descriptionInput]}
+					style={styles.input}
 					placeholder="Contact Phone"
 					value={phone}
 					onChangeText={setPhone}
