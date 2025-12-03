@@ -227,16 +227,7 @@ export function EditContactModal(props: EditContactProps) {
 						<Text style={styles.createButtonText}>Delete Contact</Text>
 					</TouchableOpacity>
 
-					<TouchableOpacity
-						style={{
-							...styles.createButton,
-							backgroundColor: '#95a5a6',
-							marginTop: 10,
-						}}
-						onPress={props.closeModal}
-					>
-						<Text style={styles.createButtonText}>Cancel</Text>
-					</TouchableOpacity>
+
 				</ScrollView>
 			</Modal>
 		);
