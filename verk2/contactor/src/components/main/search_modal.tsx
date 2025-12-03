@@ -18,8 +18,9 @@ export function SearchModal({ isOpen, closeModal, contacts }: SearchModalProps) 
 
 	if (!isOpen) return null;
 
-	const filteredContacts = contacts.filter((c) =>
-		c.name.toLowerCase().includes(search.toLowerCase()),
+	const filteredContacts = contacts.filter(
+		(c) =>
+			c.name.toLowerCase().includes(search.toLowerCase()) || c.phoneNumber.includes(search),
 	);
 
 	return (
