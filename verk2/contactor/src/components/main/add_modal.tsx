@@ -145,7 +145,8 @@ export function AddModal(props: AddModalProps) {
 					inputMode="numeric"
 					keyboardType="number-pad"
 					returnKeyType="done"
-					blurOnSubmit={true}
+					//blurOnSubmit={true}
+					submitBehavior="blurAndSubmit"
 					style={[styles.input, styles.descriptionInput]}
 					placeholder="Contact Phone"
 					value={phone}
