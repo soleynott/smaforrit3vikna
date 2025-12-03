@@ -1,10 +1,11 @@
 //search for contacts, filter contactlist by string entered by user
 import { useEffect, useState } from 'react';
-import { View, TextInput, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, TextInput, Text, FlatList, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import { Modal } from '../modal/modal';
 import { ContactsList } from '../main/main_list';
 import { ContactThumbnail } from '@/src/types/contact_thumbnail';
 import styles from '../main/styles/search_modal_styles';
+import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface SearchModalProps {
@@ -15,6 +16,7 @@ interface SearchModalProps {
 
 export function SearchModal({ isOpen, closeModal, contacts }: SearchModalProps) {
 	const [search, setSearch] = useState('');
+    const router = useRouter();
 
 	if (!isOpen) return null;
 
@@ -22,6 +24,7 @@ export function SearchModal({ isOpen, closeModal, contacts }: SearchModalProps) 
 		(c) =>
 			c.name.toLowerCase().includes(search.toLowerCase()) || c.phoneNumber.includes(search),
 	);
+
 
 	return (
 		<SafeAreaView style={styles.overlayContainer}>
