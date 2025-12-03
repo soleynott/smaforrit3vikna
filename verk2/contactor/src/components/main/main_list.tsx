@@ -41,7 +41,7 @@ export function ContactsList ({ contacts }: ContactsListProps) {
                 )}
                 <View style={styles.textContainer}>
                 <Text style={styles.name}>{item.name}</Text>
-                <Text style={styles.phone}>{item.phoneNumber}</Text>
+
                 </View>
             </TouchableOpacity>
             )}
