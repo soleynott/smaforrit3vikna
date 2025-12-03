@@ -25,6 +25,9 @@ export default function MainScreen() {
 	const [isImportModalOpen, setIsImportModalOpen] = useState(false);
 	const [contacts, setContacts] = useState<ContactThumbnail[]>([]);
 
+	const sortContacts = (list: ContactThumbnail[]) =>
+    list.slice().sort((a, b) => a.name.localeCompare(b.name));
+
 	// Load contacts from file system on mount
 	useEffect(() => {
 		const loadContacts = async () => {
@@ -32,7 +35,7 @@ export default function MainScreen() {
 			const contactData = loadedContacts
 				.map((item) => ({ ...item.contact, filename: item.filename }))
 				.filter((c) => c !== null);
-			setContacts(contactData as ContactThumbnail[]);
+			setContacts(sortContacts(contactData as ContactThumbnail[]));
 		};
 		loadContacts();
 	}, []);
@@ -45,7 +48,7 @@ export default function MainScreen() {
 				const contactData = loadedContacts
 					.map((item) => ({ ...item.contact, filename: item.filename }))
 					.filter((c) => c !== null);
-				setContacts(contactData as ContactThumbnail[]);
+				setContacts(sortContacts(contactData as ContactThumbnail[]));
 			};
 			loadContacts();
 		}, []),
@@ -63,14 +66,14 @@ export default function MainScreen() {
 		// Save to file system
 		await saveContact(newContact);
 		// Add to state
-		setContacts([...contacts, newContact]);
+		setContacts((prev) => sortContacts([...prev, newContact]));
 	};
 
 	const handleContactsImport = async (importedContacts: ContactThumbnail[]) => {
 		// Save all imported contacts to file system
 		await Promise.all(importedContacts.map((contact) => saveContact(contact)));
 		// Add to state
-		setContacts([...contacts, ...importedContacts]);
+		setContacts((prev) => sortContacts([...prev, ...importedContacts]));
 	};
 
 	const handleAddModal = () => {
