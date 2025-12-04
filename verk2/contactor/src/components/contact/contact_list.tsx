@@ -35,9 +35,9 @@ export function ContactList(props: ContactListProps) {
 			{/* name & number */}
 			<Text style={styles.name}>{props.name}</Text>
 			<Text style={styles.phone}>{props.number}</Text>
-			<Ionicons name="phone-portrait" size={24} color="black" style={styles.portrait}/>
+			<Ionicons name="call" size={24} color="black" style={styles.portrait} />
 			<TouchableOpacity onPress={props.onCall}>
-				<Text style={styles.call} >Call</Text>
+				<Text style={styles.call}>Call</Text>
 			</TouchableOpacity>
 		</View>
 	);
