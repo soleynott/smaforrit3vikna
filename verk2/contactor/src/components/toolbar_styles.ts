@@ -23,14 +23,14 @@ toolbarAction: {
 toolbarActionPlus: {
   color: '#0A84FF',
   fontSize: 37,
-  fontWeight: '500',
+  fontWeight: '300',
   marginTop: -2.7
 },
 
 toolbarActionImport: {
   color: '#0A84FF',
   fontSize: 25,
-  fontWeight: '800',
+  fontWeight: '500',
 },
 
 search: {
