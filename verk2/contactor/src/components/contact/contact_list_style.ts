@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		color: '#007AFF',
 		fontWeight: '500',
-		paddingHorizontal: 12,
-		paddingVertical: 7,
+		paddingHorizontal: 14,
+		paddingVertical: 6,
 		borderRadius: 999,
 		backgroundColor: '#f2f2f7',
 		marginTop: 10,
@@ -65,20 +65,8 @@ const styles = StyleSheet.create({
 		marginBottom: 30,
 		paddingHorizontal: 18,
 		paddingVertical: 8,
-		borderRadius: 12,
+		borderRadius: 16,
 		backgroundColor: '#f2f2f7',
-		paddingTop: 12,
-	},
-
-	callButton: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		gap: 8,
-		backgroundColor: '#34C759', // iOS green
-		paddingVertical: 14,
-		paddingHorizontal: 26,
-		borderRadius: 999,
-		marginTop: 20,
 	},
 
 	callButtonText: {
