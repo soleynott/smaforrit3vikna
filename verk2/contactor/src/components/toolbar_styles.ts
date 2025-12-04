@@ -21,13 +21,14 @@ toolbarAction: {
 },
 
 toolbarActionPlus: {
-  color: 'blue',
-  fontSize: 35,
+  color: '#0A84FF',
+  fontSize: 37,
   fontWeight: '500',
-  marginTop: -2
+  marginTop: -2.7
 },
+
 toolbarActionImport: {
-  color: 'blue',
+  color: '#0A84FF',
   fontSize: 25,
   fontWeight: '800',
 },
