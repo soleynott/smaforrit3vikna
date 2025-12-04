@@ -9,6 +9,22 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 		paddingTop: 80,
 	},
+	portrait: {
+		fontSize: 30,
+		fontWeight: '700',
+		paddingTop: 200,
+		textAlign: 'center',
+	},
+	call: {
+		fontSize: 20,
+		color: '#007AFF',
+		fontWeight: '500',
+		paddingHorizontal: 12,
+		paddingVertical: 7,
+		borderRadius: 999,
+		backgroundColor: '#f2f2f7',
+		marginTop: 10,
+	},
 	photo: {
 		width: 200,
 		height: 200,
