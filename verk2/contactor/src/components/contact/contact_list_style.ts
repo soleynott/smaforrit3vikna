@@ -5,48 +5,69 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: '#fff',
 		alignItems: 'center',
-		justifyContent: 'flex-start',
 		paddingHorizontal: 20,
-		paddingTop: 80,
+		paddingTop: 60,
 	},
+
+	headerBar: {
+		width: '100%',
+		position: 'absolute',
+		top: 20,
+		right: 0,
+		paddingHorizontal: 20,
+		flexDirection: 'row',
+		justifyContent: 'flex-end',
+		zIndex: 10,
+	},
+
+	editText: {
+		fontSize: 18,
+		color: '#007AFF',
+		fontWeight: '600',
+		paddingVertical: 8,
+		paddingHorizontal: 12,
+	},
+
 	photo: {
-		width: 200,
-		height: 200,
-		borderRadius: 100,
+		width: 180,
+		height: 180,
+		borderRadius: 90,
+		marginTop: 40,
 		marginBottom: 20,
 	},
+
 	name: {
 		fontSize: 28,
 		fontWeight: '700',
-		letterSpacing: 0.5,
-		marginBottom: 10,
+		marginBottom: 8,
 		textAlign: 'center',
-		width: '100%',
 	},
+
 	phone: {
 		fontSize: 18,
-		color: '#333',
+		color: '#555',
+		marginBottom: 30,
 		paddingHorizontal: 18,
 		paddingVertical: 8,
-		borderRadius: 999,
+		borderRadius: 12,
 		backgroundColor: '#f2f2f7',
-		textAlign: 'center',
 	},
-	header: {
-		position: 'absolute',
-		top: 0,
-		right: 20,
-		paddingTop: 10,
-		zIndex: 10,
+
+	callButton: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		gap: 8,
+		backgroundColor: '#34C759', // iOS green
+		paddingVertical: 14,
+		paddingHorizontal: 26,
+		borderRadius: 999,
+		marginTop: 20,
 	},
-	edit: {
+
+	callButtonText: {
+		color: 'white',
 		fontSize: 18,
-		color: '#007AFF',
-		fontWeight: '500',
-		paddingHorizontal: 18,
-		paddingVertical: 8,
-		borderRadius: 999,
-		backgroundColor: '#f2f2f7',
+		fontWeight: '600',
 	},
 });
 

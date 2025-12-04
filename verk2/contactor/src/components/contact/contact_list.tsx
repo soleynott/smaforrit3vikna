@@ -1,10 +1,8 @@
 import { View, Text, Image, TouchableOpacity, Button } from 'react-native';
-import { StyleSheet } from 'react-native';
 import data from '../../resources/data.json';
 import { FlatList } from 'react-native-gesture-handler';
 import { useRouter } from 'expo-router';
 import styles from './contact_list_style';
-import { useLocalSearchParams } from 'expo-router';
 
 interface ContactListProps {
 	name?: string;
@@ -22,18 +20,23 @@ export function ContactList(props: ContactListProps) {
 
 	return (
 		<View style={styles.screen}>
-			<View style={styles.header}>
+			{/* top header */}
+			<View style={styles.headerBar}>
 				<TouchableOpacity onPress={props.onEditPress}>
-					<Text style={styles.edit}>Edit</Text>
+					<Text style={styles.editText}>Edit</Text>
 				</TouchableOpacity>
 			</View>
 
+			{/* contact image */}
 			<Image source={imageSource} style={styles.photo} />
 
+			{/* name & number */}
 			<Text style={styles.name}>{props.name}</Text>
 			<Text style={styles.phone}>{props.number}</Text>
-			<View style={{flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-				<Button  title="Call" onPress={props.onCall} />
+
+			{/* call button */}
+			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+				<Button title="Call" onPress={props.onCall} />
 			</View>
 		</View>
 	);
