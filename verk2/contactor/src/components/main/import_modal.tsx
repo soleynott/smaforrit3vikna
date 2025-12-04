@@ -37,7 +37,7 @@ export function ImportContactsModal(props: ImportContactsModalProps) {
 				return;
 			}
 			setImportedContacts(contacts);
-			setSelectedContacts(new Set(contacts.map((_, idx) => idx)));
+			setSelectedContacts(new Set());
 			setIsSelectingContacts(true);
 		} catch (error) {
 			Alert.alert(
