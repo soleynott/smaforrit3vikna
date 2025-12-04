@@ -66,8 +66,8 @@ export function AddModal(props: AddModalProps) {
 	};
 
 	const handleCreateContact = async () => {
-		if (!name || !phone || !imageUri) {
-			alert('Please fill in all fields and select an image');
+		if (!name || !phone ) {
+			alert('Please fill in all fields');
 			return;
 		}
 		//For Computer instance 

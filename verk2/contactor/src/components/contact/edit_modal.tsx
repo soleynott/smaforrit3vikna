@@ -95,8 +95,8 @@ export function EditContactModal(props: EditContactProps) {
 	};
 
 	const handleUpdateContact = () => {
-		if (!name || !phone || !photoUri) {
-			alert('Please fill in name, phone number, and select a photo');
+		if (!name || !phone ) {
+			alert('Please fill in name, phone number');
 			return;
 		}
 
