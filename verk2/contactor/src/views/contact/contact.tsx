@@ -58,6 +58,7 @@ export default function ContactScreen() {
 	};
 
 	const router = useRouter();
+	
 	const handleContactDelete = async (filename: string) => {
 		await removeContact(filename);
 		router.back();

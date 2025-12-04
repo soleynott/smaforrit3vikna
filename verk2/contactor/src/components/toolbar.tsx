@@ -5,9 +5,12 @@ interface ToolbarProps {
 	onAdd: () => void;
 	onImport?: () => void;
 	onFilter?: () => void;
+	isSearchOpen: boolean;
 }
 
 export function Toolbar(props: ToolbarProps) {
+	if(props.isSearchOpen) return;
+	else {
 	return (
 		<View style={styles.toolbar}>
 			<TouchableHighlight style={styles.search} onPress={props.onFilter}>
@@ -27,4 +30,5 @@ export function Toolbar(props: ToolbarProps) {
 			</View>
 		</View>
 	);
+}
 }

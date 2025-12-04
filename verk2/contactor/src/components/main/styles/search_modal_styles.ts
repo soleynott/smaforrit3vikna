@@ -4,12 +4,15 @@ const styles = StyleSheet.create({
 	overlayContainer: {
 		flex: 1,
 		backgroundColor: 'white',
+		paddingTop: 0,
+   		marginTop: 0,
 	},
 	searchHeader: {
 		flexDirection: 'row',
 		alignItems: 'center',
 		paddingHorizontal: 16,
 		paddingVertical: 12,
+		paddingTop: 4,
 		borderBottomWidth: 1,
 		borderColor: '#eee',
 		backgroundColor: 'white',
