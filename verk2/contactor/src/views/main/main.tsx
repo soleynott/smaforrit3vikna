@@ -92,31 +92,39 @@ export default function MainScreen() {
 	const handleCloseSearchModal = () => {
 		setIsSearchOpen(false);
 	};
-
-	return (
-		<View style={{ flex: 1 }}>
-			<Toolbar
-				onAdd={handleAddModal}
-				onImport={handleImportModal}
-				onFilter={handleSearchModal}
-				isSearchOpen={isSearchOpen}
-			/>
-			<AddModal
-				isOpen={isAddModalOpen}
-				closeModal={handleCloseAddModal}
-				onContactCreate={handleContactCreate}
-			/>
-			<ImportContactsModal
-				isOpen={isImportModalOpen}
-				closeModal={handleCloseImportModal}
-				onContactsImport={handleContactsImport}
-			/>
+	if(isSearchOpen) {
+		return (
+			<View style={{ flex: 1 }}>
 			<SearchModal
 				isOpen={isSearchOpen}
 				closeModal={handleCloseSearchModal}
 				contacts={contacts}
 			/>
-			<ContactsList contacts={contacts} />
 		</View>
-	);
+		)
+	}
+	else {
+		return (
+			<View style={{ flex: 1 }}>
+				<Toolbar
+					onAdd={handleAddModal}
+					onImport={handleImportModal}
+					onFilter={handleSearchModal}
+					isSearchOpen={isSearchOpen}
+				/>
+				<AddModal
+					isOpen={isAddModalOpen}
+					closeModal={handleCloseAddModal}
+					onContactCreate={handleContactCreate}
+				/>
+				<ImportContactsModal
+					isOpen={isImportModalOpen}
+					closeModal={handleCloseImportModal}
+					onContactsImport={handleContactsImport}
+				/>
+				
+				<ContactsList contacts={contacts} />
+			</View>
+		);
+	}
 }
