@@ -95,11 +95,11 @@ export default function MainScreen() {
 	if(isSearchOpen) {
 		return (
 			<View style={{ flex: 1 }}>
-			<SearchModal
-				isOpen={isSearchOpen}
-				closeModal={handleCloseSearchModal}
-				contacts={contacts}
-			/>
+				<SearchModal
+					isOpen={isSearchOpen}
+					closeModal={handleCloseSearchModal}
+					contacts={contacts}
+				/>
 		</View>
 		)
 	}
@@ -110,7 +110,6 @@ export default function MainScreen() {
 					onAdd={handleAddModal}
 					onImport={handleImportModal}
 					onFilter={handleSearchModal}
-					isSearchOpen={isSearchOpen}
 				/>
 				<AddModal
 					isOpen={isAddModalOpen}

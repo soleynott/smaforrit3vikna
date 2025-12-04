@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: 'white',
 		paddingTop: 0,
-		marginTop: -45,
+		marginTop: -53,
 	},
 	searchHeader: {
 		flexDirection: 'row',
