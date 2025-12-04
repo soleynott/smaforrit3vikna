@@ -83,7 +83,7 @@ if (isSelectingContacts) {
     <Modal
       title="Select Contacts to Import"
       isOpen={props.isOpen}
-      closeModal={props.closeModal}
+      closeModal={() => setIsSelectingContacts(false)}
     >
       <View style={styles.selectContainer}>
         {importedContacts.length === 0 ? (

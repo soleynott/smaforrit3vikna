@@ -3,6 +3,8 @@ import uuid from 'react-native-uuid';
 import { ContactThumbnail } from '../types/contact_thumbnail';
 import * as Contacts from 'expo-contacts';
 
+
+
 const contactDirectory = new Directory(Paths.document, 'contacts');
 
 export interface Contact {
@@ -155,8 +157,8 @@ export const importContactsFromDevice = async (): Promise<ContactThumbnail[]> =>
 			.map((contact: any) => ({
 				name: contact.name || 'Unknown',
 				phoneNumber: contact.phoneNumbers?.[0].number || '',
-				thumbnailPhoto: contact.image?.uri || null,
-				filename: undefined, // New contacts don't have filenames yet
+				thumbnailPhoto: contact.image?.uri || "default",
+				filename: undefined, 
 			}));
 
 		return importedContacts;
