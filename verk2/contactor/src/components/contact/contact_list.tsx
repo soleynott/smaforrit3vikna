@@ -1,5 +1,4 @@
 import { View, Text, Image, TouchableOpacity, Button } from 'react-native';
-import { StyleSheet } from 'react-native';
 import data from '../../resources/data.json';
 import { FlatList } from 'react-native-gesture-handler';
 import { useRouter } from 'expo-router';
@@ -23,14 +22,17 @@ export function ContactList(props: ContactListProps) {
 
 	return (
 		<View style={styles.screen}>
-			<View style={styles.header}>
+			{/* top header */}
+			<View style={styles.headerBar}>
 				<TouchableOpacity onPress={props.onEditPress}>
-					<Text style={styles.edit}>Edit</Text>
+					<Text style={styles.editText}>Edit</Text>
 				</TouchableOpacity>
 			</View>
 
+			{/* contact image */}
 			<Image source={imageSource} style={styles.photo} />
 
+			{/* name & number */}
 			<Text style={styles.name}>{props.name}</Text>
 			<Text style={styles.phone}>{props.number}</Text>
 			<Ionicons name="phone-portrait" size={24} color="black" style={styles.portrait}/>
