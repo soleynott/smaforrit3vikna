@@ -14,16 +14,22 @@ toolbarAction: {
   width: 40,
   height: 40,
   borderRadius: 20,
-  backgroundColor: 'blue',
+  color: 'white',
   justifyContent: 'center',
   alignItems: 'center',
   marginLeft: 8,
 },
 
-toolbarActionText: {
-  color: 'white',
-  fontSize: 18,
-  fontWeight: '600',
+toolbarActionPlus: {
+  color: 'blue',
+  fontSize: 35,
+  fontWeight: '500',
+  marginTop: -2
+},
+toolbarActionImport: {
+  color: 'blue',
+  fontSize: 25,
+  fontWeight: '800',
 },
 
 search: {

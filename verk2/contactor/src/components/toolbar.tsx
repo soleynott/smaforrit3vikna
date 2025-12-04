@@ -14,18 +14,18 @@ export function Toolbar(props: ToolbarProps) {
 	return (
 		<View style={styles.toolbar}>
 			<TouchableOpacity style={styles.search} onPress={props.onFilter}>
-				<Text style={styles.toolbarActionText}>🔍</Text>
+				<Text style={styles.toolbarActionPlus}>🔍</Text>
 			</TouchableOpacity>
 
 			<View style={styles.rightActions}>
 				{props.onImport && (
 					<TouchableHighlight style={styles.toolbarAction} onPress={props.onImport}>
-						<Text style={styles.toolbarActionText}>↓</Text>
+						<Text style={styles.toolbarActionImport}>↓</Text>
 					</TouchableHighlight>
 				)}
 
 				<TouchableHighlight style={styles.toolbarAction} onPress={props.onAdd}>
-					<Text style={styles.toolbarActionText}>+</Text>
+					<Text style={styles.toolbarActionPlus}>+</Text>
 				</TouchableHighlight>
 			</View>
 		</View>
