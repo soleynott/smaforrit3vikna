@@ -32,7 +32,7 @@ export function ContactList(props: ContactListProps) {
 
 			{/* name & number */}
 			<Text style={styles.name}>{props.name}</Text>
-			<Text style={styles.phone}>{props.number}</Text>
+			<Text style={styles.phone}>phone number: {props.number}</Text>
 
 			{/* call button */}
 			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 	name: {
 		fontSize: 28,
 		fontWeight: '700',
-		marginBottom: 8,
+		marginBottom: 10,
 		textAlign: 'center',
 	},
 
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
 		paddingVertical: 8,
 		borderRadius: 12,
 		backgroundColor: '#f2f2f7',
+		paddingTop: 12,
 	},
 
 	callButton: {
