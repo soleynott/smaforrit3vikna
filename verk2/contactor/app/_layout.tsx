@@ -14,7 +14,7 @@ export default function RootLayout() {
 				<Stack.Screen
 					name="contact"
 					options={{
-						title: 'contact details',
+						title: 'Contact Details',
 					}}
 				/>
 			</Stack>
