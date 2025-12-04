@@ -1,4 +1,4 @@
-import { View, Text, TouchableHighlight } from 'react-native';
+import { View, Text, TouchableHighlight, TouchableOpacity } from 'react-native';
 import styles from './toolbar_styles';
 
 interface ToolbarProps {
@@ -10,9 +10,9 @@ interface ToolbarProps {
 export function Toolbar(props: ToolbarProps) {
 	return (
 		<View style={styles.toolbar}>
-			<TouchableHighlight style={styles.search} onPress={props.onFilter}>
+			<TouchableOpacity style={styles.search} onPress={props.onFilter}>
 				<Text style={styles.toolbarActionText}>🔍</Text>
-			</TouchableHighlight>
+			</TouchableOpacity>
 
 			<View style={styles.rightActions}>
 				{props.onImport && (
