@@ -99,14 +99,14 @@ export function EditContactModal(props: EditContactProps) {
 			alert('Please fill in name, phone number');
 			return;
 		}
-		//For Computer instance 
-		if (isNaN(Number(phone.slice(1))) || phone === "") {
+		//For Computer instance and import
+		if (isNaN(Number(phone.replace(" ", "").slice(1))) || phone === "") {
 			if (!(phone.slice(0, 1) === "+")) {
 			alert('Phone number needs to be valid')
 			return;
 			}
 		}
-		
+
 		if (!selectedContact) return;
 
 		const updatedContact: ContactThumbnail = {

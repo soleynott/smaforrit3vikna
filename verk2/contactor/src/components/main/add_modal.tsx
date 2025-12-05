@@ -70,8 +70,8 @@ export function AddModal(props: AddModalProps) {
 			alert('Please fill in all fields');
 			return;
 		}
-		//For Computer instance 
-		if (isNaN(Number(phone.slice(1))) || phone === "") {
+		//For Computer instance and import
+		if (isNaN(Number(phone.replace(" ", "").slice(1))) || phone === "") {
 			if (!(phone.slice(0, 1) === "+")) {
 			alert('Phone number needs to be valid')
 			return;
