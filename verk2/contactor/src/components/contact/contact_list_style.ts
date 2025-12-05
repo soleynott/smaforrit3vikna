@@ -18,11 +18,11 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		color: '#007AFF',
 		fontWeight: '500',
-		paddingHorizontal: 14,
+		paddingHorizontal: 16,
 		paddingVertical: 6,
 		borderRadius: 999,
 		backgroundColor: '#f2f2f7',
-		marginTop: 10,
+		marginTop: 14,
 	},
 
 	headerBar: {
@@ -42,6 +42,9 @@ const styles = StyleSheet.create({
 		fontWeight: '600',
 		paddingVertical: 8,
 		paddingHorizontal: 12,
+		borderRadius: 999,
+		backgroundColor: '#f2f2f7',
+		
 	},
 
 	photo: {
@@ -49,31 +52,26 @@ const styles = StyleSheet.create({
 		height: 180,
 		borderRadius: 90,
 		marginTop: 40,
-		marginBottom: 20,
+		marginBottom: 25,
 	},
 
 	name: {
 		fontSize: 28,
 		fontWeight: '700',
-		marginBottom: 10,
+		marginBottom: 30,
 		textAlign: 'center',
 	},
 
 	phone: {
 		fontSize: 18,
 		color: '#555',
-		marginBottom: 30,
+		marginBottom: 10,
 		paddingHorizontal: 18,
 		paddingVertical: 8,
 		borderRadius: 16,
 		backgroundColor: '#f2f2f7',
 	},
 
-	callButtonText: {
-		color: 'white',
-		fontSize: 18,
-		fontWeight: '600',
-	},
 });
 
 export default styles;
