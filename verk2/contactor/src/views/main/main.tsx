@@ -64,17 +64,22 @@ export default function MainScreen() {
 	};
 
 	const handleContactCreate = async (newContact: ContactThumbnail) => {
-		// Save to file system
-		await saveContact(newContact);
-		// Add to state
-		setContacts((prev) => sortContacts([...prev, newContact]));
+		// Save to file system and capture filename
+		const result = await saveContact(newContact);
+		// Add to state with filename
+		setContacts((prev) => sortContacts([...prev, { ...newContact, filename: result.filename }]));
 	};
 
 	const handleContactsImport = async (importedContacts: ContactThumbnail[]) => {
-		// Save all imported contacts to file system
-		await Promise.all(importedContacts.map((contact) => saveContact(contact)));
-		// Add to state
-		setContacts((prev) => sortContacts([...prev, ...importedContacts]));
+		// Save all imported contacts to file system and track filenames
+		const savedContacts = await Promise.all(
+			importedContacts.map(async (contact) => {
+				const result = await saveContact(contact);
+				return { ...contact, filename: result.filename };
+			})
+		);
+		// Add to state with filenames
+		setContacts((prev) => sortContacts([...prev, ...savedContacts]));
 	};
 
 	const handleAddModal = () => {
