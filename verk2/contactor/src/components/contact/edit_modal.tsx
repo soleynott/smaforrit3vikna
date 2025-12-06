@@ -36,7 +36,6 @@ export function EditContactModal(props: EditContactProps) {
 	const [isEditingContact, setIsEditingContact] = useState(false);
 
 	useEffect(() => {
-		// If only one contact is provided, auto-select it for editing
 		if (props.contacts.length === 1 && !selectedContact) {
 			setSelectedContact(props.contacts[0]);
 			setIsEditingContact(true);

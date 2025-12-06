@@ -57,7 +57,7 @@ const setupDirectory = async (): Promise<void> => {
 export const saveContact = async (
 	contact: ContactThumbnail,
 ): Promise<{ id: string; filename: string }> => {
-	// Ensure directory exists
+
 	await setupDirectory();
 
 	const id = generateId();
@@ -105,19 +105,17 @@ export const removeContact = async (filename: string): Promise<void> => {
 export const getAllContacts = async (): Promise<
 	{ filename: string; contact: ContactThumbnail }[]
 > => {
-	// Check if directory exists
+
 	await setupDirectory();
 
 	const items = await onException(() => contactDirectory.list());
 
 	if (!items) return [];
 
-	// Filter to only get File instances that are JSON
 	const contactFiles = items.filter(
 		(item) => item instanceof File && (item as File).name.endsWith('.json'),
 	) as File[];
 
-	//load all contacts
 	const contacts = await Promise.all(
 		contactFiles.map(async (file) => {
 			const contact = await loadContact(file.name);
