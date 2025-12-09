@@ -1,0 +1,1 @@
+//cinema detail screen
