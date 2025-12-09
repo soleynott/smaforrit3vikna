@@ -9,3 +9,5 @@
  *      the application (note that not all upcoming movies have a trailer, so inly those who have)
  *
  */
+
+export default function UpcomingScreen() {}

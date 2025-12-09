@@ -9,3 +9,5 @@
  *      and on click should navigate to a detailed screen
  *      of the selected cinema
  */
+
+export default function CinemasScreen() {}

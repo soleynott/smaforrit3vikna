@@ -13,3 +13,5 @@
  *      -each movie can be reordered within the list, creating a prioritised list of favourite movies
  *
  */
+
+export default function FavouritesScreen() {}

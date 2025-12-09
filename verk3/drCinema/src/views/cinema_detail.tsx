@@ -15,3 +15,5 @@
  *          the app should navigate to a detailed screen for the selected movie
  *
  */
+
+export default function CinemaDetailScreen() {}
