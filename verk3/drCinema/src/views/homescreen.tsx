@@ -48,8 +48,8 @@ export default function HomeScreen() {
 
 	return (
 		<FlatList
-			data={movies}
-			keyExtractor={(item) => item.id.toString()}
+			data={movies} //index to remove duplicates
+			keyExtractor={(item, index) => `${item.id}-${index}`}
 			renderItem={({ item }) => (
 				<View style={{ padding: 16 }}>
 					<Image
