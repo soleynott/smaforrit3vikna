@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Buffer } from 'buffer';
+import { KVM_USERNAME, KVM_PASSWORD } from '@env';
 
-const API_URL = 'http://api.kvikmyndir.is';
+const API_URL = 'https://api.kvikmyndir.is';
 const AUTH_URL = `${API_URL}/authenticate`;
 const USERNAME = 'YOUR_USERNAME';
 const PASSWORD = 'YOUR_PASSWORD';

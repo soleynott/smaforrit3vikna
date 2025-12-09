@@ -23,5 +23,44 @@
  *      the app should navigate to a detailed screen for the selected movie
  *
  */
+import { useEffect, useState } from 'react';
+import { View, Text, FlatList, Image } from 'react-native';
+import { getMovies } from '@/src/api/kvikmyndir';
 
-export default function HomeScreen() {}
+export default function HomeScreen() {
+	const [movies, setMovies] = useState<any[]>([]);
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		async function load() {
+			try {
+				const data = await getMovies();
+				setMovies(data);
+			} catch (e) {
+				console.log('Error loading movies:', e);
+			} finally {
+				setLoading(false);
+			}
+		}
+
+		load();
+	}, []);
+
+	return (
+		<FlatList
+			data={movies}
+			keyExtractor={(item) => item.id.toString()}
+			renderItem={({ item }) => (
+				<View style={{ padding: 16 }}>
+					<Image
+						source={{ uri: item.poster }}
+						style={{ width: 120, height: 180, borderRadius: 8 }}
+					/>
+					<Text style={{ fontSize: 18, fontWeight: 'bold' }}>{item.title}</Text>
+					<Text>{item.year}</Text>
+					<Text>{item.genres?.join(', ')}</Text>
+				</View>
+			)}
+		/>
+	);
+}
