@@ -6,7 +6,7 @@ export default function RootLayout() {
 		<GestureHandlerRootView>
 			<Stack>
 				<Stack.Screen
-					name="homescreen"
+					name="index"
 					options={{
 						title: 'Dr. Cinema',
 					}}
@@ -18,7 +18,7 @@ export default function RootLayout() {
 					}}
 				/>
 				<Stack.Screen
-					name="cinemaDetail"
+					name="cinema_detail"
 					options={{
 						title: 'Cinema detail',
 					}}
