@@ -1,0 +1,65 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Buffer } from 'buffer';
+
+const API_URL = 'http://api.kvikmyndir.is';
+const AUTH_URL = `${API_URL}/authenticate`;
+const USERNAME = 'YOUR_USERNAME';
+const PASSWORD = 'YOUR_PASSWORD';
+
+async function fetchAuthToken(): Promise<string> {
+	const basicAuth = Buffer.from(`${USERNAME}:${PASSWORD}`).toString('base64');
+
+	const response = await fetch(AUTH_URL, {
+		method: 'POST',
+		headers: {
+			Authorization: `Basic ${basicAuth}`,
+			'Content-Type': 'application/json',
+		},
+	});
+
+	if (!response.ok) {
+		throw new Error('Failed to authenticate');
+	}
+
+	const data = await response.json();
+	const token = data.token;
+
+	// Save token + timestamp
+	await AsyncStorage.setItem('kvik_token', token);
+	await AsyncStorage.setItem('kvik_token_time', Date.now().toString());
+
+	return token;
+}
+
+async function getToken(): Promise<string> {
+	const stored = await AsyncStorage.getItem('kvik_token');
+	const time = await AsyncStorage.getItem('kvik_token_time');
+
+	// No token saved at all
+	if (!stored || !time) {
+		return fetchAuthToken();
+	}
+
+	const ageHours = (Date.now() - parseInt(time)) / (1000 * 60 * 60);
+
+	// Token expired (24 hours)
+	if (ageHours >= 24) {
+		return fetchAuthToken();
+	}
+
+	return stored;
+}
+
+// ----- API WRAPPERS -----
+
+export async function getMovies() {
+	const token = await getToken();
+	const response = await fetch(`${API_URL}/movies?token=${token}`);
+	return response.json();
+}
+
+export async function getCinemas() {
+	const token = await getToken();
+	const response = await fetch(`${API_URL}/theaters?token=${token}`);
+	return response.json();
+}
