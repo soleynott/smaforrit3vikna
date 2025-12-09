@@ -4,7 +4,7 @@ import { Entypo } from '@expo/vector-icons';
 import { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { ContactThumbnail } from '../../types/contact_thumbnail';
-import styles from './styles/add_modal_styles';
+import styles from '../toolbar_styles';
 import {
 	requestCameraPermission,
 	requestMediaLibraryPermission,
@@ -66,9 +66,16 @@ export function AddModal(props: AddModalProps) {
 	};
 
 	const handleCreateContact = async () => {
-		if (!name || !phone || !imageUri) {
-			alert('Please fill in all fields and select an image');
+		if (!name || !phone ) {
+			alert('Please fill in all fields');
 			return;
+		}
+		//For Computer instance and import
+		if (isNaN(Number(phone.replace(" ", "").slice(1))) || phone === "") {
+			if (!(phone.slice(0, 1) === "+")) {
+			alert('Phone number needs to be valid')
+			return;
+			}
 		}
 		const newContact: ContactThumbnail = {
 			name: name,
@@ -94,7 +101,7 @@ export function AddModal(props: AddModalProps) {
 
 	if (selectedPhotoMode) {
 		return (
-			<Modal title="Add Image" isOpen={props.isOpen} closeModal={props.closeModal}>
+			<Modal title="Add Image" isOpen={props.isOpen} closeModal={() => setSelectedPhotoMode(null)}>
 				<View style={styles.optionsContainer}>
 					<TouchableOpacity style={styles.option} onPress={takePhoto}>
 						<Entypo name="camera" size={48} color={'blue'} style={styles.icon}></Entypo>
@@ -145,8 +152,9 @@ export function AddModal(props: AddModalProps) {
 					inputMode="numeric"
 					keyboardType="number-pad"
 					returnKeyType="done"
-					blurOnSubmit={true}
-					style={[styles.input, styles.descriptionInput]}
+					//blurOnSubmit={true}
+					submitBehavior="blurAndSubmit"
+					style={styles.input}
 					placeholder="Contact Phone"
 					value={phone}
 					onChangeText={setPhone}

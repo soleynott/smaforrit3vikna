@@ -1,6 +1,9 @@
 import { Directory, File, Paths } from 'expo-file-system';
 import uuid from 'react-native-uuid';
 import { ContactThumbnail } from '../types/contact_thumbnail';
+import * as Contacts from 'expo-contacts';
+
+
 
 const contactDirectory = new Directory(Paths.document, 'contacts');
 
@@ -54,7 +57,7 @@ const setupDirectory = async (): Promise<void> => {
 export const saveContact = async (
 	contact: ContactThumbnail,
 ): Promise<{ id: string; filename: string }> => {
-	// Ensure directory exists
+
 	await setupDirectory();
 
 	const id = generateId();
@@ -102,19 +105,17 @@ export const removeContact = async (filename: string): Promise<void> => {
 export const getAllContacts = async (): Promise<
 	{ filename: string; contact: ContactThumbnail }[]
 > => {
-	// Check if directory exists
+
 	await setupDirectory();
 
 	const items = await onException(() => contactDirectory.list());
 
 	if (!items) return [];
 
-	// Filter to only get File instances that are JSON
 	const contactFiles = items.filter(
 		(item) => item instanceof File && (item as File).name.endsWith('.json'),
 	) as File[];
 
-	//load all contacts
 	const contacts = await Promise.all(
 		contactFiles.map(async (file) => {
 			const contact = await loadContact(file.name);
@@ -131,28 +132,35 @@ export const getAllContacts = async (): Promise<
 	}[];
 };
 
-// /**
-//  * Cleans the entire image directory
-//  */
-// export const cleanDirectory = async (): Promise<void> => {
-// 	await onException(() => {
-// 		if (imageDirectory.exists) {
-// 			imageDirectory.delete();
-// 		}
-// 	});
-// };
+/**
+ * Imports contacts from device contacts
+ */
+export const importContactsFromDevice = async (): Promise<ContactThumbnail[]> => {
+	const result = await onException(async () => {
+		const permission = await Contacts.requestPermissionsAsync();
 
-// /**
-//  * Copies a file from one location to another
-//  */
-// export const copyFile = async (sourceUri: string, destinationUri: string): Promise<void> => {
-// 	const result = await onException(() => {
-// 		const sourceFile = new File(sourceUri);
-// 		const destinationFile = new File(destinationUri);
-// 		sourceFile.copy(destinationFile);
-// 	});
+		if (permission.status !== 'granted') {
+			throw new Error('Permission to access contacts was denied');
+		}
 
-// 	if (result === null) {
-// 		throw new Error(`Failed to copy file from ${sourceUri} to ${destinationUri}`);
-// 	}
-// };
+		const data = await Contacts.getContactsAsync({
+			fields: [Contacts.Fields.PhoneNumbers, Contacts.Fields.Image],
+		});
+
+
+		const rawContacts: any[] = (data as any).data ?? (data as any).contacts ?? [];
+
+		const importedContacts: ContactThumbnail[] = rawContacts
+			.filter((contact: any) => contact.phoneNumbers && contact.phoneNumbers.length > 0)
+			.map((contact: any) => ({
+				name: contact.name || 'Unknown',
+				phoneNumber: contact.phoneNumbers?.[0].number || '',
+				thumbnailPhoto: contact.image?.uri || null,
+				filename: undefined, 
+			}));
+
+		return importedContacts;
+	});
+
+	return result || [];
+};

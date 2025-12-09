@@ -19,6 +19,7 @@ import { EditContactModal } from '@/src/components/contact/edit_modal';
 import { ContactThumbnail } from '@/src/types/contact_thumbnail';
 import { saveContact, removeContact, getAllContacts } from '@/src/services/file-service';
 import { useRouter } from 'expo-router';
+import * as Linking from 'expo-linking';
 
 export default function ContactScreen() {
 	const { name, number, image, filename } = useLocalSearchParams<{
@@ -57,10 +58,15 @@ export default function ContactScreen() {
 	};
 
 	const router = useRouter();
+	
 	const handleContactDelete = async (filename: string) => {
 		await removeContact(filename);
 		router.back();
 		setIsEditModalOpen(false);
+	};
+
+	const handleCallPress = () => {
+    	Linking.openURL(`tel:${contact.phoneNumber}`);
 	};
 
 	return (
@@ -70,6 +76,7 @@ export default function ContactScreen() {
 				number={contact.phoneNumber}
 				image={contact.thumbnailPhoto}
 				onEditPress={handleEditModal}
+				onCall={handleCallPress}
 			/>
 			<EditContactModal
 				isOpen={isEditModalOpen}

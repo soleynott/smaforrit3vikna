@@ -17,7 +17,7 @@ import {
 	requestCameraPermission,
 	requestMediaLibraryPermission,
 } from '@/src/services/image-service';
-import styles from '../main/styles/add_modal_styles';
+import styles from '../toolbar_styles';
 
 interface EditContactProps {
 	isOpen: boolean;
@@ -36,17 +36,19 @@ export function EditContactModal(props: EditContactProps) {
 	const [isEditingContact, setIsEditingContact] = useState(false);
 
 	useEffect(() => {
+		if (props.contacts.length === 1 && !selectedContact) {
+			setSelectedContact(props.contacts[0]);
+			setIsEditingContact(true);
+		}
+	}, [props.isOpen]);
+
+	useEffect(() => {
 		if (selectedContact && isEditingContact) {
 			setName(selectedContact.name);
 			setPhone(selectedContact.phoneNumber);
 			setPhotoUri(selectedContact.thumbnailPhoto);
 		}
 	}, [selectedContact, isEditingContact]);
-
-	const handleSelectContact = (contact: ContactThumbnail) => {
-		setSelectedContact(contact);
-		setIsEditingContact(true);
-	};
 
 	const takePhoto = async () => {
 		const permissionGranted = await requestCameraPermission();
@@ -92,9 +94,16 @@ export function EditContactModal(props: EditContactProps) {
 	};
 
 	const handleUpdateContact = () => {
-		if (!name || !phone || !photoUri) {
-			alert('Please fill in name, phone number, and select a photo');
+		if (!name || !phone ) {
+			alert('Please fill in name, phone number');
 			return;
+		}
+		//For Computer instance and import
+		if (isNaN(Number(phone.replace(" ", "").slice(1))) || phone === "") {
+			if (!(phone.slice(0, 1) === "+")) {
+			alert('Phone number needs to be valid')
+			return;
+			}
 		}
 
 		if (!selectedContact) return;
@@ -200,7 +209,11 @@ export function EditContactModal(props: EditContactProps) {
 					/>
 
 					<TextInput
-						style={[styles.input, styles.descriptionInput]}
+						inputMode="numeric"
+						keyboardType="number-pad"
+						returnKeyType="done"
+						submitBehavior="blurAndSubmit"
+						style={styles.input}
 						placeholder="Contact Phone"
 						value={phone}
 						onChangeText={setPhone}
@@ -223,94 +236,8 @@ export function EditContactModal(props: EditContactProps) {
 					>
 						<Text style={styles.createButtonText}>Delete Contact</Text>
 					</TouchableOpacity>
-
-					<TouchableOpacity
-						style={{
-							...styles.createButton,
-							backgroundColor: '#95a5a6',
-							marginTop: 10,
-						}}
-						onPress={() => setIsEditingContact(false)}
-					>
-						<Text style={styles.createButtonText}>Back to Contacts</Text>
-					</TouchableOpacity>
 				</ScrollView>
 			</Modal>
 		);
 	}
-
-	return (
-		<Modal title="Edit Contact" isOpen={props.isOpen} closeModal={props.closeModal}>
-			<View style={{ minHeight: 200 }}>
-				{props.contacts.length === 0 ? (
-					<View
-						style={{
-							justifyContent: 'center',
-							alignItems: 'center',
-							paddingVertical: 40,
-						}}
-					>
-						<Text style={{ fontSize: 16, color: '#999', fontStyle: 'italic' }}>
-							No contacts available
-						</Text>
-					</View>
-				) : (
-					<FlatList
-						data={props.contacts}
-						keyExtractor={(item, index) => index.toString()}
-						scrollEnabled={true}
-						nestedScrollEnabled={true}
-						renderItem={({ item }) => (
-							<TouchableOpacity
-								style={{
-									flexDirection: 'row',
-									alignItems: 'center',
-									paddingVertical: 12,
-									paddingHorizontal: 10,
-									marginVertical: 8,
-									backgroundColor: '#f5f5f5',
-									borderRadius: 10,
-									gap: 12,
-								}}
-								onPress={() => handleSelectContact(item)}
-							>
-								{item.thumbnailPhoto && (
-									<Image
-										source={{ uri: item.thumbnailPhoto }}
-										style={{ width: 40, height: 40, borderRadius: 20 }}
-									/>
-								)}
-								{!item.thumbnailPhoto && (
-									<View
-										style={{
-											width: 40,
-											height: 40,
-											borderRadius: 20,
-											backgroundColor: '#e0e0e0',
-										}}
-									/>
-								)}
-								<View style={{ flex: 1, justifyContent: 'center' }}>
-									<Text
-										style={{
-											fontSize: 15,
-											fontWeight: '600',
-											color: '#333',
-											marginBottom: 4,
-										}}
-									>
-										{item.name}
-									</Text>
-									<Text style={{ fontSize: 12, color: '#666' }}>
-										{item.phoneNumber}
-									</Text>
-								</View>
-								<Entypo name="chevron-right" size={24} color={'#666'} />
-							</TouchableOpacity>
-						)}
-					/>
-				)}
-			</View>
-		</Modal>
-	);
 }
