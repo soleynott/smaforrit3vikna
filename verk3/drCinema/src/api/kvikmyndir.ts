@@ -1,11 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Buffer } from 'buffer';
-import { KVM_USERNAME, KVM_PASSWORD } from '@env';
+import Constants from 'expo-constants';
 
 const API_URL = 'https://api.kvikmyndir.is';
 const AUTH_URL = `${API_URL}/authenticate`;
-const USERNAME = 'YOUR_USERNAME';
-const PASSWORD = 'YOUR_PASSWORD';
+const USERNAME = Constants.expoConfig?.extra?.KVM_USERNAME as string;
+const PASSWORD = Constants.expoConfig?.extra?.KVM_PASSWORD as string;
+
+console.log('Username:', USERNAME); // just to test
 
 async function fetchAuthToken(): Promise<string> {
 	const basicAuth = Buffer.from(`${USERNAME}:${PASSWORD}`).toString('base64');
