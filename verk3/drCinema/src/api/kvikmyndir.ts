@@ -78,3 +78,15 @@ export async function getCinemas() {
 	
 	return response.json();
 }
+
+export async function getUpcoming(): Promise<Movie[]> {
+	const token = await getToken();
+	const response = await fetch(`${API_URL}/upcoming?token=${token}`);
+	
+	if (!response.ok) {
+		throw new Error(`Failed to fetch upcoming movies: ${response.status}`);
+	}
+	
+	const data = await response.json();
+	return data;
+}

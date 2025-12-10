@@ -14,6 +14,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import styles from './styles/cinemas_styles';
+import { getCinemas } from '@/src/api/kvikmyndir';
 
 type Cinema = {
   id: string;
@@ -28,6 +29,8 @@ interface CinemaListProps {
 }
 
 export function CinemasScreen({ cinemas, onCinemaPress }: CinemaListProps) {
+
+  
   // Sort cinemas alphabetically by name (ascending)
   const sortedCinemas = React.useMemo(
     () =>

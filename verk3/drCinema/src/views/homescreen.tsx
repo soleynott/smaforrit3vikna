@@ -5,7 +5,7 @@ import { RootState, AppDispatch } from '../redux/store';
 import { ScrollView, Text, View, Image, StyleSheet, ActivityIndicator } from 'react-native';
 import { Movie } from '../types/movie_type';
 import { HomeScreenList } from '../components/homescrenn/homescreen_list';
-import styles from "./styles_homescreen";
+import styles from "./styles/styles_homescreen";
 
 export default function HomeScreen() {
   const dispatch = useDispatch<AppDispatch>();
