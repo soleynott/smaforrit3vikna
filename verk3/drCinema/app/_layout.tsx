@@ -1,5 +1,6 @@
 import { Stack } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { store } from '@/src/redux/store';
 
 export default function RootLayout() {
 	return (
