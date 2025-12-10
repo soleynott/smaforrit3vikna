@@ -26,4 +26,14 @@ export default StyleSheet.create({
     backgroundColor: '#eeeeee',
     marginHorizontal: 16,
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorText: {
+    fontSize: 16,
+    color: 'red',
+    padding: 20,
+  },
 });
