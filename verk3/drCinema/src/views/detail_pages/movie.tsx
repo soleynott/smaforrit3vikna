@@ -2,7 +2,7 @@
  * movie screen
  *
  * should include
- *      -see detailed information about th eselected movie
+ *      -see detailed information about the selected movie
  *          -name
  *          -image (poster)
  *          -plot
