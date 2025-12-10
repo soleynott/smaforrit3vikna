@@ -1,66 +1,152 @@
-/**
- * home screen
- *
- * should include
- *      -see all movies which are being shown,
- *      where each movie is grouped by the cinema
- *      associated with the movie.
- *      note that a movie can be linked to multiple cinemas
- *      and should be displayed as part of all associated cinemas.
- *
- *      -a filter should be presented where a user can
- *      filter on the following criterias
- *          -title
- *          -rating both from Rotten tomatoes and IMDB
- *          -range of showtime, e.g. from 20:00 - 22:00
- *          -starring actors
- *          -directors
- *          -PG rating
- *
- *      -a movie should display a thumbnail, name, release year and genres
- *
- *      -each movie in the list should be clickable and when clicked
- *      the app should navigate to a detailed screen for the selected movie
- *
- */
-import { useEffect, useState } from 'react';
-import { View, Text, FlatList, Image } from 'react-native';
-import { getMovies } from '@/src/api/kvikmyndir';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchMovies } from '../redux/movieSlice';
+import { RootState, AppDispatch } from '../redux/store';
+import { ScrollView, Text, View, Image, StyleSheet, ActivityIndicator } from 'react-native';
+import { Movie } from '../types/movie_type';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 10,
+  },
+  movieItem: {
+    marginBottom: 20,
+    backgroundColor: '#f5f5f5',
+    borderRadius: 8,
+    overflow: 'hidden',
+    flexDirection: 'row',
+    minHeight: 250,
+  },
+  posterContainer: {
+    width: 150,
+    height: 250,
+  },
+  poster: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#e0e0e0',
+  },
+  movieInfo: {
+    flex: 1,
+    padding: 15,
+    justifyContent: 'space-between',
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  year: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 5,
+  },
+  genres: {
+    fontSize: 12,
+    color: '#999',
+    marginBottom: 8,
+  },
+  plot: {
+    fontSize: 13,
+    color: '#333',
+    marginBottom: 10,
+  },
+  rating: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#FFB800',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorText: {
+    fontSize: 16,
+    color: 'red',
+    padding: 20,
+  },
+});
 
 export default function HomeScreen() {
-	const [movies, setMovies] = useState<any[]>([]);
-	const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch<AppDispatch>();
 
-	useEffect(() => {
-		async function load() {
-			try {
-				const data = await getMovies();
-				setMovies(data);
-			} catch (e) {
-				console.log('Error loading movies:', e);
-			} finally {
-				setLoading(false);
-			}
-		}
+  const { movies, loading, error } = useSelector(
+    (state: RootState) => state.movies
+  );
 
-		load();
-	}, []);
+  useEffect(() => {
+    dispatch(fetchMovies());
+  }, [dispatch]);
 
-	return (
-		<FlatList
-			data={movies} //index to remove duplicates
-			keyExtractor={(item, index) => `${item.id}-${index}`}
-			renderItem={({ item }) => (
-				<View style={{ padding: 16 }}>
-					<Image
-						source={{ uri: item.poster }}
-						style={{ width: 120, height: 180, borderRadius: 8 }}
-					/>
-					<Text style={{ fontSize: 18, fontWeight: 'bold' }}>{item.title}</Text>
-					<Text>{item.year}</Text>
-					<Text>{item.genres?.join(', ')}</Text>
-				</View>
-			)}
-		/>
-	);
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+        <Text>Loading movies...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text style={styles.errorText}>Error: {error}</Text>
+      </View>
+    );
+  }
+
+  if (!movies || movies.length === 0) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text>No movies found</Text>
+      </View>
+    );
+  }
+
+  return (
+    <ScrollView style={styles.container}>
+      {movies.map((movie: Movie, index: number) => (
+        <View key={`${movie.id}-${movie._id || index}`} style={styles.movieItem}>
+          <View style={styles.posterContainer}>
+            {movie.poster && (
+              <Image
+                source={{ uri: movie.poster }}
+                style={styles.poster}
+                resizeMode="cover"
+              />
+            )}
+          </View>
+          <View style={styles.movieInfo}>
+            <View>
+              <Text style={styles.title}>{movie.title}</Text>
+              {movie.alternativeTitles && (
+                <Text style={styles.year}>{movie.alternativeTitles}</Text>
+              )}
+              <Text style={styles.year}>Year: {movie.year}</Text>
+              <Text style={styles.genres}>
+                {movie.genres?.map((g) => g.Name).join(', ') || 'N/A'}
+              </Text>
+            </View>
+            <View>
+              {movie.plot && (
+                <Text style={styles.plot} numberOfLines={3}>
+                  {movie.plot}
+                </Text>
+              )}
+              {movie.ratings?.imdb && (
+                <Text style={styles.rating}>IMDb: {movie.ratings.imdb} </Text>
+              )}
+              {movie.ratings?.rotten_critics && (
+                <Text style={styles.rating}>
+                  Rotten Tomatoes: {movie.ratings.rotten_critics}
+                </Text>
+              )}
+            </View>
+          </View>
+        </View>
+      ))}
+    </ScrollView>
+  );
 }
