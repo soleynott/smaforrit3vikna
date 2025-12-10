@@ -11,54 +11,54 @@
  */
 
 
-import React from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
-import styles from './styles/cinemas_styles';
-import { getCinemas } from '@/src/api/kvikmyndir';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCinemas } from '../redux/cinemaSlice';
+import { RootState, AppDispatch } from '../redux/store';
+import { ScrollView, Text, View, Image, StyleSheet, ActivityIndicator } from 'react-native';
+import { Cinema } from '../types/cinema_type';
+import { CinemaList } from '../components/cinemascreen/cinemascreen_list';
+import styles from "./styles/cinemas_styles";
 
-type Cinema = {
-  id: string;
-  name: string;
-  website: string;
-};
+export default function CinemasScreen() {
+  const dispatch = useDispatch<AppDispatch>();
 
-interface CinemaListProps {
-  cinemas: Cinema[];
-  // You can use this to navigate to your Cinema screen
-  onCinemaPress: (cinema: Cinema) => void;
-}
-
-export function CinemasScreen({ cinemas, onCinemaPress }: CinemaListProps) {
-
-  
-  // Sort cinemas alphabetically by name (ascending)
-  const sortedCinemas = React.useMemo(
-    () =>
-      [...cinemas].sort((a, b) =>
-        a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })
-      ),
-    [cinemas]
+  const { cinemas, loading, error } = useSelector(
+    (state: RootState) => state.cinemas
   );
 
-  const renderItem = ({ item }: { item: Cinema }) => (
-    <TouchableOpacity
-      style={styles.itemContainer}
-      onPress={() => onCinemaPress(item)}
-    >
-      <Text style={styles.itemName}>{item.name}</Text>
-      <Text style={styles.itemWebsite}>{item.website}</Text>
-    </TouchableOpacity>
-  );
+  useEffect(() => {
+    dispatch(fetchCinemas());
+  }, [dispatch]);
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+        <Text>Loading cinemas...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text style={styles.errorText}>Error: {error}</Text>
+      </View>
+    );
+  }
+
+  if (!cinemas || cinemas.length === 0) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text>No cinemas found</Text>
+      </View>
+    );
+  }
 
   return (
-    <View style={styles.screen}>
-      <FlatList
-        data={sortedCinemas}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
-        contentContainerStyle={styles.listContent}
-      />
+    <View style={{flex: 1}}>
+      <CinemaList cinemas={cinemas}/>
     </View>
-  );
+  )
 }
