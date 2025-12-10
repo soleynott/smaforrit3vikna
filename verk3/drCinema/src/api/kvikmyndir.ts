@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Buffer } from 'buffer';
 import Constants from 'expo-constants';
+import { Movie } from '../types/movie_type';
 
 const API_URL = 'https://api.kvikmyndir.is';
 const AUTH_URL = `${API_URL}/authenticate`;
@@ -55,14 +56,25 @@ async function getToken(): Promise<string> {
 
 // ----- API WRAPPERS -----
 
-export async function getMovies() {
+export async function getMovies(): Promise<Movie[]> {
 	const token = await getToken();
 	const response = await fetch(`${API_URL}/movies?token=${token}`);
-	return response.json();
+	
+	if (!response.ok) {
+		throw new Error(`Failed to fetch movies: ${response.status}`);
+	}
+	
+	const data = await response.json();
+	return data;
 }
 
 export async function getCinemas() {
 	const token = await getToken();
 	const response = await fetch(`${API_URL}/theaters?token=${token}`);
+	
+	if (!response.ok) {
+		throw new Error(`Failed to fetch cinemas: ${response.status}`);
+	}
+	
 	return response.json();
 }
