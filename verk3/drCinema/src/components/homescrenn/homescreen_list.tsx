@@ -1,20 +1,26 @@
 
-import { ScrollView, Text, View, Image, StyleSheet, ActivityIndicator } from 'react-native';
+import { ScrollView, Text, View, Image, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import { Movie } from '../../types/movie_type';
+import { useRouter } from 'expo-router';
 
 interface HomeScreenListProps {
   movies: Movie[]; 
 }
 
 export function HomeScreenList (props: HomeScreenListProps) {
+  const router = useRouter();
 
 
   
   return (
       <ScrollView style={styles.container}>
         {props.movies.map((movie: Movie, index: number) => (
-          <View key={`${movie.id}-${movie._id || index}`} style={styles.movieItem}>
+          <TouchableOpacity
+            key={`${movie.id}-${movie._id || index}`}
+            style={styles.movieItem}
+            onPress={() => router.push(`/movie/${movie.id}`)}
+          >
             <View style={styles.posterContainer}>
               {movie.poster && (
                 <Image
@@ -50,8 +56,8 @@ export function HomeScreenList (props: HomeScreenListProps) {
                   </Text>
                 )}
               </View>
-            </View>
-          </View>
+              </View>
+            </TouchableOpacity>
         ))}
       </ScrollView>
     );
