@@ -33,6 +33,14 @@ export function UpcomingScreenList(props: UpcomingScreenListProps) {
 									resizeMode="cover"
 								/>
 							)}
+							{trailerKey && (
+								<TouchableOpacity
+									style={styles.trailerbutton}
+									onPress={() => router.push(`/trailer/${trailerKey}`)}
+								>
+									<Text style={styles.trailerButtonText}>Watch Trailer</Text>
+								</TouchableOpacity>
+							)}
 						</View>
 						<View style={styles.movieInfo}>
 							<View>
@@ -46,22 +54,12 @@ export function UpcomingScreenList(props: UpcomingScreenListProps) {
 								<Text style={styles.genres}>
 									{movie.genres?.map((g) => g.Name).join(', ') || 'N/A'}
 								</Text>
-							</View>
-							<View>
 								{movie.plot && (
 									<Text style={styles.plot} numberOfLines={4}>
 										{movie.plot}
 									</Text>
 								)}
 							</View>
-							{trailerKey && (
-								<TouchableOpacity
-									style={styles.trailerbutton}
-									onPress={() => router.push(`/trailer/${trailerKey}`)}
-								>
-									<Text style={styles.trailerButtonText}>Watch Trailer</Text>
-								</TouchableOpacity>
-							)}
 						</View>
 					</View>
 				);

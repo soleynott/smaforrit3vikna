@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
 	posterContainer: {
 		width: 150,
 		height: 250,
+		position: 'relative',
 	},
 	poster: {
 		width: '100%',
@@ -64,14 +65,12 @@ const styles = StyleSheet.create({
 	},
 	trailerbutton: {
 		backgroundColor: '#ff2e63',
-		color: 'white',
 		paddingVertical: 8,
 		paddingHorizontal: 16,
 		borderRadius: 8,
-		fontWeight: '600',
-		textAlign: 'center',
-		marginTop: 10,
-		overflow: 'hidden',
+		position: 'absolute',
+		bottom: 0,
+		left: 160,
 	},
 	trailerButtonText: {
 		color: 'white',
