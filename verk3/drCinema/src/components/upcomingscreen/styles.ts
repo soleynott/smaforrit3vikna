@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 	plot: {
 		fontSize: 13,
 		color: '#333',
-		marginBottom: 10,
+		marginBottom: 100,
 	},
 	rating: {
 		fontSize: 14,
@@ -61,6 +61,22 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		color: 'red',
 		padding: 20,
+	},
+	trailerbutton: {
+		backgroundColor: '#ff2e63',
+		color: 'white',
+		paddingVertical: 8,
+		paddingHorizontal: 16,
+		borderRadius: 8,
+		fontWeight: '600',
+		textAlign: 'center',
+		marginTop: 10,
+		overflow: 'hidden',
+	},
+	trailerButtonText: {
+		color: 'white',
+		fontWeight: 'bold',
+		fontSize: 14,
 	},
 });
 export default styles;
