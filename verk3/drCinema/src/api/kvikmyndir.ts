@@ -82,7 +82,7 @@ export async function getCinemas(): Promise<Cinema[]> {
 	if (!response.ok) {
 		throw new Error(`Failed to fetch cinemas: ${response.status}`);
 	}
-	console.log('Cinemas response status:', token);
+	//console.log('Cinemas response status:', token);
 	const dataCinema = await response.json();
 	return dataCinema;
 }
