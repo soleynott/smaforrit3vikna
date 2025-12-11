@@ -61,8 +61,13 @@ export default function RootLayout() {
 							headerTitle: 'Your Favorites',
 						}}
 					/>
-
-					{/* Detail screens hidden from tab bar */}
+					<Tabs.Screen
+						name="movie/[id]"
+						options={{
+							href: null,
+							title: 'Movie detail',
+						}}
+					/>
 					<Tabs.Screen
 						name="cinema/[id]"
 						options={{

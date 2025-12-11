@@ -64,11 +64,7 @@ export function HomeScreenList(props: HomeScreenListProps) {
 								</View>
 
 								<View>
-									{/* {movie.plot && (
-									<Text style={styles.plot} numberOfLines={3}>
-										{movie.plot}
-									</Text>
-								)} */}
+
 									{movie.ratings?.imdb && (
 										<Text style={styles.rating}>
 											IMDb: {movie.ratings.imdb}
