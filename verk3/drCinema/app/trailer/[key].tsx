@@ -22,3 +22,26 @@ export default function TrailerScreen() {
 		</View>
 	);
 }
+//spila trailer innan i appinu, virðist ekki virka i expo go
+// export default function TrailerScreen() {
+// 	const { key } = useLocalSearchParams();
+// 	if (!key) {
+// 		return <Text>No trailer available</Text>;
+// 	}
+
+// 	const youtubeUrl = `https://www.youtube-nocookie.com/embed/${key}`;
+
+// 	return (
+// 		<View style={{ flex: 1 }}>
+// 			<WebView
+// 				source={{ uri: youtubeUrl }}
+// 				style={{ flex: 1 }}
+// 				allowsFullscreenVideo
+// 				javaScriptEnabled
+// 				domStorageEnabled
+// 				renderLoading={() => <ActivityIndicator style={{ flex: 1 }} />}
+// 				startInLoadingState
+// 			/>
+// 		</View>
+// 	);
+// }
