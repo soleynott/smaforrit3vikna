@@ -16,7 +16,7 @@ export function HomeScreenList(props: HomeScreenListProps) {
 
 	const handleWatchTrailer = async (trailerKey: string) => {
 		const url = `https://www.youtube.com/watch?v=${trailerKey}`;
-		await WebBrowser.openBrowserAsync(url); // ✅
+		await WebBrowser.openBrowserAsync(url);
 	};
 
 	return (
@@ -30,7 +30,12 @@ export function HomeScreenList(props: HomeScreenListProps) {
 						<TouchableOpacity
 							key={`${movie.id}-${movie._id || index}`}
 							style={styles.movieItem}
-							onPress={() => router.push(`/movie/${movie.id}`)}
+							onPress={() =>
+								router.push({
+									pathname: `/movie/${movie.id}`,
+									params: { cinemaId: props.cinema.id },
+								})
+							}
 						>
 							<View style={styles.posterContainer}>
 								{movie.poster && (
@@ -64,7 +69,6 @@ export function HomeScreenList(props: HomeScreenListProps) {
 								</View>
 
 								<View>
-
 									{movie.ratings?.imdb && (
 										<Text style={styles.rating}>
 											IMDb: {movie.ratings.imdb}
