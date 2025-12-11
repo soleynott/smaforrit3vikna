@@ -40,7 +40,7 @@ export default function CinemaDetail({ cinema, movies }: CinemaDetailProps) {
 
 			<View style={styles.section}>
 				<Text style={styles.sectionTitle}>Movies</Text>
-				<HomeScreenList movies={movies} />
+				<HomeScreenList movies={movies} cinema={cinema} />
 			</View>
 		</ScrollView>
 	);

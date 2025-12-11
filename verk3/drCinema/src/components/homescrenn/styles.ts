@@ -68,5 +68,10 @@ const styles = StyleSheet.create({
 		color: 'red',
 		padding: 20,
 	},
+	cinemaName: {
+		fontSize: 18,
+		fontWeight: 'bold',
+		marginBottom: 8,
+	},
 });
 export default styles;
