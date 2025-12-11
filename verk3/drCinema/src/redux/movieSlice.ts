@@ -100,8 +100,18 @@ const movieSlice = createSlice({
 				state.error = (action.payload as string) || 'Error loading movie';
 			})
 			.addCase(fetchMoviesByCinema.fulfilled, (state, action) => {
+				state.loading = false;
 				const { cinemaId, moviesAtCinema } = action.payload;
-				state.byCinema[cinemaId] = moviesAtCinema;
+				const seen = new Set<number>();
+				const filteredmovies = moviesAtCinema.filter((movie: Movie) => {
+					if (seen.has(movie.id)) {
+						return false;
+					}
+					seen.add(movie.id);
+					return true;
+				});
+
+				state.byCinema[cinemaId] = filteredmovies;
 			})
 			.addCase(fetchMoviesByCinema.rejected, (state, action) => {
 				state.error = (action.payload as string) || 'Error fetching movies by cinema';
