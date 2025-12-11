@@ -3,20 +3,25 @@ import {
 	Text,
 	View,
 	Image,
-	StyleSheet,
-	ActivityIndicator,
 	TouchableOpacity,
 } from 'react-native';
 import styles from './styles';
 import { Movie } from '../../types/movie_type';
 import { useRouter } from 'expo-router';
 import { getTrailerKey } from '../../utils/trailer';
+import * as WebBrowser from 'expo-web-browser';   // ✅ ADD THIS
 
 interface UpcomingScreenListProps {
 	upcomingMovies: Movie[];
 }
+
 export function UpcomingScreenList(props: UpcomingScreenListProps) {
 	const router = useRouter();
+
+	const handleWatchTrailer = async (trailerKey: string) => {
+		const url = `https://www.youtube.com/watch?v=${trailerKey}`;
+		await WebBrowser.openBrowserAsync(url);     // ✅ OPEN IN-APP BROWSER
+	};
 
 	return (
 		<ScrollView style={styles.container}>
@@ -36,9 +41,9 @@ export function UpcomingScreenList(props: UpcomingScreenListProps) {
 							{trailerKey && (
 								<TouchableOpacity
 									style={styles.trailerbutton}
-									onPress={() => router.push(`/trailer/${trailerKey}`)}
+									onPress={() => handleWatchTrailer(trailerKey)} 
 								>
-									<Text style={styles.trailerButtonText}>Watch Trailer</Text>
+									<Text style={styles.trailerButtonText}>Watch trailer</Text>
 								</TouchableOpacity>
 							)}
 						</View>

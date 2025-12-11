@@ -9,6 +9,7 @@ import styles from './styles';
 import { Movie } from '../../types/movie_type';
 import { useRouter } from 'expo-router';
 import { getTrailerKey } from '../../utils/trailer';
+import * as WebBrowser from 'expo-web-browser';   // ✅
 
 interface HomeScreenListProps {
 	movies: Movie[];
@@ -16,6 +17,11 @@ interface HomeScreenListProps {
 
 export function HomeScreenList(props: HomeScreenListProps) {
 	const router = useRouter();
+
+	const handleWatchTrailer = async (trailerKey: string) => {
+		const url = `https://www.youtube.com/watch?v=${trailerKey}`;
+		await WebBrowser.openBrowserAsync(url);     // ✅
+	};
 
 	return (
 		<ScrollView style={styles.container}>
@@ -40,9 +46,9 @@ export function HomeScreenList(props: HomeScreenListProps) {
 							{trailerKey && (
 								<TouchableOpacity
 									style={styles.trailerbutton}
-									onPress={() => router.push(`/trailer/${trailerKey}`)}
+									onPress={() => handleWatchTrailer(trailerKey)}  // ✅
 								>
-									<Text style={styles.trailerButtonText}>Watch Trailer</Text>
+									<Text style={styles.trailerButtonText}>Watch trailer</Text>
 								</TouchableOpacity>
 							)}
 						</View>
