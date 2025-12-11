@@ -9,6 +9,10 @@ export const store = configureStore({
 		cinemas: cinemasReducer,
 		upcoming: upcomingReducer,
 	},
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({
+			serializableCheck: false, //get rid of warning
+		}),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -71,13 +71,20 @@ export async function getMovies(): Promise<Movie[]> {
 
 export async function getCinemas(): Promise<Cinema[]> {
 	const token = await getToken();
-	const response = await fetch(`${API_URL}/theaters?token=${token}`);
+	const response = await fetch(`${API_URL}/theaters`, {
+		method: 'GET',
+		headers: {
+			'Content-type': 'application/json',
+			'x-access-token': token,
+		},
+	});
 
 	if (!response.ok) {
 		throw new Error(`Failed to fetch cinemas: ${response.status}`);
 	}
 	console.log('Cinemas response status:', token);
 	const dataCinema = await response.json();
+	console.log('Raw cinemas response:', JSON.stringify(dataCinema, null, 2));
 	return dataCinema;
 }
 
