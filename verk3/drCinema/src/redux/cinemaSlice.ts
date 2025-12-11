@@ -57,7 +57,10 @@ const cinemaSlice = createSlice({
 			})
 			.addCase(fetchCinemas.fulfilled, (state, action) => {
 				state.loading = false;
-				state.cinemas = action.payload;
+				//sort alphabetically
+				state.cinemas = action.payload.sort((a: Cinema, b: Cinema) =>
+					a.name.localeCompare(b.name),
+				);
 			})
 			.addCase(fetchCinemas.rejected, (state, action) => {
 				state.loading = false;
