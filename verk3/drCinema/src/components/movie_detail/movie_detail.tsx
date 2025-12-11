@@ -121,9 +121,6 @@ export default function MovieDetail({ movie }: MovieDetailProps) {
 					<Text style={styles.info}>
 						Director: {movie.directors_abridged.map((d) => d.name).join(', ')}
 					</Text>
-          <Text style={styles.info}>
-            Writers: {movie.omdb[0]?.Writer || 'N/A'}
-          </Text>
 					<Text style={styles.info}>
 						Actors: {movie.actors_abridged.map((a) => a.name).join(', ')}
 					</Text>
