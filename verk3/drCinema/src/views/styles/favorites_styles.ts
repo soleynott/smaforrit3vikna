@@ -73,4 +73,17 @@ export default StyleSheet.create({
 		textAlign: 'center',
 		color: '#666',
 	},
+	rankContainer: {
+	width: 32,
+	alignItems: 'center',
+	justifyContent: 'center',
+	marginRight: 8,
+	},
+
+	rankText: {
+		fontSize: 18,
+		fontWeight: '700',
+		color: '#000',
+	},
+
 });

@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import colors from '@/src/resources/colors';
 
 const styles = StyleSheet.create({
 	container: {
@@ -13,10 +14,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		minHeight: 250,
 	},
-	posterContainer: {
-		width: 150,
-		height: 250,
-	},
+
 	poster: {
 		width: '100%',
 		height: '100%',
@@ -34,13 +32,18 @@ const styles = StyleSheet.create({
 	},
 	year: {
 		fontSize: 14,
-		color: '#666',
+		color: colors.primary,
 		marginBottom: 5,
 	},
 	genres: {
 		fontSize: 12,
-		color: '#999',
+		color: colors.secondary,
 		marginBottom: 8,
+	},
+	info: {
+		fontSize: 14,
+		color: colors.muted,
+		marginBottom: 5,
 	},
 	plot: {
 		fontSize: 13,
@@ -61,6 +64,34 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		color: 'red',
 		padding: 20,
+	},
+	posterContainer: {
+		width: 150,
+		height: 250,
+		position: 'relative',
+	},
+
+	trailerbutton: {
+		position: 'absolute',
+		bottom: 10,
+		left: 10,
+		right: 10,
+		backgroundColor: colors.primary,
+		paddingVertical: 6,
+		borderRadius: 8,
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+
+	trailerButtonText: {
+		color: 'white',
+		fontWeight: 'bold',
+		fontSize: 13,
+	},
+	cinemaName: {
+		fontSize: 18,
+		fontWeight: 'bold',
+		marginBottom: 8,
 	},
 });
 export default styles;

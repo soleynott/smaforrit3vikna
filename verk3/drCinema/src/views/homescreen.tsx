@@ -1,6 +1,7 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, use } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchMovies } from '../redux/movieSlice';
+import { fetchMovies, fetchMoviesByCinema } from '../redux/movieSlice';
+import { fetchCinemas } from '../redux/cinemaSlice';
 import { RootState, AppDispatch } from '../redux/store';
 import { Text, View, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -8,17 +9,21 @@ import { Movie } from '../types/movie_type';
 import { HomeScreenList } from '../components/homescrenn/homescreen_list';
 import { FilterModal } from '../components/homescrenn/filter_modal';
 import styles from './styles/styles_homescreen';
-import Feather from '@expo/vector-icons/Feather';
+import HomeScreenGrouped from '../components/homescrenn/homescreen_grouped';
+
 
 export default function HomeScreen() {
 	const dispatch = useDispatch<AppDispatch>();
-	const [showFilter, setShowFilter] = useState(false);
-
-	const { movies, loading, error } = useSelector((state: RootState) => state.movies);
-	const filters = useSelector((state: RootState) => state.filters);
+	const {
+		cinemas,
+		loading: cinemasLoading,
+		error: cinemasError,
+	} = useSelector((state: RootState) => state.cinemas);
+	const moviesState = useSelector((state: RootState) => state.movies);
 
 	useEffect(() => {
 		dispatch(fetchMovies());
+		dispatch(fetchCinemas());
 	}, [dispatch]);
 
 	const timeToMinutes = (time: string) => {
@@ -93,6 +98,13 @@ export default function HomeScreen() {
 	}, [movies, filters]);
 
 	if (loading) {
+	useEffect(() => {
+		cinemas.forEach((cinema) => {
+			dispatch(fetchMoviesByCinema(cinema.id));
+		});
+	}, [dispatch, cinemas]);
+
+	if (cinemasLoading || moviesState.loading) {
 		return (
 			<View style={styles.loadingContainer}>
 				<ActivityIndicator size="large" color="#0000ff" />
@@ -101,18 +113,10 @@ export default function HomeScreen() {
 		);
 	}
 
-	if (error) {
+	if (cinemasError) {
 		return (
 			<View style={styles.loadingContainer}>
-				<Text style={styles.errorText}>Error: {error}</Text>
-			</View>
-		);
-	}
-
-	if (!movies || movies.length === 0) {
-		return (
-			<View style={styles.loadingContainer}>
-				<Text>No movies found</Text>
+				<Text style={styles.errorText}>Error: {cinemasError}</Text>
 			</View>
 		);
 	}
@@ -126,6 +130,7 @@ export default function HomeScreen() {
 			</View>
 			<HomeScreenList movies={filtered} />
 			<FilterModal isOpen={showFilter} onClose={() => setShowFilter(false)} />
+			<HomeScreenGrouped cinemas={cinemas} />
 		</View>
 	);
 }
