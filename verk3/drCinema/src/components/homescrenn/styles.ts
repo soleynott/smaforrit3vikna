@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import colors from '@/src/resources/colors';
 
 const styles = StyleSheet.create({
 	container: {
@@ -34,13 +35,18 @@ const styles = StyleSheet.create({
 	},
 	year: {
 		fontSize: 14,
-		color: '#666',
+		color: colors.primary,
 		marginBottom: 5,
 	},
 	genres: {
 		fontSize: 12,
-		color: '#999',
+		color: colors.secondary,
 		marginBottom: 8,
+	},
+	info: {
+		fontSize: 14,
+		color: colors.muted,
+		marginBottom: 5,
 	},
 	plot: {
 		fontSize: 13,
