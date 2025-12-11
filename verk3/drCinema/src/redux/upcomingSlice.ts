@@ -39,17 +39,17 @@ const upcomingSlice = createSlice({
 			.addCase(fetchUpcoming.fulfilled, (state, action) => {
 				state.loading = false;
 				// Remove duplicates by id, keeping the first occurrence
-				// const seen = new Set<number>();
-				// state.upcoming = action.payload.filter((movie: Movie) => {
-				// 	if (seen.has(movie.id)) {
-				// 		return false;
-				// 	}
-				// 	seen.add(movie.id);
-				// 	return true;
-				// });
+				const seen = new Set<number>();
+				const filtered = action.payload.filter((movie: Movie) => {
+					if (seen.has(movie.id)) {
+						return false;
+					}
+					seen.add(movie.id);
+					return true;
+				});
 
 				//sort by release date
-				state.upcoming = action.payload.sort((a, b) => {
+				state.upcoming = filtered.sort((a, b) => {
 					if (!a.release_dateIS) return 1; // a goes last
 					if (!b.release_dateIS) return -1; // b goes last
 					return (
