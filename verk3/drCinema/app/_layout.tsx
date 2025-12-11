@@ -64,19 +64,19 @@ export default function RootLayout() {
 
 					{/* Detail screens hidden from tab bar */}
 					<Tabs.Screen
-						name="cinema_detail"
+						name="cinema/[id]"
 						options={{
 							href: null,
 							title: 'Cinema detail',
 						}}
 					/>
-					<Tabs.Screen
+					{/* <Tabs.Screen
 						name="movie"
 						options={{
 							href: null,
 							title: 'Movie',
 						}}
-					/>
+					/> */}
 					<Tabs.Screen
 						name="movie/[id]"
 						options={{
