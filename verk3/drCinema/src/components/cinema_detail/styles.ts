@@ -3,54 +3,68 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		padding: 15,
-		backgroundColor: '#fff',
+		padding: 20,
+		backgroundColor: '#FAFAFE', // soft, modern background
 	},
+
 	backButton: {
 		paddingVertical: 8,
 		paddingHorizontal: 12,
 		alignSelf: 'flex-start',
-		marginBottom: 10,
-		borderRadius: 6,
+		marginBottom: 12,
+		borderRadius: 999,
 	},
+
 	backText: {
+		fontWeight: '700',
+		fontSize: 16,
+		letterSpacing: 0.3,
+		color: '#111118',
+	},
+
+	header: {
+		marginBottom: 20,
+	},
+
+	title: {
+		fontSize: 24,
+		fontWeight: '800',
+		color: '#111118',
+		marginBottom: 8,
+		letterSpacing: 0.3,
+	},
+
+	year: {
+		color: '#FF6A3D',
+		fontWeight: '700',
+		marginTop: 2,
+		fontSize: 15,
+	},
+
+	genres: {
+		color: '#7A8FA6',
+		marginTop: 6,
+		fontSize: 14,
 		fontWeight: '600',
 	},
-	header: {
-		flexDirection: 'row',
-		marginBottom: 15,
-	},
-	poster: {
-		width: 140,
-		height: 200,
-		borderRadius: 8,
-		marginRight: 12,
-	},
-	headerInfo: {
-		flex: 1,
-		justifyContent: 'center',
-	},
-	title: {
-		fontSize: 20,
-		fontWeight: '700',
-	},
-	year: {
-		color: '#666',
-		marginTop: 6,
-	},
-	genres: {
-		color: '#999',
-		marginTop: 8,
-	},
+
 	section: {
-		marginTop: 12,
+		marginTop: 20,
 	},
+
 	sectionTitle: {
-		fontWeight: '700',
-		marginBottom: 6,
+		fontWeight: '800',
+		marginBottom: 8,
+		fontSize: 17,
+		color: '#111118',
+		letterSpacing: 0.3,
 	},
+
 	sectionText: {
-		color: '#333',
+		color: '#3A3A41',
+		fontSize: 15,
+		lineHeight: 22,
 	},
 });
+
 export default styles;

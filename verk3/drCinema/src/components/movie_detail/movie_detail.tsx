@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, Image, Pressable, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Movie, Showtime } from '@/src/types/movie_type';
 //import stylesShared from '@/src/views/styles_homescreen';
 import { useRouter } from 'expo-router';
@@ -70,7 +70,7 @@ export default function MovieDetail({ movie, cinema, showtimes }: MovieDetailPro
 				favourites = [...favourites, toSave];
 				setIsFavourite(true);
 			} else {
-				// Remove from favourites (toggle behaviour)
+				// Remove from favourites
 				favourites.splice(existingIndex, 1);
 				setIsFavourite(false);
 			}
@@ -131,16 +131,17 @@ export default function MovieDetail({ movie, cinema, showtimes }: MovieDetailPro
 			</View>
 
 			<View style={styles.section}>
-				<Text style={styles.sectionTitle}>Plot</Text>
 				<Text style={styles.sectionText}>{movie.plot || 'No plot available'}</Text>
 			</View>
 
-			<View style={styles.section}>
-				<Text style={styles.sectionTitle}>Ratings</Text>
-				<Text style={styles.sectionText}>IMDb: {movie.ratings?.imdb || 'N/A'}</Text>
-				<Text style={styles.sectionText}>
-					Rotten Critics: {movie.ratings?.rotten_critics ?? 'N/A'}
-					{movie.ratings.rotten_critics !== null ? '%' : ''}
+			<View style={styles.ratingsRow}>
+				<Text style={[styles.ratingLabel, styles.imdbLabel]}>
+					IMDb: {movie.ratings?.imdb || 'N/A'}
+				</Text>
+
+				<Text style={[styles.ratingLabel, styles.rottenLabel]}>
+					Rotten: {movie.ratings?.rotten_critics ?? 'N/A'}
+					{movie.ratings?.rotten_critics !== null ? '%' : ''}
 				</Text>
 			</View>
 
@@ -149,17 +150,24 @@ export default function MovieDetail({ movie, cinema, showtimes }: MovieDetailPro
 				{showtimes.length > 0 ? (
 					showtimes.map((s: Showtime) =>
 						s.schedule.map((sch, idx) => (
-							<Text key={`${s.cinema.id}-${idx}`} style={styles.sectionText}>
-								{sch.time} -{' '}
-								<Text onPress={() => WebBrowser.openBrowserAsync(sch.purchase_url)}>
-									Buy ticket
-								</Text>
-							</Text>
+						<View
+							key={`${s.cinema.id}-${idx}`}
+							style={styles.showtimeRow}
+						>
+							<Text style={styles.showtimeTime}>{sch.time}</Text>
+
+							<Pressable
+							onPress={() => WebBrowser.openBrowserAsync(sch.purchase_url)}
+							style={styles.ticketButton}
+							>
+							<Text style={styles.ticketButtonText}>Buy ticket</Text>
+							</Pressable>
+						</View>
 						)),
 					)
-				) : (
+					) : (
 					<Text style={styles.sectionText}>No showtimes available</Text>
-				)}
+					)}
 			</View>
 		</ScrollView>
 	);
