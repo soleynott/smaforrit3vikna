@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 12,
 		alignSelf: 'flex-start',
 		marginBottom: 10,
-		backgroundColor: '#eee',
 		borderRadius: 6,
 	},
 	backText: {

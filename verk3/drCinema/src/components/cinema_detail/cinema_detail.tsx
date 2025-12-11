@@ -6,6 +6,7 @@ import { HomeScreenList } from '../homescrenn/homescreen_list';
 //import stylesShared from '@/src/views/styles_homescreen';
 import { useRouter } from 'expo-router';
 import styles from './styles';
+import { Ionicons } from '@expo/vector-icons';
 
 interface CinemaDetailProps {
 	cinema: Cinema;
@@ -18,7 +19,7 @@ export default function CinemaDetail({ cinema, movies }: CinemaDetailProps) {
 	return (
 		<ScrollView style={styles.container}>
 			<TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-				<Text style={styles.backText}>Back</Text>
+				<Ionicons name="arrow-back" size={28} color="black" />
 			</TouchableOpacity>
 
 			<View style={styles.header}>
