@@ -83,7 +83,7 @@ export default StyleSheet.create({
 	rankText: {
 		fontSize: 18,
 		fontWeight: '700',
-		color: '#000', // change to '#fff' if your background is dark
+		color: '#000',
 	},
 
 });
