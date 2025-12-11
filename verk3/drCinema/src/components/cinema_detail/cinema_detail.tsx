@@ -33,7 +33,9 @@ export default function CinemaDetail({ cinema, movies }: CinemaDetailProps) {
 			</View>
 
 			<View style={styles.section}>
-				<Text style={styles.sectionText}>{cinema.description}</Text>
+				<Text style={styles.sectionText}>
+					{cinema.description?.replace(/<[^>]+>/g, '')} {/* remove HTML tags */}
+				</Text>
 			</View>
 
 			<View style={styles.section}>
