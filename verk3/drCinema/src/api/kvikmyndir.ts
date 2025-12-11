@@ -60,11 +60,11 @@ async function getToken(): Promise<string> {
 export async function getMovies(): Promise<Movie[]> {
 	const token = await getToken();
 	const response = await fetch(`${API_URL}/movies?token=${token}`);
-	
+
 	if (!response.ok) {
 		throw new Error(`Failed to fetch movies: ${response.status}`);
 	}
-	
+
 	const data = await response.json();
 	return data;
 }
@@ -79,17 +79,21 @@ export async function getCinemas(): Promise<Cinema[]> {
 	console.log('Cinemas response status:', token);
 	const dataCinema = await response.json();
 	return dataCinema;
-
 }
 
 export async function getUpcoming(): Promise<Movie[]> {
 	const token = await getToken();
 	const response = await fetch(`${API_URL}/upcoming?token=${token}`);
-	
+
 	if (!response.ok) {
 		throw new Error(`Failed to fetch upcoming movies: ${response.status}`);
 	}
-	
+
 	const data = await response.json();
-	return data;
+	//return data;
+	return data.map((movie: any) => ({
+		...movie,
+		release_dateIS: movie['release-dateIS'],
+		release_dateUS: movie['release-dateUS'],
+	}));
 }

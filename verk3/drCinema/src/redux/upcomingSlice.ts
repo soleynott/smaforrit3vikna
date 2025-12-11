@@ -49,18 +49,9 @@ const upcomingSlice = createSlice({
 				// });
 
 				//sort by release date
-				state.upcoming = action.payload
-					.filter((m) => m.release_dateIS) // keep only movies with a date
-					.sort((a, b) => {
-						return (
-							new Date(a.release_dateIS!).getTime() -
-							new Date(b.release_dateIS!).getTime()
-						);
-					});
-				//add movies without release date to the bottom
 				state.upcoming = action.payload.sort((a, b) => {
-					if (!a.release_dateIS) return 1;
-					if (!b.release_dateIS) return -1;
+					if (!a.release_dateIS) return 1; // a goes last
+					if (!b.release_dateIS) return -1; // b goes last
 					return (
 						new Date(a.release_dateIS).getTime() - new Date(b.release_dateIS).getTime()
 					);
@@ -68,3 +59,5 @@ const upcomingSlice = createSlice({
 			});
 	},
 });
+
+export default upcomingSlice.reducer;
