@@ -1,19 +1,26 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchMovies } from '../redux/movieSlice';
+import { fetchMoviesByCinema } from '../redux/movieSlice';
 import { RootState, AppDispatch } from '../redux/store';
 import { ScrollView, Text, View, Image, StyleSheet, ActivityIndicator } from 'react-native';
 import { Movie } from '../types/movie_type';
 import { HomeScreenList } from '../components/homescrenn/homescreen_list';
 import styles from './styles/styles_homescreen';
+import HomeScreenGrouped from '../components/homescrenn/homescreen_grouped';
 
 export default function HomeScreen() {
 	const dispatch = useDispatch<AppDispatch>();
 
 	const { movies, loading, error } = useSelector((state: RootState) => state.movies);
 
+	const {
+		byCinema,
+		loading: moviesLoading,
+		error: moviesError,
+	} = useSelector((state: RootState) => state.movies);
+
 	useEffect(() => {
-		dispatch(fetchMovies());
+		dispatch(fetchMoviesByCinema());
 	}, [dispatch]);
 
 	if (loading) {
@@ -43,7 +50,7 @@ export default function HomeScreen() {
 
 	return (
 		<View style={{ flex: 1 }}>
-			<HomeScreenList movies={movies} />
+			<HomeScreenGrouped byCinema={byCinema} />
 		</View>
 	);
 }
