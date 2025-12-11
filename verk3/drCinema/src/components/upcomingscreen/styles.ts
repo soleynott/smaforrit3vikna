@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import colors from '@/src/resources/colors';
-
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -17,6 +16,7 @@ const styles = StyleSheet.create({
 	posterContainer: {
 		width: 150,
 		height: 250,
+		position: 'relative',
 	},
 	poster: {
 		width: '100%',
@@ -35,6 +35,11 @@ const styles = StyleSheet.create({
 	},
 	year: {
 		fontSize: 14,
+		color: '#666',
+		marginBottom: 5,
+	},
+	release: {
+		fontSize: 14,
 		color: colors.primary,
 		marginBottom: 5,
 	},
@@ -43,20 +48,10 @@ const styles = StyleSheet.create({
 		color: colors.secondary,
 		marginBottom: 8,
 	},
-	info: {
-		fontSize: 14,
-		color: colors.muted,
-		marginBottom: 5,
-	},
 	plot: {
 		fontSize: 13,
 		color: '#333',
-		marginBottom: 10,
-	},
-	rating: {
-		fontSize: 14,
-		fontWeight: '600',
-		color: '#FFB800',
+		marginBottom: 100,
 	},
 	loadingContainer: {
 		flex: 1,
@@ -67,6 +62,20 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		color: 'red',
 		padding: 20,
+	},
+	trailerbutton: {
+		backgroundColor: colors.primary,
+		paddingVertical: 8,
+		paddingHorizontal: 16,
+		borderRadius: 8,
+		position: 'absolute',
+		bottom: 0,
+		left: 160,
+	},
+	trailerButtonText: {
+		color: 'white',
+		fontWeight: 'bold',
+		fontSize: 14,
 	},
 });
 export default styles;

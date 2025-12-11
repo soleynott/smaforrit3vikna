@@ -24,6 +24,9 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './styles/favorites_styles';
+import { useRouter } from 'expo-router';
+import { useFocusEffect } from '@react-navigation/native';
+
 
 type Movie = {
 	id: string;
@@ -38,6 +41,7 @@ const STORAGE_KEY = 'FAVOURITE_MOVIES';
 export default function FavouritesScreen() {
 	const [favourites, setFavourites] = useState<Movie[]>([]);
 	const [loading, setLoading] = useState(true);
+	const router = useRouter();
 
 	const loadFavourites = useCallback(async () => {
 		try {
@@ -53,9 +57,14 @@ export default function FavouritesScreen() {
 		}
 	}, []);
 
-	useEffect(() => {
-		loadFavourites();
-	}, [loadFavourites]);
+	useFocusEffect(
+		useCallback(() => {
+			setLoading(true);
+			loadFavourites();
+			return () => {};
+		}, [loadFavourites]),
+	);
+
 
 	const saveFavourites = async (movies: Movie[]) => {
 		try {
@@ -84,51 +93,58 @@ export default function FavouritesScreen() {
 	};
 
 	const handleMoviePress = (movie: Movie) => {
-		// TODO: Navigate to a detailed movie screen later
-		console.log('Pressed movie:', movie.title);
+		router.push({
+			pathname: '/movie/[id]', // adjust if your route is different
+			params: { id: movie.id },
+		});
 	};
 
-	const renderItem = ({ item, index }: { item: Movie; index: number }) => (
-		<TouchableOpacity
-			style={styles.card}
-			activeOpacity={0.8}
-			onPress={() => handleMoviePress(item)}
-		>
-			<Image source={{ uri: item.poster }} style={styles.thumbnail} />
+const renderItem = ({ item, index }: { item: Movie; index: number }) => (
+	<TouchableOpacity
+		style={styles.card}
+		activeOpacity={0.8}
+		onPress={() => handleMoviePress(item)}
+	>
+		{/* 🔢 Rank number */}
+		<View style={styles.rankContainer}>
+			<Text style={styles.rankText}>{index + 1}</Text>
+		</View>
 
-			<View style={styles.info}>
-				<Text style={styles.title}>{item.title}</Text>
+		<Image source={{ uri: item.poster }} style={styles.thumbnail} />
 
-				<Text style={styles.year}>{item.year}</Text>
+		<View style={styles.info}>
+			<Text style={styles.title}>{item.title}</Text>
 
-				{item.genres && item.genres.length > 0 && (
-					<Text style={styles.genres}>{item.genres.join(', ')}</Text>
-				)}
+			<Text style={styles.year}>{item.year}</Text>
 
-				<View style={styles.actionsRow}>
-					<TouchableOpacity
-						onPress={() => moveItem(index, 'up')}
-						style={styles.moveButton}
-					>
-						<Text style={styles.moveButtonText}>↑</Text>
-					</TouchableOpacity>
-					<TouchableOpacity
-						onPress={() => moveItem(index, 'down')}
-						style={styles.moveButton}
-					>
-						<Text style={styles.moveButtonText}>↓</Text>
-					</TouchableOpacity>
-				</View>
+			{item.genres && item.genres.length > 0 && (
+				<Text style={styles.genres}>{item.genres.join(', ')}</Text>
+			)}
+
+			<View style={styles.actionsRow}>
+				<TouchableOpacity
+					onPress={() => moveItem(index, 'up')}
+					style={styles.moveButton}
+				>
+					<Text style={styles.moveButtonText}>↑</Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					onPress={() => moveItem(index, 'down')}
+					style={styles.moveButton}
+				>
+					<Text style={styles.moveButtonText}>↓</Text>
+				</TouchableOpacity>
 			</View>
+		</View>
 
-			<TouchableOpacity
-				onPress={() => handleRemove(item.id)}
-				style={styles.removeButton}
-			>
-				<Text style={styles.removeButtonText}>✕</Text>
-			</TouchableOpacity>
+		<TouchableOpacity
+			onPress={() => handleRemove(item.id)}
+			style={styles.removeButton}
+		>
+			<Text style={styles.removeButtonText}>✕</Text>
 		</TouchableOpacity>
-	);
+	</TouchableOpacity>
+);
 
 	if (loading) {
 		return (
@@ -158,4 +174,3 @@ export default function FavouritesScreen() {
 		/>
 	);
 }
-

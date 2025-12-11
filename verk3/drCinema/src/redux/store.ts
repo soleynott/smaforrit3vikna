@@ -1,10 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
 import moviesReducer from './movieSlice';
+import cinemasReducer from './cinemaSlice';
+import upcomingReducer from './upcomingSlice';
 
 export const store = configureStore({
-  reducer: {
-    movies: moviesReducer
-  }
+	reducer: {
+		movies: moviesReducer,
+		cinemas: cinemasReducer,
+		upcoming: upcomingReducer,
+	},
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({
+			serializableCheck: false, //get rid of warning
+		}),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

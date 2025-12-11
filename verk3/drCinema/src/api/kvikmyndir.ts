@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Buffer } from 'buffer';
 import Constants from 'expo-constants';
 import { Movie } from '../types/movie_type';
+import { Cinema } from '../types/cinema_type';
 
 const API_URL = 'https://api.kvikmyndir.is';
 const AUTH_URL = `${API_URL}/authenticate`;
@@ -59,22 +60,46 @@ async function getToken(): Promise<string> {
 export async function getMovies(): Promise<Movie[]> {
 	const token = await getToken();
 	const response = await fetch(`${API_URL}/movies?token=${token}`);
-	
+
 	if (!response.ok) {
 		throw new Error(`Failed to fetch movies: ${response.status}`);
 	}
-	
+
 	const data = await response.json();
 	return data;
 }
 
-export async function getCinemas() {
+export async function getCinemas(): Promise<Cinema[]> {
 	const token = await getToken();
-	const response = await fetch(`${API_URL}/theaters?token=${token}`);
-	
+	const response = await fetch(`${API_URL}/theaters`, {
+		method: 'GET',
+		headers: {
+			'Content-type': 'application/json',
+			'x-access-token': token,
+		},
+	});
+
 	if (!response.ok) {
 		throw new Error(`Failed to fetch cinemas: ${response.status}`);
 	}
-	
-	return response.json();
+	//console.log('Cinemas response status:', token);
+	const dataCinema = await response.json();
+	return dataCinema;
+}
+
+export async function getUpcoming(): Promise<Movie[]> {
+	const token = await getToken();
+	const response = await fetch(`${API_URL}/upcoming?token=${token}`);
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch upcoming movies: ${response.status}`);
+	}
+
+	const data = await response.json();
+	//return data;
+	return data.map((movie: any) => ({
+		...movie,
+		release_dateIS: movie['release-dateIS'],
+		release_dateUS: movie['release-dateUS'],
+	}));
 }
