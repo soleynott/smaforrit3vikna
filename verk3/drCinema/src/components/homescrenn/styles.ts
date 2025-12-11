@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
   movieItem: {
     marginBottom: 20,
     backgroundColor: '#f5f5f5',
-    borderRadius: 8,
     overflow: 'hidden',
     flexDirection: 'row',
     minHeight: 250,
