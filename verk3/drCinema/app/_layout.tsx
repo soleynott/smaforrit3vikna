@@ -70,20 +70,6 @@ export default function RootLayout() {
 							title: 'Cinema detail',
 						}}
 					/>
-					{/* <Tabs.Screen
-						name="movie"
-						options={{
-							href: null,
-							title: 'Movie',
-						}}
-					/> */}
-					<Tabs.Screen
-						name="movie/[id]"
-						options={{
-							href: null,
-							headerTitle: 'Movie',
-						}}
-					/>
 					<Tabs.Screen
 						name="trailer/[key]"
 						options={{
