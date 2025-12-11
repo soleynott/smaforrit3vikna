@@ -4,6 +4,7 @@ import { Movie } from '../../types/movie_type';
 import { useRouter } from 'expo-router';
 import { getTrailerKey } from '../../utils/trailer';
 import * as WebBrowser from 'expo-web-browser'; // ✅
+import { Cinema } from '../../types/cinema_type';
 
 interface HomeScreenListProps {
 	movies: Movie[];
