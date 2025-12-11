@@ -6,17 +6,6 @@ const styles = StyleSheet.create({
 		padding: 15,
 		backgroundColor: '#fff',
 	},
-	backButton: {
-		paddingVertical: 8,
-		paddingHorizontal: 12,
-		alignSelf: 'flex-start',
-		marginBottom: 10,
-		backgroundColor: '#eee',
-		borderRadius: 6,
-	},
-	backText: {
-		fontWeight: '600',
-	},
 	header: {
 		flexDirection: 'row',
 		marginBottom: 15,
@@ -57,5 +46,21 @@ const styles = StyleSheet.create({
 	sectionText: {
 		color: '#333',
 	},
-});
+	topBar: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		paddingHorizontal: 16,
+		marginTop: 10,
+	},
+	backButton: {
+		paddingVertical: 8,
+		alignSelf: 'flex-start',
+		marginBottom: 10,
+		borderRadius: 6,
+	},
+	heartButton: {
+		padding: 6,
+	},
+	});
 export default styles;
