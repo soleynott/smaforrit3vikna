@@ -34,9 +34,7 @@ export default function MovieDetail({ movie }: MovieDetailProps) {
 						{movie.genres?.map((g) => g.Name).join(', ') || 'N/A'}
 					</Text>
 					<Text style={styles.info}>Duration: {movie.durationMinutes} min</Text>
-					<Text style={{ color: movie.certificate.color }}>
-						Bönnuð innan {movie.certificate.is}
-					</Text>
+					<Text style={styles.info}>Bönnuð innan {movie.certificate.is}</Text>
 					<Text></Text>
 					<Text style={styles.info}>
 						Director: {movie.directors_abridged.map((d) => d.name).join(', ')}
