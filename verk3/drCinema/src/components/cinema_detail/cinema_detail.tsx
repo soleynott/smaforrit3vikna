@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { Movie } from '@/src/types/movie_type';
+import { Cinema } from '@/src/types/cinema_type';
 //import stylesShared from '@/src/views/styles_homescreen';
 import { useRouter } from 'expo-router';
 
-interface MovieDetailProps {
-	movie: Movie;
+interface CinemaDetailProps {
+	cinema: Cinema;
 }
 
-export default function MovieDetail({ movie }: MovieDetailProps) {
+export default function CinemaDetail({ cinema }: CinemaDetailProps) {
 	const router = useRouter();
 
 	return (
@@ -18,33 +18,26 @@ export default function MovieDetail({ movie }: MovieDetailProps) {
 			</TouchableOpacity>
 
 			<View style={styles.header}>
-				{movie.poster && (
-					<Image
-						source={{ uri: movie.poster }}
-						style={styles.poster}
-						resizeMode="cover"
-					/>
-				)}
 				<View style={styles.headerInfo}>
-					<Text style={styles.title}>{movie.title}</Text>
-					<Text style={styles.year}>Year: {movie.year}</Text>
-					<Text style={styles.genres}>
+					<Text style={styles.title}>{cinema.name}</Text>
+					<Text style={styles.year}>Year: {cinema.address}</Text>
+					{/* <Text style={styles.genres}>
 						{movie.genres?.map((g) => g.Name).join(', ') || 'N/A'}
-					</Text>
+					</Text> */}
 				</View>
 			</View>
 
 			<View style={styles.section}>
 				<Text style={styles.sectionTitle}>Plot</Text>
-				<Text style={styles.sectionText}>{movie.plot || 'No plot available'}</Text>
+				<Text style={styles.sectionText}>{cinema.phone || 'No plot available'}</Text>
 			</View>
 
 			<View style={styles.section}>
-				<Text style={styles.sectionTitle}>Ratings</Text>
+				{/* <Text style={styles.sectionTitle}>Ratings</Text>
 				<Text style={styles.sectionText}>IMDb: {movie.ratings?.imdb || 'N/A'}</Text>
 				<Text style={styles.sectionText}>
 					Rotten Critics: {movie.ratings?.rotten_critics ?? 'N/A'}
-				</Text>
+				</Text> */}
 			</View>
 		</ScrollView>
 	);
