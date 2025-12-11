@@ -1,5 +1,5 @@
-import { ScrollView, Text, View, Image, StyleSheet, ActivityIndicator } from 'react-native';
-
+import { StyleSheet } from 'react-native';
+import colors from '@/src/resources/colors';
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -38,20 +38,20 @@ const styles = StyleSheet.create({
 		color: '#666',
 		marginBottom: 5,
 	},
+	release: {
+		fontSize: 14,
+		color: colors.primary,
+		marginBottom: 5,
+	},
 	genres: {
 		fontSize: 12,
-		color: '#999',
+		color: colors.secondary,
 		marginBottom: 8,
 	},
 	plot: {
 		fontSize: 13,
 		color: '#333',
 		marginBottom: 100,
-	},
-	rating: {
-		fontSize: 14,
-		fontWeight: '600',
-		color: '#FFB800',
 	},
 	loadingContainer: {
 		flex: 1,
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
 		padding: 20,
 	},
 	trailerbutton: {
-		backgroundColor: '#ff2e63',
+		backgroundColor: colors.primary,
 		paddingVertical: 8,
 		paddingHorizontal: 16,
 		borderRadius: 8,

@@ -6,6 +6,6 @@ export default {
 	accent: '#383d40',
 	background: '#ffffff',
 	text: '#000000',
-	muted: '#999999',
+	muted: '#666',
 	error: '#ff4d4d',
 };

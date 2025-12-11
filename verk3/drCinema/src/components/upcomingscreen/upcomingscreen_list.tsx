@@ -48,8 +48,18 @@ export function UpcomingScreenList(props: UpcomingScreenListProps) {
 								{movie.alternativeTitles && (
 									<Text style={styles.year}>{movie.alternativeTitles}</Text>
 								)}
-								<Text style={styles.year}>
-									Release date: {movie.release_dateIS}
+								<Text style={styles.release}>
+									Release date:{' '}
+									{movie.release_dateIS
+										? new Date(movie.release_dateIS).toLocaleDateString(
+												'is-IS',
+												{
+													year: '2-digit',
+													month: 'short',
+													day: '2-digit',
+												},
+										  )
+										: 'N/A'}
 								</Text>
 								<Text style={styles.genres}>
 									{movie.genres?.map((g) => g.Name).join(', ') || 'N/A'}
