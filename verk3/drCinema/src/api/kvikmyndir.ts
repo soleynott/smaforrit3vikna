@@ -84,7 +84,6 @@ export async function getCinemas(): Promise<Cinema[]> {
 	}
 	console.log('Cinemas response status:', token);
 	const dataCinema = await response.json();
-	console.log('Raw cinemas response:', JSON.stringify(dataCinema, null, 2));
 	return dataCinema;
 }
 
