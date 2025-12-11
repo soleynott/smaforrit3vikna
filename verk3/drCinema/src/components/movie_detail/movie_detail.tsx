@@ -4,6 +4,7 @@ import { Movie } from '@/src/types/movie_type';
 //import stylesShared from '@/src/views/styles_homescreen';
 import { useRouter } from 'expo-router';
 import styles from './styles';
+import colors from '@/src/resources/colors';
 
 interface MovieDetailProps {
 	movie: Movie;
@@ -28,9 +29,23 @@ export default function MovieDetail({ movie }: MovieDetailProps) {
 				)}
 				<View style={styles.headerInfo}>
 					<Text style={styles.title}>{movie.title}</Text>
-					<Text style={styles.year}>Year: {movie.year}</Text>
+					<Text style={styles.year}>{movie.year}</Text>
 					<Text style={styles.genres}>
 						{movie.genres?.map((g) => g.Name).join(', ') || 'N/A'}
+					</Text>
+					<Text style={styles.info}>Duration: {movie.durationMinutes} min</Text>
+					<Text style={{ color: movie.certificate.color }}>
+						Bönnuð innan {movie.certificate.is}
+					</Text>
+					<Text></Text>
+					<Text style={styles.info}>
+						Director: {movie.directors_abridged.map((d) => d.name).join(', ')}
+					</Text>
+					<Text style={styles.info}>
+						Actors: {movie.actors_abridged.map((a) => a.name).join(', ')}
+					</Text>
+					<Text style={styles.info}>
+						Country of Origin: {movie.omdb[0]?.Country || 'N/A'}
 					</Text>
 				</View>
 			</View>
@@ -45,6 +60,7 @@ export default function MovieDetail({ movie }: MovieDetailProps) {
 				<Text style={styles.sectionText}>IMDb: {movie.ratings?.imdb || 'N/A'}</Text>
 				<Text style={styles.sectionText}>
 					Rotten Critics: {movie.ratings?.rotten_critics ?? 'N/A'}
+					{movie.ratings.rotten_critics !== null ? '%' : ''}
 				</Text>
 			</View>
 		</ScrollView>

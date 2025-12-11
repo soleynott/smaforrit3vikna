@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import colors from '@/src/resources/colors';
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -28,19 +29,23 @@ const styles = StyleSheet.create({
 	},
 	headerInfo: {
 		flex: 1,
-		justifyContent: 'center',
+		justifyContent: 'flex-start',
 	},
 	title: {
 		fontSize: 20,
 		fontWeight: '700',
 	},
 	year: {
-		color: '#666',
+		color: colors.primary,
+		fontWeight: 'bold',
 		marginTop: 6,
 	},
 	genres: {
-		color: '#999',
+		color: colors.secondary,
 		marginTop: 8,
+	},
+	info: {
+		color: colors.muted,
 	},
 	section: {
 		marginTop: 12,
