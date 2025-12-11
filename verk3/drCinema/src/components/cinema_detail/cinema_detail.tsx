@@ -12,7 +12,7 @@ interface CinemaDetailProps {
 	movies: Movie[];
 }
 
-export default function CinemaDetail({ cinema }: CinemaDetailProps) {
+export default function CinemaDetail({ cinema, movies }: CinemaDetailProps) {
 	const router = useRouter();
 
 	return (
