@@ -20,66 +20,71 @@ export function HomeScreenList(props: HomeScreenListProps) {
 	};
 
 	return (
-		<ScrollView style={styles.container}>
-			{props.movies.map((movie: Movie, index: number) => {
-				const trailerKey = getTrailerKey(movie);
+		<View style={styles.container}>
+			<Text style={styles.cinemaName}>{props.cinema.name}</Text>
+			<ScrollView horizontal showsHorizontalScrollIndicator={false}>
+				{props.movies.map((movie: Movie, index: number) => {
+					const trailerKey = getTrailerKey(movie);
 
-				return (
-					<TouchableOpacity
-						key={`${movie.id}-${movie._id || index}`}
-						style={styles.movieItem}
-						onPress={() => router.push(`/movie/${movie.id}`)}
-					>
-						<View style={styles.posterContainer}>
-							{movie.poster && (
-								<Image
-									source={{ uri: movie.poster }}
-									style={styles.poster}
-									resizeMode="cover"
-								/>
-							)}
-
-							{trailerKey && (
-								<TouchableOpacity
-									style={styles.trailerbutton}
-									onPress={() => handleWatchTrailer(trailerKey)} // ✅
-								>
-									<Text style={styles.trailerButtonText}>Watch trailer</Text>
-								</TouchableOpacity>
-							)}
-						</View>
-
-						<View style={styles.movieInfo}>
-							<View>
-								<Text style={styles.title}>{movie.title}</Text>
-								{movie.alternativeTitles && (
-									<Text style={styles.info}>{movie.alternativeTitles}</Text>
+					return (
+						<TouchableOpacity
+							key={`${movie.id}-${movie._id || index}`}
+							style={styles.movieItem}
+							onPress={() => router.push(`/movie/${movie.id}`)}
+						>
+							<View style={styles.posterContainer}>
+								{movie.poster && (
+									<Image
+										source={{ uri: movie.poster }}
+										style={styles.poster}
+										resizeMode="cover"
+									/>
 								)}
-								<Text style={styles.year}>Year: {movie.year}</Text>
-								<Text style={styles.genres}>
-									{movie.genres?.map((g) => g.Name).join(', ') || 'N/A'}
-								</Text>
+
+								{trailerKey && (
+									<TouchableOpacity
+										style={styles.trailerbutton}
+										onPress={() => handleWatchTrailer(trailerKey)} // ✅
+									>
+										<Text style={styles.trailerButtonText}>Watch trailer</Text>
+									</TouchableOpacity>
+								)}
 							</View>
 
-							<View>
-								{movie.plot && (
+							<View style={styles.movieInfo}>
+								<View>
+									<Text style={styles.title}>{movie.title}</Text>
+									{movie.alternativeTitles && (
+										<Text style={styles.info}>{movie.alternativeTitles}</Text>
+									)}
+									<Text style={styles.year}>Year: {movie.year}</Text>
+									<Text style={styles.genres}>
+										{movie.genres?.map((g) => g.Name).join(', ') || 'N/A'}
+									</Text>
+								</View>
+
+								<View>
+									{/* {movie.plot && (
 									<Text style={styles.plot} numberOfLines={3}>
 										{movie.plot}
 									</Text>
-								)}
-								{movie.ratings?.imdb && (
-									<Text style={styles.rating}>IMDb: {movie.ratings.imdb}</Text>
-								)}
-								{movie.ratings?.rotten_critics && (
-									<Text style={styles.rating}>
-										Rotten Tomatoes: {movie.ratings.rotten_critics}
-									</Text>
-								)}
+								)} */}
+									{movie.ratings?.imdb && (
+										<Text style={styles.rating}>
+											IMDb: {movie.ratings.imdb}
+										</Text>
+									)}
+									{movie.ratings?.rotten_critics && (
+										<Text style={styles.rating}>
+											Rotten Tomatoes: {movie.ratings.rotten_critics}
+										</Text>
+									)}
+								</View>
 							</View>
-						</View>
-					</TouchableOpacity>
-				);
-			})}
-		</ScrollView>
+						</TouchableOpacity>
+					);
+				})}
+			</ScrollView>
+		</View>
 	);
 }
