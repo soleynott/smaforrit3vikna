@@ -1,18 +1,13 @@
-import {
-	ScrollView,
-	Text,
-	View,
-	Image,
-	TouchableOpacity,
-} from 'react-native';
+import { ScrollView, Text, View, Image, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import { Movie } from '../../types/movie_type';
 import { useRouter } from 'expo-router';
 import { getTrailerKey } from '../../utils/trailer';
-import * as WebBrowser from 'expo-web-browser';   // ✅
+import * as WebBrowser from 'expo-web-browser'; // ✅
 
 interface HomeScreenListProps {
 	movies: Movie[];
+	cinema: Cinema;
 }
 
 export function HomeScreenList(props: HomeScreenListProps) {
@@ -20,7 +15,7 @@ export function HomeScreenList(props: HomeScreenListProps) {
 
 	const handleWatchTrailer = async (trailerKey: string) => {
 		const url = `https://www.youtube.com/watch?v=${trailerKey}`;
-		await WebBrowser.openBrowserAsync(url);     // ✅
+		await WebBrowser.openBrowserAsync(url); // ✅
 	};
 
 	return (
@@ -46,7 +41,7 @@ export function HomeScreenList(props: HomeScreenListProps) {
 							{trailerKey && (
 								<TouchableOpacity
 									style={styles.trailerbutton}
-									onPress={() => handleWatchTrailer(trailerKey)}  // ✅
+									onPress={() => handleWatchTrailer(trailerKey)} // ✅
 								>
 									<Text style={styles.trailerButtonText}>Watch trailer</Text>
 								</TouchableOpacity>

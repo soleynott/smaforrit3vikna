@@ -88,5 +88,10 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		fontSize: 13,
 	},
+	cinemaName: {
+		fontSize: 18,
+		fontWeight: 'bold',
+		marginBottom: 8,
+	},
 });
 export default styles;
