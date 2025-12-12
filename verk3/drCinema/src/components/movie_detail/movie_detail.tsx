@@ -12,11 +12,11 @@ import { Movie, Showtime } from '@/src/types/movie_type';
 //import stylesShared from '@/src/views/styles_homescreen';
 import { useRouter } from 'expo-router';
 import styles from './styles';
-import colors from '@/src/resources/colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { Cinema } from '@/src/types/cinema_type';
 import * as WebBrowser from 'expo-web-browser';
+import { getTrailerKey } from '../../utils/trailer';
 interface MovieDetailProps {
 	movie: Movie;
 	cinema: Cinema;
@@ -36,6 +36,11 @@ export default function MovieDetail({ movie, cinema, showtimes }: MovieDetailPro
 	const router = useRouter();
 	const [isFavourite, setIsFavourite] = useState(false);
 	const [checkingFav, setCheckingFav] = useState(true);
+
+	const handleWatchTrailer = async (trailerKey: string) => {
+		const url = `https://www.youtube.com/watch?v=${trailerKey}`;
+		await WebBrowser.openBrowserAsync(url);
+	};
 
 	useEffect(() => {
 		const checkFavourite = async () => {
@@ -88,6 +93,7 @@ export default function MovieDetail({ movie, cinema, showtimes }: MovieDetailPro
 			console.log('Error toggling favourite:', e);
 		}
 	};
+	const trailerKey = getTrailerKey(movie);
 
 	return (
 		<ScrollView style={styles.container}>
@@ -152,6 +158,15 @@ export default function MovieDetail({ movie, cinema, showtimes }: MovieDetailPro
 					{movie.ratings?.rotten_critics !== null ? '%' : ''}
 				</Text>
 			</View>
+
+			{trailerKey && (
+				<TouchableOpacity
+					style={styles.trailerbutton}
+					onPress={() => handleWatchTrailer(trailerKey)} // ✅
+				>
+					<Text style={styles.trailerButtonText}>Watch trailer</Text>
+				</TouchableOpacity>
+			)}
 
 			<View style={styles.section}>
 				<Text style={styles.sectionTitle}>Showtimes in {cinema?.name ?? 'Cinema'}</Text>

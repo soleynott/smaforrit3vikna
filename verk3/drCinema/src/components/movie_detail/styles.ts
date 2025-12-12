@@ -155,6 +155,28 @@ const styles = StyleSheet.create({
 	rottenLabel: {
 		backgroundColor: colors.rotten,
 	},
+
+	trailerbutton: {
+		marginTop: 10,
+		marginBottom: 10,
+		backgroundColor: colors.primary,
+		paddingVertical: 10,
+		borderRadius: 999,
+		alignItems: 'center',
+		justifyContent: 'center',
+		shadowColor: '#000',
+		shadowOpacity: 0.18,
+		shadowOffset: { width: 0, height: 3 },
+		shadowRadius: 6,
+		elevation: 5,
+	},
+
+	trailerButtonText: {
+		color: '#FFFFFF',
+		fontWeight: '700',
+		fontSize: 13,
+		letterSpacing: 0.3,
+	},
 });
 
 export default styles;

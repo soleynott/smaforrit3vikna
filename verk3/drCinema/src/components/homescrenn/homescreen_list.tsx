@@ -49,7 +49,7 @@ export function HomeScreenList(props: HomeScreenListProps) {
 								{trailerKey && (
 									<TouchableOpacity
 										style={styles.trailerbutton}
-										onPress={() => handleWatchTrailer(trailerKey)} // ✅
+										onPress={() => handleWatchTrailer(trailerKey)}
 									>
 										<Text style={styles.trailerButtonText}>Watch trailer</Text>
 									</TouchableOpacity>
