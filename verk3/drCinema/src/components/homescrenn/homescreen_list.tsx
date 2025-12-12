@@ -3,7 +3,7 @@ import styles from './styles';
 import { Movie } from '../../types/movie_type';
 import { useRouter } from 'expo-router';
 import { getTrailerKey } from '../../utils/trailer';
-import * as WebBrowser from 'expo-web-browser';
+import * as WebBrowser from 'expo-web-browser'; // ✅
 import { Cinema } from '../../types/cinema_type';
 
 interface HomeScreenListProps {
@@ -16,7 +16,7 @@ export function HomeScreenList(props: HomeScreenListProps) {
 
 	const handleWatchTrailer = async (trailerKey: string) => {
 		const url = `https://www.youtube.com/watch?v=${trailerKey}`;
-		await WebBrowser.openBrowserAsync(url);
+		await WebBrowser.openBrowserAsync(url); // ✅
 	};
 
 	return (
@@ -30,12 +30,7 @@ export function HomeScreenList(props: HomeScreenListProps) {
 						<TouchableOpacity
 							key={`${movie.id}-${movie._id || index}`}
 							style={styles.movieItem}
-							onPress={() =>
-								router.push({
-									pathname: `/movie/${movie.id}`,
-									params: { cinemaId: props.cinema.id },
-								})
-							}
+							onPress={() => router.push(`/movie/${movie.id}`)}
 						>
 							<View style={styles.posterContainer}>
 								{movie.poster && (
@@ -49,7 +44,7 @@ export function HomeScreenList(props: HomeScreenListProps) {
 								{trailerKey && (
 									<TouchableOpacity
 										style={styles.trailerbutton}
-										onPress={() => handleWatchTrailer(trailerKey)}
+										onPress={() => handleWatchTrailer(trailerKey)} // ✅
 									>
 										<Text style={styles.trailerButtonText}>Watch trailer</Text>
 									</TouchableOpacity>
@@ -69,11 +64,14 @@ export function HomeScreenList(props: HomeScreenListProps) {
 								</View>
 
 								<View>
+
 									{movie.ratings?.imdb && (
-										<Text style={styles.imdb}>IMDb: {movie.ratings.imdb}</Text>
+										<Text style={styles.rating}>
+											IMDb: {movie.ratings.imdb}
+										</Text>
 									)}
 									{movie.ratings?.rotten_critics && (
-										<Text style={styles.rotten}>
+										<Text style={styles.rating}>
 											Rotten Tomatoes: {movie.ratings.rotten_critics}
 										</Text>
 									)}

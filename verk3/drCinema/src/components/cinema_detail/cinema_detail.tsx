@@ -23,13 +23,13 @@ export default function CinemaDetail({ cinema, movies }: CinemaDetailProps) {
 			</TouchableOpacity>
 
 			<View style={styles.header}>
-				<View>
+				<View style={styles.headerInfo}>
 					<Text style={styles.title}>{cinema.name}</Text>
 					<Text style={styles.year}>
 						{cinema.address}, {cinema.city}
 					</Text>
-					<Text style={styles.genres}>{cinema.phone}</Text>
-					<Text style={styles.genres}>{cinema.website}</Text>
+					<Text style={styles.year}>{cinema.phone}</Text>
+					<Text style={styles.year}>{cinema.website}</Text>
 				</View>
 			</View>
 

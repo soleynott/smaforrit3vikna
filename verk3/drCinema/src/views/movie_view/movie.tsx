@@ -1,12 +1,10 @@
-import React, { use, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchMovieById, fetchShowtimesForMovie } from '@/src/redux/movieSlice';
+import { fetchMovieById } from '@/src/redux/movieSlice';
 import { RootState, AppDispatch } from '@/src/redux/store';
 import { useLocalSearchParams } from 'expo-router';
 import MovieDetail from '@/src/components/movie_detail/movie_detail';
-import { fetchCinemaById } from '@/src/redux/cinemaSlice';
-import { Cinema } from '@/src/types/cinema_type';
 
 /**
  * movie screen
@@ -40,32 +38,14 @@ export default function MovieView(props: { id?: string }) {
 	const idParam = props.id ?? (params.id as string | undefined);
 	const movieId = parseInt(idParam || '', 10);
 	const dispatch = useDispatch<AppDispatch>();
-	const cinemaId = params.cinemaId as string | undefined;
 
 	const { currentMovie, loading, error } = useSelector((state: RootState) => state.movies);
-	const currentCinema = useSelector((state: RootState) => state.cinemas.currentCinema);
 
 	useEffect(() => {
 		if (!isNaN(movieId)) {
 			dispatch(fetchMovieById(movieId));
 		}
 	}, [dispatch, movieId]);
-
-	useEffect(() => {
-		if (cinemaId) {
-			dispatch(fetchCinemaById(Number(cinemaId)));
-		}
-	}, [dispatch, cinemaId]);
-
-	const showtimes = useSelector((state: RootState) => state.movies.showtimes);
-
-	useEffect(() => {
-		if (!isNaN(movieId) && cinemaId) {
-			dispatch(
-				fetchShowtimesForMovie({ movieId: Number(movieId), cinemaId: Number(cinemaId) }),
-			);
-		}
-	}, [dispatch, movieId, cinemaId]);
 
 	if (loading)
 		return (
@@ -82,12 +62,12 @@ export default function MovieView(props: { id?: string }) {
 			</View>
 		);
 
-	if (!currentMovie || !currentCinema)
+	if (!currentMovie)
 		return (
 			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 				<Text>No movie found</Text>
 			</View>
 		);
 
-	return <MovieDetail movie={currentMovie} cinema={currentCinema} showtimes={showtimes} />;
+	return <MovieDetail movie={currentMovie} />;
 }
