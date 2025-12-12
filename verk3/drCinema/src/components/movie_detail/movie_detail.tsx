@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, Pressable, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import {
+	View,
+	Text,
+	Image,
+	Pressable,
+	StyleSheet,
+	ScrollView,
+	TouchableOpacity,
+} from 'react-native';
 import { Movie, Showtime } from '@/src/types/movie_type';
 //import stylesShared from '@/src/views/styles_homescreen';
 import { useRouter } from 'expo-router';
@@ -116,7 +124,7 @@ export default function MovieDetail({ movie, cinema, showtimes }: MovieDetailPro
 						{movie.genres?.map((g) => g.Name).join(', ') || 'N/A'}
 					</Text>
 					<Text style={styles.info}>Duration: {movie.durationMinutes} min</Text>
-					<Text style={styles.info}>Bönnuð innan {movie.certificate.is}</Text>
+					<Text style={styles.info}>Bönnuð innan: {movie.certificate.is}</Text>
 					<Text></Text>
 					<Text style={styles.info}>
 						Director: {movie.directors_abridged.map((d) => d.name).join(', ')}
@@ -150,24 +158,21 @@ export default function MovieDetail({ movie, cinema, showtimes }: MovieDetailPro
 				{showtimes.length > 0 ? (
 					showtimes.map((s: Showtime) =>
 						s.schedule.map((sch, idx) => (
-						<View
-							key={`${s.cinema.id}-${idx}`}
-							style={styles.showtimeRow}
-						>
-							<Text style={styles.showtimeTime}>{sch.time}</Text>
+							<View key={`${s.cinema.id}-${idx}`} style={styles.showtimeRow}>
+								<Text style={styles.showtimeTime}>{sch.time}</Text>
 
-							<Pressable
-							onPress={() => WebBrowser.openBrowserAsync(sch.purchase_url)}
-							style={styles.ticketButton}
-							>
-							<Text style={styles.ticketButtonText}>Buy ticket</Text>
-							</Pressable>
-						</View>
+								<Pressable
+									onPress={() => WebBrowser.openBrowserAsync(sch.purchase_url)}
+									style={styles.ticketButton}
+								>
+									<Text style={styles.ticketButtonText}>Buy ticket</Text>
+								</Pressable>
+							</View>
 						)),
 					)
-					) : (
+				) : (
 					<Text style={styles.sectionText}>No showtimes available</Text>
-					)}
+				)}
 			</View>
 		</ScrollView>
 	);
