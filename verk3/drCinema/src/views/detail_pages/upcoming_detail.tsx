@@ -23,48 +23,43 @@ import { fetchMoviesByCinema } from '@/src/redux/movieSlice';
 import { RootState, AppDispatch } from '@/src/redux/store';
 import { useLocalSearchParams } from 'expo-router';
 import CinemaDetail from '@/src/components/cinema_detail/cinema_detail';
+import { fetchUpcomingById } from '@/src/redux/upcomingSlice';
 
 export default function UpcomingDetailScreen(props: { id?: string }) {
 	const params = useLocalSearchParams();
 	const idParam = props.id ?? (params.id as string | undefined);
+	const upcomingId = parseInt(idParam || '', 10);
 	const dispatch = useDispatch<AppDispatch>();
 
-	const {
-		fetchUpcoming,
-		loading: moviesLoading,
-		error: moviesError,
-	} = useSelector((state: RootState) => state.movies);
-
-	const moviesByCinema = byCinema[cinemaId] || [];
+	const { currentUpcoming, loading, error } = useSelector((state: RootState) => state.upcoming);
 
 	useEffect(() => {
-		if (!isNaN(cinemaId)) {
-			dispatch(fetchCinemaById(cinemaId));
-			dispatch(fetchMoviesByCinema(cinemaId));
+		if (!isNaN(upcomingId)) {
+			dispatch(fetchUpcomingById(upcomingId));
 		}
-	}, [dispatch, cinemaId]);
+	}, [dispatch, upcomingId]);
 
-	if (cinemaLoading || moviesLoading)
+	if (loading)
 		return (
 			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 				<ActivityIndicator size="large" color="#0000ff" />
-				<Text>Loading cinema...</Text>
+				<Text>Loading upcoming...</Text>
 			</View>
 		);
 
-	if (cinemaError)
+	if (error)
 		return (
 			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-				<Text style={{ color: 'red' }}>Error loading cinema: {cinemaError}</Text>
+				<Text style={{ color: 'red' }}>Error loading upcoming: {error}</Text>
 			</View>
 		);
 
-	if (!currentCinema)
+	if (!currentUpcoming)
 		return (
 			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-				<Text>No cinema data available.</Text>
+				<Text>No upcoming movie data available.</Text>
 			</View>
 		);
 
-	return <CinemaDetail cinema={currentCinema} movies={moviesByCinema} />;
+	return <UpcomingDetailScreen upcoming={currentUpcoming} />;
 }
