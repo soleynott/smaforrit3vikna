@@ -69,14 +69,25 @@ export function HomeScreenList(props: HomeScreenListProps) {
 								</View>
 
 								<View>
-									{movie.ratings?.imdb && (
-										<Text style={[styles.ratingLabel, styles.imdbLabel]}>IMDb: {movie.ratings.imdb}</Text>
-									)}
-									{movie.ratings?.rotten_critics && (
-										<Text style={[styles.ratingLabel, styles.rottenLabel]}>
-											Rotten: {movie.ratings.rotten_critics}{"%"}
+									{movie.ratings?.imdb ? (
+										<Text style={[styles.ratingLabel, styles.imdbLabel]}>
+											IMDb: {movie.ratings.imdb}
+											</Text>
+									) : (
+										<Text style={[styles.ratingLabel, styles.imdbLabel]}>
+											Rotten: N/A
 										</Text>
 									)}
+									{movie.ratings?.rotten_critics != 0 ? (
+										<Text style={[styles.ratingLabel, styles.rottenLabel]}>
+											Rotten: {movie.ratings.rotten_critics}%
+										</Text>
+									) : (
+										<Text style={[styles.ratingLabel, styles.rottenLabel]}>
+											Rotten: N/A
+										</Text>
+									)}
+
 								</View>
 							</View>
 						</TouchableOpacity>

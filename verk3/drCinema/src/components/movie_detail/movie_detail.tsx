@@ -149,14 +149,24 @@ export default function MovieDetail({ movie, cinema, showtimes }: MovieDetailPro
 			</View>
 
 			<View style={styles.ratingsRow}>
+				{movie.ratings?.imdb ? (
 				<Text style={[styles.ratingLabel, styles.imdbLabel]}>
-					IMDb: {movie.ratings?.imdb || 'N/A'}
+					IMDb: {movie.ratings.imdb}
+					</Text>
+			) : (
+				<Text style={[styles.ratingLabel, styles.imdbLabel]}>
+					Rotten: N/A
 				</Text>
-
+			)}
+			{movie.ratings?.rotten_critics != 0 ? (
 				<Text style={[styles.ratingLabel, styles.rottenLabel]}>
-					Rotten: {movie.ratings?.rotten_critics ?? 'N/A'}
-					{movie.ratings?.rotten_critics !== null ? '%' : ''}
+					Rotten: {movie.ratings.rotten_critics}%
 				</Text>
+			) : (
+				<Text style={[styles.ratingLabel, styles.rottenLabel]}>
+					Rotten: N/A
+				</Text>
+			)}
 			</View>
 
 			{trailerKey && (
