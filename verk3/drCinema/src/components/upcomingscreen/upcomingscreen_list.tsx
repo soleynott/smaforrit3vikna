@@ -20,7 +20,7 @@ export function UpcomingScreenList(props: UpcomingScreenListProps) {
 
 	const handleWatchTrailer = async (trailerKey: string) => {
 		const url = `https://www.youtube.com/watch?v=${trailerKey}`;
-		await WebBrowser.openBrowserAsync(url);     // ✅ OPEN IN-APP BROWSER
+		await WebBrowser.openBrowserAsync(url);    
 	};
 
 	return (
@@ -51,7 +51,7 @@ export function UpcomingScreenList(props: UpcomingScreenListProps) {
 							<View>
 								<Text style={styles.title}>{movie.title}</Text>
 								{movie.alternativeTitles && (
-									<Text style={styles.year}>{movie.alternativeTitles}</Text>
+									<Text>{movie.alternativeTitles}</Text>
 								)}
 								<Text style={styles.release}>
 									Release date:{' '}
