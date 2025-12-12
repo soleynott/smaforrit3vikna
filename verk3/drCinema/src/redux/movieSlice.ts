@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getMovies } from '../api/kvikmyndir';
-import { Movie } from '../types/movie_type';
+import { Movie, Showtime } from '../types/movie_type';
+import { RootState } from './store';
 
 interface MovieState {
 	movies: Movie[];
@@ -8,6 +9,7 @@ interface MovieState {
 	loading: boolean;
 	error: string | null;
 	byCinema: { [cinemaId: number]: Movie[] };
+	showtimes: Showtime[];
 }
 
 const initialState: MovieState = {
@@ -16,6 +18,7 @@ const initialState: MovieState = {
 	loading: false,
 	error: null,
 	byCinema: {},
+	showtimes: [],
 };
 
 export const fetchMovies = createAsyncThunk(
@@ -55,6 +58,24 @@ export const fetchMoviesByCinema = createAsyncThunk(
 				m.showtimes.some((show) => show.cinema.id === cinemaId),
 			);
 			return { cinemaId, moviesAtCinema };
+		} catch (error) {
+			return rejectWithValue((error as Error).message);
+		}
+	},
+);
+
+export const fetchShowtimesForMovie = createAsyncThunk(
+	'movies/fetchShowtimesForMovie',
+	async ({ movieId, cinemaId }: { movieId: number; cinemaId: number }, { rejectWithValue }) => {
+		try {
+			const allMovies = await getMovies();
+			let movie = allMovies.find((m) => m.id === movieId);
+			if (!movie) {
+				return rejectWithValue('Movie not found');
+			}
+			const showtimes = movie.showtimes.filter((show) => show.cinema.id === cinemaId);
+
+			return showtimes;
 		} catch (error) {
 			return rejectWithValue((error as Error).message);
 		}
@@ -115,6 +136,17 @@ const movieSlice = createSlice({
 			})
 			.addCase(fetchMoviesByCinema.rejected, (state, action) => {
 				state.error = (action.payload as string) || 'Error fetching movies by cinema';
+			})
+			.addCase(fetchShowtimesForMovie.pending, (state) => {
+				state.loading = true;
+			})
+			.addCase(fetchShowtimesForMovie.fulfilled, (state, action) => {
+				state.loading = false;
+				state.showtimes = action.payload;
+			})
+			.addCase(fetchShowtimesForMovie.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.payload as string;
 			});
 	},
 });

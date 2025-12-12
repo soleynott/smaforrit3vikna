@@ -75,13 +75,13 @@ export default function RootLayout() {
 							title: 'Cinema detail',
 						}}
 					/>
-					<Tabs.Screen
+					{/* <Tabs.Screen
 						name="trailer/[key]"
 						options={{
 							href: null,
 							headerTitle: 'Trailer',
 						}}
-					/>
+					/> */}
 				</Tabs>
 			</GestureHandlerRootView>
 		</Provider>
