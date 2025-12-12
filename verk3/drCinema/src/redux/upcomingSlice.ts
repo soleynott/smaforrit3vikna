@@ -4,12 +4,14 @@ import { Movie } from '../types/movie_type';
 
 interface UpcomingState {
 	upcoming: Movie[];
+	currentUpcoming: Movie | null;
 	loading: boolean;
 	error: string | null;
 }
 
 const initialState: UpcomingState = {
 	upcoming: [],
+	currentUpcoming: null,
 	loading: false,
 	error: null,
 };
@@ -20,6 +22,22 @@ export const fetchUpcoming = createAsyncThunk(
 		try {
 			const data = await getUpcoming();
 			return data;
+		} catch (error) {
+			return rejectWithValue((error as Error).message);
+		}
+	},
+);
+
+export const fetchUpcomingById = createAsyncThunk(
+	'movies/fetchUpcomingById',
+	async (id: number, { rejectWithValue }) => {
+		try {
+			const upcomingMovies = await getUpcoming();
+			const upcoming = upcomingMovies.find((m: Movie) => Number(m._id) === id);
+			if (!upcoming) {
+				return rejectWithValue('Upcoming Movie not found');
+			}
+			return upcoming;
 		} catch (error) {
 			return rejectWithValue((error as Error).message);
 		}
@@ -56,6 +74,18 @@ const upcomingSlice = createSlice({
 						new Date(a.release_dateIS).getTime() - new Date(b.release_dateIS).getTime()
 					);
 				});
+			})
+			.addCase(fetchUpcomingById.pending, (state) => {
+				state.loading = true;
+				state.error = null;
+			})
+			.addCase(fetchUpcomingById.fulfilled, (state, action) => {
+				state.loading = false;
+				state.currentUpcoming = action.payload;
+			})
+			.addCase(fetchUpcomingById.rejected, (state, action) => {
+				state.loading = false;
+				state.error = (action.payload as string) || 'Error loading movie';
 			});
 	},
 });
