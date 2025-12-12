@@ -70,10 +70,10 @@ export function HomeScreenList(props: HomeScreenListProps) {
 
 								<View>
 									{movie.ratings?.imdb && (
-										<Text style={styles.imdb}>IMDb: {movie.ratings.imdb}</Text>
+										<Text style={[styles.ratingLabel, styles.imdbLabel]}>IMDb: {movie.ratings.imdb}</Text>
 									)}
 									{movie.ratings?.rotten_critics && (
-										<Text style={styles.rotten}>
+										<Text style={[styles.ratingLabel, styles.rottenLabel]}>
 											Rotten Tomatoes: {movie.ratings.rotten_critics}
 										</Text>
 									)}

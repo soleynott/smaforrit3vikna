@@ -88,17 +88,22 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 
-	imdb: {
-		fontSize: 14,
-		fontWeight: '600',
-		color: '#FFB800',
-	},
-
-	rotten: {
-		fontSize: 14,
-		fontWeight: '600',
-		color: '#fd2c10',
-	},
+	ratingLabel: {
+			fontSize: 11,
+			fontWeight: '700',
+			paddingVertical: 4,
+			paddingHorizontal: 10,
+			borderRadius: 8,
+			color: '#fff',
+			overflow: 'hidden',
+		},
+		imdbLabel: {
+			backgroundColor: colors.imdb,
+			color: '#000',
+		},
+		rottenLabel: {
+			backgroundColor: colors.rotten,
+		},
 
 	loadingContainer: {
 		flex: 1,
