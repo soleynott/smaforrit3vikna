@@ -3,17 +3,13 @@ import colors from '../resources/colors';
 
 export const tabBarStyle = {
 	backgroundColor: '#FFFFFF',
-	borderTopColor: 'rgba(0,0,0,0.05)',
+	borderTopColor: '#E5E5EA',
 	borderTopWidth: 1,
-
-	height: 64,
-	paddingTop: 6,
-	paddingBottom: Platform.OS === 'ios' ? 12 : 8,
-	shadowColor: '#000',
-	shadowOpacity: 0.04,
-	shadowOffset: { width: 0, height: -2 },
-	shadowRadius: 8,
-	elevation: 8,
+	paddingBottom: 8,
+	paddingTop: 8,
+	height: 60,
+	// extra safe padding for ios devices with home indicator
+	paddingHorizontal: Platform.OS === 'ios' ? 12 : 8,
 };
 
 export const tabColors = {

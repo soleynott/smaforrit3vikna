@@ -1,66 +1,47 @@
 import { StyleSheet } from 'react-native';
-import colors from '@/src/resources/colors';
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		padding: 12,
-		backgroundColor: colors.background,
-	},
-
-	cinemaItem: {
-		marginBottom: 16,
-		backgroundColor: '#FFFFFF',
-		borderRadius: 14,
-		overflow: 'hidden',
-		flexDirection: 'row',
-		minHeight: 90,
-
-		shadowColor: '#000',
-		shadowOpacity: 0.05,
-		shadowOffset: { width: 0, height: 3 },
-		shadowRadius: 8,
-		elevation: 3,
-	},
-
-	cinemaInfo: {
-		flex: 1,
-		paddingVertical: 14,
-		paddingHorizontal: 16,
-		justifyContent: 'center',
-	},
-
-	name: {
-		fontSize: 18,
-		fontWeight: '800',
-		marginBottom: 4,
-		color: colors.title,
-		letterSpacing: 0.3,
-	},
-
-	location: {
-		fontSize: 14,
-		color: '#6B6B7A',
-		marginBottom: 2,
-	},
-
-	website: {
-		fontSize: 13,
-		color: colors.primary,
-		marginTop: 2,
-	},
-
-	loadingContainer: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: colors.background,
-	},
-
-	errorText: {
-		fontSize: 16,
-		color: colors.error,
-	},
+  container: {
+    flex: 1,
+    padding: 10,
+  },
+  cinemaItem: {
+    marginBottom: 20,
+    backgroundColor: '#f5f5f5',
+    borderRadius: 8,
+    overflow: 'hidden',
+    flexDirection: 'row',
+    minHeight: 100,
+  },
+  cinemaInfo: {
+    flex: 1,
+    padding: 15,
+    justifyContent: 'space-between',
+  },
+  name: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  location: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 5,
+  },
+  website: {
+    fontSize: 13,
+    color: '#333',
+    marginBottom: 10,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorText: {
+    fontSize: 16,
+    color: 'red',
+  },
 });
 
 export default styles;
