@@ -38,20 +38,20 @@ export default StyleSheet.create({
 	title: {
 		fontSize: 18,
 		fontWeight: '800',
-		color: '#111118',
+		color: colors.title,
 		letterSpacing: 0.3,
 	},
 
 	year: {
 		marginTop: 2,
 		fontSize: 14,
-		color: '#6B6B7A',
+		color: colors.primary,
 	},
 
 	genres: {
 		marginTop: 2,
 		fontSize: 13,
-		color: '#7A8FA6',
+		color: colors.secondary,
 		fontWeight: '600',
 	},
 
@@ -91,7 +91,7 @@ export default StyleSheet.create({
 
 	removeButtonText: {
 		fontSize: 20,
-		color: '#E63946', // clean red tone
+		color: colors.error, // clean red tone
 		fontWeight: '800',
 	},
 
@@ -105,7 +105,7 @@ export default StyleSheet.create({
 	emptyText: {
 		fontSize: 18,
 		fontWeight: '800',
-		color: '#111118',
+		color: colors.title,
 		textAlign: 'center',
 	},
 
@@ -126,6 +126,6 @@ export default StyleSheet.create({
 	rankText: {
 		fontSize: 20,
 		fontWeight: '800',
-		color: '#111118',
+		color: colors.title,
 	},
 });

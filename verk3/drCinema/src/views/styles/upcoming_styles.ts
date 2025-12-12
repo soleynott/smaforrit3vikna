@@ -35,7 +35,7 @@ export default StyleSheet.create({
 	},
 	errorText: {
 		fontSize: 16,
-		color: 'red',
+		color: colors.error,
 		padding: 20,
 	},
 });
