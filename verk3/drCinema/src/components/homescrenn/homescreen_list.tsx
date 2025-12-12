@@ -1,5 +1,5 @@
 import { ScrollView, Text, View, Image, TouchableOpacity } from 'react-native';
-import styles from './styles';
+import styles from './styles/styles';
 import { Movie } from '../../types/movie_type';
 import { useRouter } from 'expo-router';
 import { getTrailerKey } from '../../utils/trailer';
