@@ -12,5 +12,19 @@ const styles = StyleSheet.create({
 		color: colors.error,
 		padding: 20,
 	},
+	headerBar: {
+		flexDirection: 'row',
+		justifyContent: 'flex-end',
+		alignItems: 'center',
+		paddingHorizontal: 15,
+		paddingVertical: 12,
+		backgroundColor: '#fff',
+		borderBottomWidth: 1,
+		borderBottomColor: '#eee',
+	},
+	filterButton: {
+		paddingHorizontal: 12,
+		paddingVertical: 8,
+	},
 });
 export default styles;
