@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import moviesReducer from './movieSlice';
 import cinemasReducer from './cinemaSlice';
 import upcomingReducer from './upcomingSlice';
+import filterReducer from './filterSlice';
 
 export const store = configureStore({
 	reducer: {
 		movies: moviesReducer,
 		cinemas: cinemasReducer,
 		upcoming: upcomingReducer,
+		filters: filterReducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({
