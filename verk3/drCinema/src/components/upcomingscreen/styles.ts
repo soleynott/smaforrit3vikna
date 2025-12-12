@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		padding: 12,
-		backgroundColor: '#FAFAFE', // soft modern background
+		backgroundColor: colors.background, // soft modern background
 	},
 
 	movieItem: {
