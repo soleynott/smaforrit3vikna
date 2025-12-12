@@ -132,12 +132,12 @@ const styles = StyleSheet.create({
 		letterSpacing: 0.4,
 	},
 	ratingsRow: {
-	flexDirection: 'row',
-	justifyContent: 'center',
-	alignItems: 'center',
-	gap: 12,
-	marginTop: 20,
-	marginBottom: 20,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		gap: 12,
+		marginTop: 20,
+		marginBottom: 20,
 	},
 	ratingLabel: {
 		fontSize: 14,
@@ -155,7 +155,6 @@ const styles = StyleSheet.create({
 	rottenLabel: {
 		backgroundColor: '#FA320A',
 	},
-
 });
 
 export default styles;

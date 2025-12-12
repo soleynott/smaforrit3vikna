@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
 	},
 
 	movieInfo: {
+		width: 160,
 		flex: 1,
 		paddingVertical: 14,
 		paddingHorizontal: 14,
