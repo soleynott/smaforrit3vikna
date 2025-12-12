@@ -66,6 +66,7 @@ export default function UpcomingDetail({ upcoming }: UpcomingDetailProps) {
 			if (existingIndex === -1) {
 				const toSave = {
 					id: idStr,
+					_id: upcoming._id,
 					title: upcoming.title,
 					poster: upcoming.poster,
 					year: upcoming.year,

@@ -26,14 +26,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './styles/favorites_styles';
 import { useRouter } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
-
+import { Showtime } from '../types/movie_type';
 
 type Movie = {
 	id: string;
+	_id: string;
 	title: string;
 	poster: string;
 	year: number | string;
 	genres?: string[];
+	showtime?: string[];
 };
 
 const STORAGE_KEY = 'FAVOURITE_MOVIES';
@@ -93,11 +95,23 @@ export default function FavouritesScreen() {
 	};
 
 	const handleMoviePress = (movie: Movie) => {
-		router.push({
-			pathname: '/movie/[id]', // adjust if your route is different
+  		const isUpcoming = !movie.showtime || movie.showtime.length === 0;
+
+		console.log(movie._id)
+		if (isUpcoming) {
+			router.push({
+			pathname: '/upcoming/[_id]',
+			params: { _id: movie._id },
+		});
+		} else {
+			router.push({
+			pathname: '/movie/[id]',
 			params: { id: movie.id },
 		});
+		}
 	};
+
+
 
 const renderItem = ({ item, index }: { item: Movie; index: number }) => (
 	<TouchableOpacity

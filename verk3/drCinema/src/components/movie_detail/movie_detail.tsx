@@ -26,10 +26,12 @@ const STORAGE_KEY = 'FAVOURITE_MOVIES';
 
 type FavouriteMovie = {
 	id: string;
+	_id: string,
 	title: string;
 	poster: string;
 	year: number | string;
 	genres?: string[];
+	showtime?: string[];
 };
 
 export default function MovieDetail({ movie, cinema, showtimes }: MovieDetailProps) {
@@ -75,10 +77,17 @@ export default function MovieDetail({ movie, cinema, showtimes }: MovieDetailPro
 				// Add to favourites
 				const toSave: FavouriteMovie = {
 					id: idStr,
+					_id: movie._id,
 					title: movie.title,
 					poster: movie.poster,
 					year: movie.year,
 					genres: movie.genres?.map((g) => g.Name) ?? [],
+					showtime: movie.showtimes
+					? movie.showtimes.flatMap((s) =>
+						s.schedule.map((x) => x.time)  
+						)
+					: [],
+					
 				};
 				favourites = [...favourites, toSave];
 				setIsFavourite(true);
