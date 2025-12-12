@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import colors from '@/src/resources/colors';
 
 export default StyleSheet.create({
 	listContent: {

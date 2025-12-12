@@ -1,16 +1,16 @@
-import { ScrollView, Text, View, Image, StyleSheet, ActivityIndicator } from 'react-native';
+import { StyleSheet } from 'react-native';
+import colors from '@/src/resources/colors';
 
 const styles = StyleSheet.create({
-  
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  errorText: {
-    fontSize: 16,
-    color: 'red',
-    padding: 20,
-  },
+	loadingContainer: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	errorText: {
+		fontSize: 16,
+		color: 'red',
+		padding: 20,
+	},
 });
 export default styles;
