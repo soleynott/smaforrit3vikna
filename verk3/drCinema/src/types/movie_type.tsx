@@ -29,7 +29,6 @@ export interface Movie {
 	omdb: OMDBEntry[];
 	plot: string;
 
-	//optional fields for upcoming movies
 	release_dateIS?: string;
 	release_dateUS?: string;
 }
