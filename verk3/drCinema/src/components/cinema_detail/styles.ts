@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import colors from '@/src/resources/colors';
 
 const styles = StyleSheet.create({
 	container: {
@@ -35,14 +36,14 @@ const styles = StyleSheet.create({
 	},
 
 	year: {
-		color: '#FF6A3D',
+		color: colors.primary,
 		fontWeight: '700',
 		marginTop: 2,
 		fontSize: 15,
 	},
 
 	genres: {
-		color: '#7A8FA6',
+		color: colors.secondary,
 		marginTop: 6,
 		fontSize: 14,
 		fontWeight: '600',
