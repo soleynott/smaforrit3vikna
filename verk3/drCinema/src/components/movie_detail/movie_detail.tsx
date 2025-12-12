@@ -98,9 +98,6 @@ export default function MovieDetail({ movie, cinema, showtimes }: MovieDetailPro
 	return (
 		<ScrollView style={styles.container}>
 			<View style={styles.topBar}>
-				<TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-					<Ionicons name="arrow-back" size={28} color="black" />
-				</TouchableOpacity>
 
 				<TouchableOpacity
 					onPress={toggleFavourite}
