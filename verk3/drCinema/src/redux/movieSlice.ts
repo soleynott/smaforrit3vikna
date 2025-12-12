@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getMovies } from '../api/kvikmyndir';
+import { getMovies, getUpcoming } from '../api/kvikmyndir';
 import { Movie, Showtime } from '../types/movie_type';
 import { RootState } from './store';
 
@@ -37,8 +37,8 @@ export const fetchMovieById = createAsyncThunk(
 	'movies/fetchMovieById',
 	async (id: number, { rejectWithValue }) => {
 		try {
-			const allMovies = await getMovies();
-			const movie = allMovies.find((m: Movie) => m.id === id);
+			const [allMovies, upcomingMovies] = await Promise.all([getMovies(), getUpcoming()]);
+			const movie = allMovies.find((m: Movie) => m.id === id) || upcomingMovies.find((m: Movie) => m.id === id);
 			if (!movie) {
 				return rejectWithValue('Movie not found');
 			}

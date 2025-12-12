@@ -29,7 +29,11 @@ export function UpcomingScreenList(props: UpcomingScreenListProps) {
 				const trailerKey = getTrailerKey(movie);
 
 				return (
-					<View key={`${movie.id}-${movie._id || index}`} style={styles.movieItem}>
+					<TouchableOpacity
+						key={`${movie.id}-${movie._id || index}`}
+						style={styles.movieItem}
+						onPress={() => router.push(`/movie/${movie.id}`)}
+					>
 						<View style={styles.posterContainer}>
 							{movie.poster && (
 								<Image
@@ -76,7 +80,7 @@ export function UpcomingScreenList(props: UpcomingScreenListProps) {
 								)}
 							</View>
 						</View>
-					</View>
+					</TouchableOpacity>
 				);
 			})}
 		</ScrollView>
