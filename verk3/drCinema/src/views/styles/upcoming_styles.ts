@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import colors from '@/src/resources/colors';
 
 export default StyleSheet.create({
 	listContent: {
@@ -34,7 +35,7 @@ export default StyleSheet.create({
 	},
 	errorText: {
 		fontSize: 16,
-		color: 'red',
+		color: colors.error,
 		padding: 20,
 	},
 });
