@@ -162,7 +162,7 @@ export default function MovieDetail({ movie, cinema, showtimes }: MovieDetailPro
 			{trailerKey && (
 				<TouchableOpacity
 					style={styles.trailerbutton}
-					onPress={() => handleWatchTrailer(trailerKey)} // ✅
+					onPress={() => handleWatchTrailer(trailerKey)}
 				>
 					<Text style={styles.trailerButtonText}>Watch trailer</Text>
 				</TouchableOpacity>
