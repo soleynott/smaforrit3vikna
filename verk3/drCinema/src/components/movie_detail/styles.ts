@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		padding: 15,
-		backgroundColor: '#FAFAFE', // soft background so content pops
+		backgroundColor: colors.background,
 	},
 
 	header: {
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 22,
 		fontWeight: '800',
-		color: '#111118',
+		color: colors.title,
 		letterSpacing: 0.3,
 	},
 
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
 		fontWeight: '800',
 		marginBottom: 8,
 		fontSize: 17,
-		color: '#111118',
+		color: colors.title,
 		letterSpacing: 0.3,
 	},
 
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
 	showtimeTime: {
 		fontSize: 15,
 		fontWeight: '600',
-		color: '#111118',
+		color: colors.title,
 	},
 
 	ticketButton: {
@@ -149,11 +149,11 @@ const styles = StyleSheet.create({
 		overflow: 'hidden',
 	},
 	imdbLabel: {
-		backgroundColor: '#F5C518',
+		backgroundColor: colors.imdb,
 		color: '#000',
 	},
 	rottenLabel: {
-		backgroundColor: '#FA320A',
+		backgroundColor: colors.rotten,
 	},
 });
 

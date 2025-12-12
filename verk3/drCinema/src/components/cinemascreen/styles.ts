@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
+import colors from '@/src/resources/colors';
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		padding: 12,
-		backgroundColor: '#FAFAFE', // soft background so cards pop
+		backgroundColor: colors.background,
 	},
 
 	cinemaItem: {
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		fontWeight: '800',
 		marginBottom: 4,
-		color: '#111118',
+		color: colors.title,
 		letterSpacing: 0.3,
 	},
 
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
 
 	website: {
 		fontSize: 13,
-		color: '#FF6A3D', // little pop of colour
+		color: colors.primary,
 		marginTop: 2,
 	},
 
@@ -53,12 +54,12 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#FAFAFE',
+		backgroundColor: colors.background,
 	},
 
 	errorText: {
 		fontSize: 16,
-		color: 'red',
+		color: colors.error,
 	},
 });
 

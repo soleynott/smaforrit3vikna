@@ -6,14 +6,14 @@ const styles = StyleSheet.create({
 		flex: 1,
 		paddingVertical: 10,
 		paddingHorizontal: 12,
-		backgroundColor: '#F6F6F9',
+		backgroundColor: colors.background,
 	},
 
 	cinemaName: {
 		fontSize: 20,
 		fontWeight: '700',
 		marginBottom: 10,
-		color: '#111118',
+		color: colors.title,
 		letterSpacing: 0.2,
 	},
 
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		fontWeight: '800',
 		marginBottom: 4,
-		color: '#101019',
+		color: colors.title,
 		letterSpacing: 0.2,
 	},
 
@@ -88,10 +88,16 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 
-	rating: {
+	imdb: {
 		fontSize: 14,
 		fontWeight: '600',
 		color: '#FFB800',
+	},
+
+	rotten: {
+		fontSize: 14,
+		fontWeight: '600',
+		color: '#fd2c10',
 	},
 
 	loadingContainer: {
@@ -102,7 +108,7 @@ const styles = StyleSheet.create({
 
 	errorText: {
 		fontSize: 16,
-		color: 'red',
+		color: colors.error,
 		padding: 20,
 	},
 
