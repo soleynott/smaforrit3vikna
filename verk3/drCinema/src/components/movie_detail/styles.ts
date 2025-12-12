@@ -59,8 +59,7 @@ const styles = StyleSheet.create({
 
 	topBar: {
 		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'space-between',
+		justifyContent: 'flex-end',
 		paddingHorizontal: 16,
 		marginTop: 10,
 		paddingBottom: 6,
@@ -77,6 +76,7 @@ const styles = StyleSheet.create({
 	heartButton: {
 		padding: 6,
 		borderRadius: 999,
+
 	},
 
 	section: {

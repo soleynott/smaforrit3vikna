@@ -13,7 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateFilter, clearFilters } from '../../redux/filterSlice';
 import { RootState, AppDispatch } from '../../redux/store';
 import { FilterState } from '../../redux/filterSlice';
-import styles  from './styles/filter_styles';
+import styles from './styles/filter_styles';
+
 interface FilterModalProps {
 	isOpen: boolean;
 	onClose: () => void;
@@ -22,6 +23,14 @@ interface FilterModalProps {
 export function FilterModal({ isOpen, onClose }: FilterModalProps) {
 	const dispatch = useDispatch<AppDispatch>();
 	const filters = useSelector((state: RootState) => state.filters);
+
+	const PG_OPTIONS = [
+  { label: 'Öllum leyfð', value: 'Öllum leyfð' },
+  { label: '12 ára', value: '12 ára' },
+  { label: '16 ára', value: '16 ára' },
+  { label: '18 ára', value: '18 ára' },
+];
+
 
 	const updateFilterValue = (key: keyof FilterState, value: string) => {
 		dispatch(updateFilter({ key, value }));
@@ -150,16 +159,28 @@ export function FilterModal({ isOpen, onClose }: FilterModalProps) {
 						/>
 					</View>
 
-					{/* PG Rating */}
 					<View style={styles.field}>
-						<Text style={styles.label}>PG Rating</Text>
-						<TextInput
-							style={styles.input}
-							placeholder="e.g., 12 ára/16 ára/18 ára or Öllum leyfð"
-							placeholderTextColor="#777"
-							value={filters.pgRating}
-							onChangeText={(v) => updateFilterValue('pgRating', v)}
-						/>
+					<Text style={styles.label}>PG Rating</Text>
+
+					{PG_OPTIONS.map((option) => {
+						const selected = filters.pgRating === option.value;
+
+						return (
+						<TouchableOpacity
+							key={option.value}
+							style={styles.checkboxRow}
+							onPress={() => updateFilterValue('pgRating', option.value)}
+							activeOpacity={0.7}
+						>
+							<Ionicons
+							name={selected ? 'checkbox' : 'square-outline'}
+							size={20}
+							color={selected ? 'black' : '#999'}
+							/>
+							<Text style={styles.checkboxLabel}>{option.label}</Text>
+						</TouchableOpacity>
+						);
+					})}
 					</View>
 
 					{/* Buttons */}

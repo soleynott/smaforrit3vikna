@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
 			borderRadius: 8,
 			color: '#fff',
 			overflow: 'hidden',
+			marginBottom: 6,
 			width: 90,
 		},
 		imdbLabel: {

@@ -18,9 +18,6 @@ export default function CinemaDetail({ cinema, movies }: CinemaDetailProps) {
 
 	return (
 		<ScrollView style={styles.container}>
-			<TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-				<Ionicons name="arrow-back" size={28} color="black" />
-			</TouchableOpacity>
 
 			<View style={styles.header}>
 				<View>
