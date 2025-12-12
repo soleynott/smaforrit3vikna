@@ -1,50 +1,83 @@
-# Welcome to your Expo app 👋
+# DrCinema
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Description
 
-## Get started
+A movie and cinema app. See what movies are currently playing in local theaters, watch trailers and buy tickets. See upcoming movies and add movies to your favourites list! Built with Expo, React-Native and Icelandic movie API (api.kvikmyndir.is)
 
-1. Install dependencies
+## Table of Contents
 
-   ```bash
-   npm install
-   ```
+- Installation
+- Features
+- Technologies Used
+- Platform Support
+- Project Structure
+- Setup Instructions
+- Running the App
+- Testing
+- Known Issues
 
-2. Start the app
+## Running the app
 
-   ```bash
-   npx expo start
-   ```
+### Navigate to project directory
 
-In the output, you'll find options to open the app in a
+`cd drCinema`
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Install dependencies
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+`npm install`
 
-## Get a fresh project
+### Running the App
 
-When you're ready, run:
+`npm start`
+run on device or simulator:
+`npm run ios`
+`npm run android`
+`npm run web`
 
-```bash
-npm run reset-project
-```
+## Technologies Used
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- React Native
+- TypeScript
+- React Navigation
+- Expo
+- Expo Router
+- Async
+- react-native-gesture-handler
+- Redux
 
-## Learn more
+## Platform Support
 
-To learn more about developing your project with Expo, look at the following resources:
+### Primary Development Platform
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- Primary Platform: iOS
+- Test Device: Iphone 11/13/17 pro
 
-## Join the community
+- OS Version: iOS 18.6.2
 
-Join our community of developers creating universal apps.
+### Secondary Platform Testing
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Secondary Platform: Android
+- Test Device: Android medium device via Android studio
+- OS Version: Android 16.0
+- Testing Status: minimal
+- Known Platform-Specific Issues: does not run or render correctly
+
+## Setup Instructions
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn
+- React Native CLI
+- Xcode (for iOS development)
+- Android Studio (for Android development)
+
+### Environment Setup
+
+1. Install React Native dependencies
+2. Configure development environment
+3. Set up emulators/simulators
+
+## Known Issues
+
+- none currently known
