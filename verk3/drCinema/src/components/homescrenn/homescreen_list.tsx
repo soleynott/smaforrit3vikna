@@ -74,7 +74,7 @@ export function HomeScreenList(props: HomeScreenListProps) {
 									)}
 									{movie.ratings?.rotten_critics && (
 										<Text style={[styles.ratingLabel, styles.rottenLabel]}>
-											Rotten Tomatoes: {movie.ratings.rotten_critics}
+											Rotten: {movie.ratings.rotten_critics}{"%"}
 										</Text>
 									)}
 								</View>

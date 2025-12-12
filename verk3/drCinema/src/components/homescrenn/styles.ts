@@ -89,13 +89,14 @@ const styles = StyleSheet.create({
 	},
 
 	ratingLabel: {
-			fontSize: 11,
+			fontSize: 10,
 			fontWeight: '700',
 			paddingVertical: 4,
 			paddingHorizontal: 10,
 			borderRadius: 8,
 			color: '#fff',
 			overflow: 'hidden',
+			width: 90,
 		},
 		imdbLabel: {
 			backgroundColor: colors.imdb,
