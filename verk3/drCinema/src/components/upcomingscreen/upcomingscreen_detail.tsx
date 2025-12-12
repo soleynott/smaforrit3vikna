@@ -8,39 +8,32 @@ import {
 	ScrollView,
 	TouchableOpacity,
 } from 'react-native';
-import { Movie, Showtime } from '@/src/types/movie_type';
-//import stylesShared from '@/src/views/styles_homescreen';
-import { useRouter } from 'expo-router';
-import styles from '../movie_detail/styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
-import { Cinema } from '@/src/types/cinema_type';
+import { useRouter } from 'expo-router';
 import * as WebBrowser from 'expo-web-browser';
 import { getTrailerKey } from '../../utils/trailer';
+import styles from '../movie_detail/styles';
 
+// IMPORTANT: Upcoming movies do NOT match Movie type.
+// You should create an Upcoming type, but for now we'll use loose typing:
 interface UpcomingDetailProps {
-	upcoming: Movie;
+	upcoming: any;
 }
-const STORAGE_KEY = 'FAVOURITE_MOVIES';
 
-type FavouriteMovie = {
-	id: string;
-	title: string;
-	poster: string;
-	year: number | string;
-	genres?: string[];
-};
+const STORAGE_KEY = 'FAVOURITE_MOVIES';
 
 export default function UpcomingDetail({ upcoming }: UpcomingDetailProps) {
 	const router = useRouter();
 	const [isFavourite, setIsFavourite] = useState(false);
 	const [checkingFav, setCheckingFav] = useState(true);
 
-	const handleWatchTrailer = async (trailerKey: string) => {
-		const url = `https://www.youtube.com/watch?v=${trailerKey}`;
+	const handleWatchTrailer = async (key: string) => {
+		const url = `https://www.youtube.com/watch?v=${key}`;
 		await WebBrowser.openBrowserAsync(url);
 	};
 
+	// ---------- FAVOURITES ----------
 	useEffect(() => {
 		const checkFavourite = async () => {
 			try {
@@ -49,8 +42,8 @@ export default function UpcomingDetail({ upcoming }: UpcomingDetailProps) {
 					setIsFavourite(false);
 					return;
 				}
-				const favourites: FavouriteMovie[] = JSON.parse(json);
-				const exists = favourites.some((m) => m.id === String(upcoming.id));
+				const favourites = JSON.parse(json);
+				const exists = favourites.some((m: any) => m.id === String(upcoming.id));
 				setIsFavourite(exists);
 			} catch (e) {
 				console.log('Error checking favourite:', e);
@@ -65,24 +58,22 @@ export default function UpcomingDetail({ upcoming }: UpcomingDetailProps) {
 	const toggleFavourite = async () => {
 		try {
 			const json = await AsyncStorage.getItem(STORAGE_KEY);
-			let favourites: FavouriteMovie[] = json ? JSON.parse(json) : [];
+			let favourites = json ? JSON.parse(json) : [];
 
 			const idStr = String(upcoming.id);
-			const existingIndex = favourites.findIndex((m) => m.id === idStr);
+			const existingIndex = favourites.findIndex((m: any) => m.id === idStr);
 
 			if (existingIndex === -1) {
-				// Add to favourites
-				const toSave: FavouriteMovie = {
+				const toSave = {
 					id: idStr,
 					title: upcoming.title,
 					poster: upcoming.poster,
 					year: upcoming.year,
-					genres: upcoming.genres?.map((g) => g.Name) ?? [],
+					genres: upcoming.genres?.map((g: any) => g.Name) ?? [],
 				};
-				favourites = [...favourites, toSave];
+				favourites.push(toSave);
 				setIsFavourite(true);
 			} else {
-				// Remove from favourites
 				favourites.splice(existingIndex, 1);
 				setIsFavourite(false);
 			}
@@ -92,10 +83,13 @@ export default function UpcomingDetail({ upcoming }: UpcomingDetailProps) {
 			console.log('Error toggling favourite:', e);
 		}
 	};
+
+	// Trailers
 	const trailerKey = getTrailerKey(upcoming);
 
 	return (
 		<ScrollView style={styles.container}>
+			{/* HEART BUTTON */}
 			<View style={styles.topBar}>
 				<TouchableOpacity
 					onPress={toggleFavourite}
@@ -110,6 +104,7 @@ export default function UpcomingDetail({ upcoming }: UpcomingDetailProps) {
 				</TouchableOpacity>
 			</View>
 
+			{/* HEADER */}
 			<View style={styles.header}>
 				{upcoming.poster && (
 					<Image
@@ -118,48 +113,39 @@ export default function UpcomingDetail({ upcoming }: UpcomingDetailProps) {
 						resizeMode="cover"
 					/>
 				)}
+
 				<View style={styles.headerInfo}>
 					<Text style={styles.title}>{upcoming.title}</Text>
 					<Text style={styles.year}>{upcoming.year}</Text>
+
+					{/* Genres */}
 					<Text style={styles.genres}>
-						{upcoming.genres?.map((g) => g.Name).join(', ') || 'N/A'}
+						{upcoming.genres?.map((g: any) => g.Name).join(', ') || 'N/A'}
 					</Text>
-					<Text style={styles.info}>Duration: {upcoming.durationMinutes} min</Text>
-					<Text style={styles.info}>Bönnuð innan: {upcoming.certificate.is}</Text>
-					<Text></Text>
+
+					{/* Directors */}
 					<Text style={styles.info}>
-						Director: {upcoming.directors_abridged.map((d) => d.name).join(', ')}
+						Director:{' '}
+						{upcoming.directors_abridged?.map((d: any) => d.name).join(', ') ?? 'N/A'}
 					</Text>
+
+					{/* Actors */}
 					<Text style={styles.info}>
-						Actors: {upcoming.actors_abridged.map((a) => a.name).join(', ')}
+						Actors:{' '}
+						{upcoming.actors_abridged?.map((a: any) => a.name).join(', ') ?? 'N/A'}
 					</Text>
-					<Text style={styles.info}>
-						Country of Origin: {upcoming.omdb[0]?.Country || 'N/A'}
-					</Text>
+
+					{/* Country (from OMDB if present) */}
+					<Text style={styles.info}>Country: {upcoming.omdb?.[0]?.Country ?? 'N/A'}</Text>
 				</View>
 			</View>
 
+			{/* PLOT */}
 			<View style={styles.section}>
 				<Text style={styles.sectionText}>{upcoming.plot || 'No plot available'}</Text>
 			</View>
 
-			<View style={styles.ratingsRow}>
-				{upcoming.ratings?.imdb ? (
-					<Text style={[styles.ratingLabel, styles.imdbLabel]}>
-						IMDb: {upcoming.ratings.imdb}
-					</Text>
-				) : (
-					<Text style={[styles.ratingLabel, styles.imdbLabel]}>Rotten: N/A</Text>
-				)}
-				{upcoming.ratings?.rotten_critics != 0 ? (
-					<Text style={[styles.ratingLabel, styles.rottenLabel]}>
-						Rotten: {upcoming.ratings.rotten_critics}%
-					</Text>
-				) : (
-					<Text style={[styles.ratingLabel, styles.rottenLabel]}>Rotten: N/A</Text>
-				)}
-			</View>
-
+			{/* TRAILER BUTTON */}
 			{trailerKey && (
 				<TouchableOpacity
 					style={styles.trailerbutton}

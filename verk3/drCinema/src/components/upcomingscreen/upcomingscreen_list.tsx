@@ -1,15 +1,9 @@
-import {
-	ScrollView,
-	Text,
-	View,
-	Image,
-	TouchableOpacity,
-} from 'react-native';
+import { ScrollView, Text, View, Image, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import { Movie } from '../../types/movie_type';
 import { useRouter } from 'expo-router';
 import { getTrailerKey } from '../../utils/trailer';
-import * as WebBrowser from 'expo-web-browser';   // ✅ ADD THIS
+import * as WebBrowser from 'expo-web-browser';
 
 interface UpcomingScreenListProps {
 	upcomingMovies: Movie[];
@@ -20,7 +14,7 @@ export function UpcomingScreenList(props: UpcomingScreenListProps) {
 
 	const handleWatchTrailer = async (trailerKey: string) => {
 		const url = `https://www.youtube.com/watch?v=${trailerKey}`;
-		await WebBrowser.openBrowserAsync(url);    
+		await WebBrowser.openBrowserAsync(url);
 	};
 
 	return (
@@ -32,7 +26,7 @@ export function UpcomingScreenList(props: UpcomingScreenListProps) {
 					<TouchableOpacity
 						key={`${movie.id}-${movie._id || index}`}
 						style={styles.movieItem}
-						onPress={() => router.push(`/movie/${movie.id}`)}
+						onPress={() => router.push(`/upcoming/${movie._id}`)}
 					>
 						<View style={styles.posterContainer}>
 							{movie.poster && (
@@ -45,7 +39,7 @@ export function UpcomingScreenList(props: UpcomingScreenListProps) {
 							{trailerKey && (
 								<TouchableOpacity
 									style={styles.trailerbutton}
-									onPress={() => handleWatchTrailer(trailerKey)} 
+									onPress={() => handleWatchTrailer(trailerKey)}
 								>
 									<Text style={styles.trailerButtonText}>Watch trailer</Text>
 								</TouchableOpacity>
@@ -54,9 +48,7 @@ export function UpcomingScreenList(props: UpcomingScreenListProps) {
 						<View style={styles.movieInfo}>
 							<View>
 								<Text style={styles.title}>{movie.title}</Text>
-								{movie.alternativeTitles && (
-									<Text>{movie.alternativeTitles}</Text>
-								)}
+								{movie.alternativeTitles && <Text>{movie.alternativeTitles}</Text>}
 								<Text style={styles.release}>
 									Release date:{' '}
 									{movie.release_dateIS

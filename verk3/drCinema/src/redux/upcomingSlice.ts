@@ -30,10 +30,10 @@ export const fetchUpcoming = createAsyncThunk(
 
 export const fetchUpcomingById = createAsyncThunk(
 	'movies/fetchUpcomingById',
-	async (id: number, { rejectWithValue }) => {
+	async (id: string, { rejectWithValue }) => {
 		try {
 			const upcomingMovies = await getUpcoming();
-			const upcoming = upcomingMovies.find((m: Movie) => Number(m._id) === id);
+			const upcoming = upcomingMovies.find((m: Movie) => m._id === id);
 			if (!upcoming) {
 				return rejectWithValue('Upcoming Movie not found');
 			}
@@ -74,6 +74,10 @@ const upcomingSlice = createSlice({
 						new Date(a.release_dateIS).getTime() - new Date(b.release_dateIS).getTime()
 					);
 				});
+			})
+			.addCase(fetchUpcoming.rejected, (state, action) => {
+				state.loading = false;
+				state.error = (action.payload as string) || 'Error loading upcoming';
 			})
 			.addCase(fetchUpcomingById.pending, (state) => {
 				state.loading = true;
